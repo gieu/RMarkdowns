@@ -482,7 +482,7 @@ question("¿Qué tipo de variable seria el grado de un estudiante?",
 Vamos a comenzar por cargar un conjunto de datos en R
 
 ```{r loadingDataR, exercise=TRUE, echo = FALSE}
-desempenio <- read.csv("../datos/desempenio.csv",header=TRUE,sep=";")
+desempenio <- read.csv("../../datos/desempenio.csv",header=TRUE,sep=";")
 head(desempenio)
 ```
 
