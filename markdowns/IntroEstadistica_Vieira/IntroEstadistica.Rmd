@@ -5,11 +5,12 @@ output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
+
 ```{r setup, include=FALSE} 
 library(learnr)
 library(Hmisc)
 #knitr::opts_chunk$set(echo = FALSE)
-desempenio <- read.csv("../datos/desempenio.csv",header=TRUE,sep=";")
+desempenio <- read.csv("../../datos/desempenio.csv",header=TRUE,sep=";")
 ```
 
 

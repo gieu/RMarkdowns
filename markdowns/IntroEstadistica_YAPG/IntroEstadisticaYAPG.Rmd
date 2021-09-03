@@ -9,7 +9,7 @@ runtime: shiny_prerendered
 library(learnr)
 library(Hmisc)
 #knitr::opts_chunk$set(echo = FALSE)
-litReview <- read.csv2("../datos/litReviewData.csv", header=TRUE, sep=";")
+litReview <- read.csv2("../../datos/litReviewData.csv", header=TRUE, sep=";")
 ```
 
 ## Gr&aacute;ficas en GGPLot

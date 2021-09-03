@@ -10,8 +10,8 @@ library(learnr)
 library(Hmisc)
 library(ggalluvial)
 #knitr::opts_chunk$set(echo = FALSE)
-litReview <- read.csv2("../datos/litReviewData.csv", header=TRUE, sep=";")
-classObservation <- read.csv("../datos/observationData.csv", header=TRUE, sep=",")
+litReview <- read.csv2("../../datos/litReviewData.csv", header=TRUE, sep=";")
+classObservation <- read.csv("../../datos/observationData.csv", header=TRUE, sep=",")
 
 ```
 
