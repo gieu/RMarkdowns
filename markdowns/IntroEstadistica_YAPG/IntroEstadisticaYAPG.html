@@ -119,7 +119,7 @@ library(ggplot2)</code></pre>
 <div class="tutorial-exercise" data-label="readLItData" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># The data is stored in a variable called litReview
 
-litReview &lt;- read.csv2(&quot;../datos/litReviewData.csv&quot;, header=TRUE, sep=&quot;;&quot;)</code></pre>
+litReview &lt;- read.csv2(&quot;https://echidna.informaticaeducativa.cf/datos/litReviewData.csv&quot;, header=TRUE, sep=&quot;;&quot;)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>Let’s see the first rows our data set.</p>
@@ -322,7 +322,7 @@ output$`tutorial-exercise-readLItData-output` <- renderUI({
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(Hmisc)", "#knitr::opts_chunk$set(echo = FALSE)", "litReview <- read.csv2(\"../../datos/litReviewData.csv\", header=TRUE, sep=\";\")"
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
-    chunks = list(list(label = "readLItData", code = "\n# The data is stored in a variable called litReview\n\nlitReview <- read.csv2(\"../datos/litReviewData.csv\", header=TRUE, sep=\";\")", 
+    chunks = list(list(label = "readLItData", code = "\n# The data is stored in a variable called litReview\n\nlitReview <- read.csv2(\"https://echidna.informaticaeducativa.cf/datos/litReviewData.csv\", header=TRUE, sep=\";\")", 
         opts = list(label = "\"readLItData\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -343,7 +343,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "readLItData", exercise = TRUE, 
         code = c("", "# The data is stored in a variable called litReview", 
-        "", "litReview <- read.csv2(\"../datos/litReviewData.csv\", header=TRUE, sep=\";\")"
+        "", "litReview <- read.csv2(\"https://echidna.informaticaeducativa.cf/datos/litReviewData.csv\", header=TRUE, sep=\";\")"
         ), out.width.px = 624, out.height.px = 384, params.src = "readLItData, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))

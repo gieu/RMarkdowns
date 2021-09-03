@@ -335,7 +335,7 @@ We now want to load some data and our data is stored in a server.
 
 # The data is stored in a variable called litReview
 
-litReview <- read.csv2("../datos/litReviewData.csv", header=TRUE, sep=";")
+litReview <- read.csv2("https://echidna.informaticaeducativa.cf/datos/litReviewData.csv", header=TRUE, sep=";")
 ```
 
 ### Activity
@@ -563,7 +563,7 @@ We now want to load some data and our data is stored in a server.
 
 # The data is stored in a variable called classObservation
 
-classObservation <- read.csv("../datos/observationData.csv", header=TRUE, sep=",")
+classObservation <- read.csv("https://echidna.informaticaeducativa.cf/datos/observationData.csv", header=TRUE, sep=",")
 
 str(classObservation) #This instruction will show us the structure of the data set
 # Check out the data set

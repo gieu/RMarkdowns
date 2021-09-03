@@ -350,7 +350,7 @@ desde una direcci&oacute;n en Internet.
 #setwd('C:/Users/cvieira/data/')
 
 # Los datos los guardamos en una variable que se llama desempenio
-desempenio <- read.csv("../datos/desempenio.csv",header=TRUE,sep=";")
+desempenio <- read.csv("https://echidna.informaticaeducativa.cf/datos/desempenio.csv",header=TRUE,sep=";")
 ```
 
 

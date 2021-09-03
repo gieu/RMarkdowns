@@ -33,7 +33,7 @@ We now want to load some data and our data is stored in a server.
 
 # The data is stored in a variable called litReview
 
-litReview <- read.csv2("../datos/litReviewData.csv", header=TRUE, sep=";")
+litReview <- read.csv2("https://echidna.informaticaeducativa.cf/datos/litReviewData.csv", header=TRUE, sep=";")
 ```
 
 
