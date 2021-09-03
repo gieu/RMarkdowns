@@ -1,0 +1,240 @@
+---
+title: "Tutorial Estad&iacute;stica B&aacute;sica y Modelo APG"
+author: "cvieira"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE} 
+library(learnr)
+library(Hmisc)
+#knitr::opts_chunk$set(echo = FALSE)
+litReview <- read.csv2("../datos/litReviewData.csv", header=TRUE, sep=";")
+```
+
+## Gr&aacute;ficas en GGPLot
+
+### GGPlot
+
+There are different ways to create plots in R. For example, you can create a histogram with the function 
+*hist* . However, most of the plots created in R today are made using a library called *ggplot* . 
+We need to first load *ggplot*
+
+```{r loadLibrary, exercise=FALSE, exercise.eval=TRUE}
+#install.packages('ggplot2')   # install it first if it is not installed yet
+
+library(ggplot2)
+```
+
+
+We now want to load some data and our data is stored in a server. 
+
+```{r readLItData, exercise=TRUE}
+
+# The data is stored in a variable called litReview
+
+litReview <- read.csv2("../datos/litReviewData.csv", header=TRUE, sep=";")
+```
+
+
+Let's see the first rows our data set.
+
+A quick reminder of our columns: 
+
+* Connection to Visualization Background (CVG)
+
+* Connection to Educational Theories (CET)
+
+* Sophistication of the Visualization (SoV)
+
+* Venue - Journal or conference where the paper was published
+
+* Author - First author of the paper
+
+
+
+#### Plotting
+
+ The function ggplot will only create the blank plot specifying our axes
+
+ For example, in the following instruction, we set up the CET as the x axis, and the SoV as the y-axis. 
+
+ Check out what happens when you run it.
+
+```{r createGGplot, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))
+```
+
+###### Why did we include that function 'aes()' in the code?
+
+```{r showHelp, exercise=TRUE}
+?aes() # Describes how variables in the data are mapped to visual properties of geoms.
+       # Everything we want to include into the visualization should be included there.
+```
+
+We now need to tell ggplot what kind of plot we want. 
+
+```{r addGeomPoint, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point()  # Adding this line we are saying we want a scatter plot
+
+```
+###### Here are some other ideas:
+
+* geom_point() ==> Scatter Plot
+
+* geom_bar() ==> Bar Plot
+
+* geom_line() ==> Line Plot
+
+* geom_histogram() ==> Histogram
+
+Each plot would require specific data and columns within the aes function. For instance, to plot a histogram, we only need x variable:
+
+```{r addGHistogram, exercise=TRUE}
+ggplot(litReview, aes(x=CET))+
+  geom_histogram()
+```
+
+Here is a useful cheatsheet for different plots:
+
+https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+#### Activity 
+ Change the plot to a line plot
+```{r activity1, exercise=TRUE}
+# write your code here.
+
+```
+
+Let's now get back to our scatter plot, which seems to be best for our purpose: 
+*identifying gaps in this literature*
+
+```{r backToPlotting, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+      geom_point()  # Adding this line we are saying we want a scatter plot
+```
+
+These are still many points, and they are coming from differnt venues.
+So, let's use the state to differentiate them with colors
+
+```{r coloredPoints, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point(aes(color=Venue), size=3)  # Do you remember the aes() function? Here it is again
+```
+
+##### Aesthetics
+
+You can change the color palette, edit the legend on the right, and many other things, but we will leave these aesthetics functions for some other time.
+If you want to explore, here are a few functions you could use:
+
+* theme(legend.position="None")  # remove legend
+
+* scale_colour_brewer(palette = "Set1")  # change color palette
+
+
+This is a nice simple scatter plot, but the scales in each axis seem odd. Let's adjust the axes to go on the whole range of our scale: 0-10
+```{r settingAxis, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point(aes(color=Venue), size=3)+
+  ylim(c(0, 10))
+```
+
+###### Did you notice that we just added up these new lines of code to the plot? 
+
+That's how ggplot works, we can just continue adding new lines to modify our plot
+
+##### Activity 
+
+Set the limits 0 to 10 to the x-axis. 
+
+```{r activity2, exercise=TRUE}
+#Write your code here.
+
+```
+
+If we don't want to write the whole thing again, we can just store it in a variable
+```{r saveToVariable, exercise=TRUE}
+
+myPlot <- ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point(aes(color=Venue), size=3)+
+  ylim(c(0, 10))
+
+```
+  
+And then, use that variable to add new things to our plot
+
+```{r addTitles, exercise=TRUE}
+
+myPlot+
+  ggtitle("Two Dimensional Comparison", subtitle="Gap between Education and Visualization Researchers") + # Add a title and subtitle
+  xlab("Connection to Edu. Theories") # Set the axis names
+
+```
+#### Activity 
+ Set the name for the y-axis
+
+```{r activity3, exercise=TRUE}
+#Write your code here.
+
+```
+
+ We can also change the breaks in each axis. Here are a couple of parameters to explain
+
+
+```{r addBreaksAxis, exercise=TRUE}
+
+myPlot+
+scale_y_continuous(breaks=seq(0, 10, 1), # Set a break in the y axis every unit
+                   limits=c(0, 10)) # Set the limits
+```
+
+ Also note that we used scale_y_continuous because y is a continuous variable, but there are other types:
+
+* scale_x_continuous, scale_y_continuous  ==> For numbers
+
+* scale_x_discrete, scale_y_discrete   ==> For categories
+
+* scale_x_date, scale_y_date   ==> For dates
+
+
+#### Activity
+ Change the x-axis limit so have breaks every 1
+
+```{r activity4, exercise=TRUE}
+#Write your code here.
+
+```
+
+
+ Now, there is an issue with our plot, there may be more than one point overlapping with each other at a single position.
+ 
+ We can use the size as an indicaton of how many papers are at each point. To do that, we use geom_count instead of geom_point
+ 
+
+```{r completePlot, exercise=TRUE}
+myPlot <- ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_count(aes(color=Venue))+
+  scale_x_continuous(breaks=seq(0, 10, 1), limits=c(0, 10))+
+  scale_y_continuous(breaks=seq(0, 10, 1), limits=c(0, 10))+ 
+  scale_size_continuous(breaks = seq(0, 5, 1))+
+  labs(title="Two Dimensional Comparison", 
+       subtitle="Gap between Education and Visualization Researchers",
+       y="Sophistication of the Visualization", 
+       x="Connection to Educational Theories", 
+       size="# of Studies")
+myPlot
+
+```
+
+#### Activity 
+
+
+Create a scatter plot for *Connection to Educational Theories (CET) vs. Connectino to Visualizaiton Background (CET vs CVG)*
+
+```{r activity5, exercise=TRUE}
+#Write your code here.
+
+```
+
+

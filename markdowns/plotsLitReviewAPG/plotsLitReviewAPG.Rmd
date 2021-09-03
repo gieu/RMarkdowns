@@ -1,0 +1,718 @@
+---
+title: "Patterns in a Literature Review"
+author: "cvieira"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE} 
+library(learnr)
+library(Hmisc)
+library(ggalluvial)
+#knitr::opts_chunk$set(echo = FALSE)
+litReview <- read.csv2("../datos/litReviewData.csv", header=TRUE, sep=";")
+classObservation <- read.csv("../datos/observationData.csv", header=TRUE, sep=",")
+
+```
+
+## Intro to R
+
+#### Usage-Rigts
+These materials were created for educational purposes. They are licenced under creative commonts. 
+
+```{r, echo=FALSE}
+htmltools::includeHTML("license.html")
+```
+
+
+#### Learning outcomes
+By the end of this activity, you will be able to: 
+
+* Describe the different sections of RStudio
+
+* Create variables, assign and read values to/from these variables
+
+* Compute simple calculatinos among variables/values
+
+* Convert the data type of the variables
+
+* Create and invoke functions that compute simple calculations
+
+#### Variables
+
+The symbol <- assigns a value to a variable
+For instance, if we want to assign the value 5 to a variable 'y'
+
+```{r varAssignment, exercise=TRUE}
+y <- 5
+# Let's make sure it has the corresponding value - please execute the following line
+y
+
+
+```
+
+
+```{r prepare-Y}
+y <- 5
+
+```
+
+```{r varOperation, exercise=TRUE, exercise.setup = "prepare-Y"}
+# Now we can use the variable 'y'. Let's multiply 'y' by the value 2:
+y*2
+# Since we did not assign it to any variable, 'y' will keep the same value
+y
+# Now, if we want to save the result in a variable 'x':
+x <- y*2
+# Check out the value of variable 'x' now
+x
+```
+
+```{r prepare-XY}
+y <- 5
+x <- y*2
+```
+
+### Activity 
+
+* Divide 'x' by 'y' and assign it to a variable 'a'
+
+* Make sure that 'a' has the correct value in it
+
+```{r assignmentActivity, exercise=TRUE, exercise.setup = "prepare-XY"}
+
+```
+
+Now, let's create a small data set called *vector*. A vector is a data list that we store in a single variable.
+
+
+We can create a vector using the instruction *c()*:
+```{r createVector, exercise=TRUE, exercise.setup = "prepare-XY"}
+z <- c(1.1, 9, pi, 5 , 6, 7, 8) 
+
+# What is the meaning of having 'pi' in this vector?
+
+# Check out the value of the variable 'z' 
+z
+
+```
+
+This vector can be used to create larger vectors. For example, if we want to create a vector with all values in 'z', 
+but also the values from 'x' and y', we can use:
+```{r prepare-XYZ}
+
+y <- 5
+x <- y*2
+z <- c(1.1, 9, pi, 5 , 6, 7, 8) 
+```
+
+```{r compositeVector, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+
+c(x,z,y)
+```
+
+### Practice Activity
+
+* Modify the code above to create a vector with all the values from 'z' twice, and 'x's value in the middle. This should look something like: 1.1, 9, 3.141593, 5 , 6, 7, 8, 10, 1.1, 9, 3.141593, 5 , 6, 7, 8
+
+* What happens if we multiply a vector by a scalar number?  z * 2 + 100
+
+### Arithmetic
+Other operators that can be used are: `+`, `-`, `/`, y `^`. x^2 means to 'square' x
+x^2
+
+```{r varArithmetic, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+x^2
+
+#if you want to find the square root of a variable, you will need to use the function sqrt().
+
+# A function is a group of instructions that we assign a name to
+sqrt(x)
+
+```
+
+### Help
+Any time you have a question about a function from R, you can access its information using '?'
+ For instance, if you want to know what the 'mean' function does:
+
+```{r helpMean, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+?mean
+```
+
+### Question
+What is the purpose of the 'mean' function?
+
+You can use it with vector 'z', like this:
+
+```{r computeMean, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+
+mean(z)
+
+```
+
+We can also make calculations between vectors.For instance:
+
+```{r vectorArithmetic, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+
+# The following instruction will multiply one by one the elements from both vectors
+z * c(2, 1, 2,3,5,6,4)
+
+# When the length is different for both vectors, R 'recycles' the numbers from the smaller vector
+# This recylcing process re-uses the numbers on the same order. For instance:
+c(2, 2, 4, 4) + c(1, 2)
+
+# The outcome is a vector including four elements, just like executing:
+# c(2, 2, 4, 4) + c(1, 2, 1, 2)
+
+```
+
+#### Matrices
+
+ Now, if we want to have more than one column in a single variable,  we can use a matrix or a data frame. The main difference between these two data structures is that matrices can only store one data type (e.g., numbers), 
+ while data frames can include both of them
+
+
+```{r creatingMatices, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+# Let's first create a vector called mi_vector containing all integers from 1 to 20.
+# We can do that using the operator ':' 
+mi_vector <-1:20
+# Check out the content of mi_vector
+mi_vector
+
+# To validate the data type, we can use the function 'class'
+class(mi_vector)
+
+# If we want to know how many elements are in there, we can use the function 'length'
+length(mi_vector)
+
+```
+
+
+### Practice Activity
+
+How many elements are in 'z'?
+
+```{r prepare-Vector}
+mi_vector <-1:20
+dim(mi_vector)<-c(4,5)
+mi_matrix <- mi_vector
+students <- c('Charlie','Hayden','Alex','Ben')
+randNumbers <- rnorm(20)
+```
+
+```{r convertIntoMatices, exercise=TRUE, exercise.setup = "prepare-Vector"}
+
+#  Now we can turn our vector into a 4x5 matrix
+dim(mi_vector)<-c(4,5)
+
+# What we just did was to tell R that mi_vector will have four rows and five columns
+mi_vector
+
+```
+
+
+### Practice Activity
+Check out the data type of mi_vector again
+
+```{r crateMatrixTwo, exercise=TRUE, exercise.setup = "prepare-Vector"}
+
+# Let's use an appropriate name for our variable
+mi_matrix <- mi_vector
+
+# Another approach to create this matrix is:
+matrix(1:20,nrow=5, ncol=5)
+
+```
+
+
+Let's assume that the numbers in each row correspond to individual students from which we know five values: age, height, grade, GPA, and weight- It would be good to know which student corresponds to each row, so we can create this additional column
+
+```{r assignNames, exercise=TRUE, exercise.setup = "prepare-Vector"}
+
+students <- c('Charlie','Hayden','Alex','Ben')
+mi_data <- cbind (students, mi_matrix)
+
+# Now all the values in mi_matrix have quotation marks around them
+mi_data
+
+```
+
+This is because the matrix can only have a single data type: in this case all the values are considered to be text. To keep our data types, we need to use a data frame
+
+```{r createDF, exercise=TRUE, exercise.setup = "prepare-Vector"}
+mi_data <- data.frame(students, mi_matrix)
+mi_data
+
+# Now, to assign names to the columns, we use the function 'colnames'
+colnames(mi_data)<- c("Name", "age", "height", "grade", "GPA", "weight")
+
+
+# If you want to access a single column from the data frame, use the '$' symbol
+# Uncomment (remove the #) the line you would like to execute
+# mi_data
+# mi_data$age
+# mi_data$Name
+```
+
+### Functions
+
+As you have seen, we can invoke existing functions such as mean or cbind to perform certain tasks. There are many of these functions in R, and any time you want to do something, you should try to find an existing function first.
+
+For instance, to get a vectors with 20 random numbers normally distributed:
+```{r randomNumbers, exercise=TRUE, exercise.setup = "prepare-Vector"}
+randNumbers <- rnorm(20)
+randNumbers
+```
+### Activity 
+Find the functions that will find the minimum value in randNumbers
+
+
+### Create my own function
+If we don't find an existing function for our task, we can create our own. This is similar than creating a variable in the sense that we assign a function with '<-'. 
+
+The following function multiples 'a' times 'b' and divides the result by 'c'
+
+```{r createMyFunciton, exercise=TRUE}
+myFunction <- function(a,b,c)
+{
+  x <- (a*b)
+  y <- x/c
+  y
+}
+
+# We can invoke this function using the following parameters a=10 b=5, c=2 like
+myFunction(10,5,2)
+# Likewise
+myFunction(b=5, c=2, a=10)
+
+
+```
+
+### Apply function in R
+
+The *apply* function is often challenging to understand, but it is very useful.
+ These are a family of functions that will execute a given functions through the elements of a given data set.
+ Check ??apply
+
+```{r applyFunctions, exercise=TRUE, exercise.setup = "prepare-Vector"}
+
+# For instance, if we create a function to print numbers from a list one by one:
+printNumber <- function(number)
+{
+  textToPrint <- paste('The number is: ',number)
+  print(textToPrint)
+}
+
+printNumber(3)
+printNumber(5)
+
+# We can invoke this function for all the elements from randNumbers 
+output <- lapply(randNumbers, printNumber)
+
+```
+Note that we pass the name of our function (printNumber) as a parametter to lapply. We will be using lapply for our methods later.
+
+Now that you have mastered the basic instructions in R, let's create some plots on the  next section!
+
+## LIt. Review Patterns
+
+### GGPlot
+
+There are different ways to create plots in R. For example, you can create a histogram with the function 
+*hist* . However, most of the plots created in R today are made using a library called *ggplot* . 
+We need to first load *ggplot*
+
+```{r loadLibrary, exercise=FALSE, exercise.eval=TRUE}
+#install.packages('ggplot2')   # install it first if it is not installed yet
+
+library(ggplot2)
+```
+
+
+We now want to load some data and our data is stored in a server. 
+
+```{r readLItData, exercise=TRUE}
+
+# The data is stored in a variable called litReview
+
+litReview <- read.csv2("../datos/litReviewData.csv", header=TRUE, sep=";")
+```
+
+### Activity
+
+Let's see the first rows our data set. Modify the code above to see what is in the data set
+
+A quick reminder of our columns: 
+
+* Connection to Visualization Background (CVG)
+
+* Connection to Educational Theories (CET)
+
+* Sophistication of the Visualization (SoV)
+
+* Venue - Journal or conference where the paper was published
+
+* Author - First author of the paper
+
+
+
+#### Plotting
+
+ The function ggplot will only create the blank plot specifying our axes
+
+ For example, in the following instruction, we set up the CET as the x axis, and the SoV as the y-axis. 
+
+ Check out what happens when you run it.
+
+```{r createGGplot, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))
+```
+
+### Activity
+Why did we include that function 'aes()' in the code?
+
+```{r showHelp, exercise=TRUE}
+?aes() # Describes how variables in the data are mapped to visual properties of geoms.
+       # Everything we want to include into the visualization should be included there.
+```
+
+We now need to tell ggplot what kind of plot we want. 
+
+```{r addGeomPoint, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point()  # Adding this line, we are saying we want a scatter plot
+
+```
+#### Here are some other ideas:
+
+* geom_point() ==> Scatter Plot
+
+* geom_bar() ==> Bar Plot
+
+* geom_line() ==> Line Plot
+
+* geom_histogram() ==> Histogram
+
+Each plot would require specific data and columns within the aes function. For instance, to plot a histogram, we only need x variable:
+
+```{r addGHistogram, exercise=TRUE}
+ggplot(litReview, aes(x=CET))+
+  geom_histogram()
+```
+
+Here is a useful cheatsheet for different plots:
+
+https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+### Activity 
+ Change the plot to a line plot
+```{r activity1, exercise=TRUE}
+# write your code here.
+
+```
+
+Let's now get back to our scatter plot, which seems to be best for our purpose: 
+*identifying gaps in this literature*
+
+```{r backToPlotting, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+      geom_point()  # Adding this line we are saying we want a scatter plot
+```
+
+These are still many points, and they are coming from differnt venues.
+So, let's use the state to differentiate them with colors
+
+```{r coloredPoints, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point(aes(color=Venue), size=3)  # Do you remember the aes() function? Here it is again
+```
+
+#### Aesthetics
+
+You can change the color palette, edit the legend on the right, and many other things, but we will leave these aesthetics functions for some other time.
+If you want to explore, here are a few functions you could use:
+
+* theme(legend.position="None")  # remove legend
+
+* scale_colour_brewer(palette = "Set1")  # change color palette
+
+
+This is a nice simple scatter plot, but the scales in each axis seem odd. Let's adjust the axes to go on the whole range of our scale: 0-10
+```{r settingAxis, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point(aes(color=Venue), size=3)+
+  ylim(c(0, 10))
+```
+
+#### Did you notice that we just added up these new lines of code to the plot? 
+
+That's how ggplot works, we can just continue adding new lines to modify our plot
+
+### Activity 
+
+Set the limits 0 to 10 to the x-axis. 
+
+```{r activity2, exercise=TRUE}
+#Write your code here.
+
+```
+
+If we don't want to write the whole thing again, we can just store it in a variable
+```{r saveToVariable, exercise=TRUE}
+
+myPlot <- ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point(aes(color=Venue), size=3)+
+  ylim(c(0, 10))
+
+```
+  
+And then, use that variable to add new things to our plot
+
+```{r addTitles, exercise=TRUE}
+
+myPlot+
+  ggtitle("Two Dimensional Comparison", subtitle="Gap between Education and Visualization Researchers") + # Add a title and subtitle
+  xlab("Connection to Edu. Theories") # Set the axis names
+
+```
+### Activity 
+ Set the name for the y-axis
+
+```{r activity3, exercise=TRUE}
+#Write your code here.
+
+```
+
+ We can also change the breaks in each axis. Here are a couple of parameters to explain
+
+
+```{r addBreaksAxis, exercise=TRUE}
+
+myPlot+
+scale_y_continuous(breaks=seq(0, 10, 1), # Set a break in the y axis every unit
+                   limits=c(0, 10)) # Set the limits
+```
+
+ Also note that we used scale_y_continuous because y is a continuous variable, but there are other types:
+
+* scale_x_continuous, scale_y_continuous  ==> For numbers
+
+* scale_x_discrete, scale_y_discrete   ==> For categories
+
+* scale_x_date, scale_y_date   ==> For dates
+
+
+### Activity
+ Change the x-axis limit so have breaks every 1
+
+```{r activity4, exercise=TRUE}
+#Write your code here.
+
+```
+
+
+ Now, there is an issue with our plot, there may be more than one point overlapping with each other at a single position.
+ 
+ We can use the size as an indicaton of how many papers are at each point. To do that, we use geom_count instead of geom_point
+ 
+
+```{r completePlot, exercise=TRUE}
+myPlot <- ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_count(aes(color=Venue))+
+  scale_x_continuous(breaks=seq(0, 10, 1), limits=c(0, 10))+
+  scale_y_continuous(breaks=seq(0, 10, 1), limits=c(0, 10))+ 
+  scale_size_continuous(breaks = seq(0, 5, 1))+
+  labs(title="Two Dimensional Comparison", 
+       subtitle="Gap between Education and Visualization Researchers",
+       y="Sophistication of the Visualization", 
+       x="Connection to Educational Theories", 
+       size="# of Studies")
+myPlot
+
+```
+
+### Activity 
+
+
+Create a scatter plot for *Connection to Educational Theories (CET) vs. Connectino to Visualizaiton Background (CET vs CVG)*
+
+```{r activity5, exercise=TRUE}
+#Write your code here.
+
+```
+
+
+## Observation Plots
+
+### Observation Plots
+Let's nnow create other interesting plots.
+We will need some additional packages for that purpose
+
+```{r loadLibraryObservations, exercise=FALSE, exercise.eval=TRUE}
+#install.packages('ggalluvial')
+library(ggalluvial)	
+library(ggplot2)
+library(Rmisc) # This package is needed for multiplot
+#library(scater)
+
+```
+
+We now want to load some data and our data is stored in a server. 
+
+```{r readObservation, exercise=TRUE}
+
+# The data is stored in a variable called classObservation
+
+classObservation <- read.csv("../datos/observationData.csv", header=TRUE, sep=",")
+
+str(classObservation) #This instruction will show us the structure of the data set
+# Check out the data set
+head(classObservation)
+
+```
+
+The dataset contains ratings for the teachears *classroom management*, *teaching*, and *MindSet* practices. Note that these columns are Factors, which  allow us to treat them as categorical variables.
+
+
+#### Filtering DataFrames
+We want to examine the data per observation, so we use the column Observation Number (i.e.numOfobservationsPerId).
+For example, in the following code, we are subsetting only the first classroom observation
+```{r filteringData, exercise=TRUE}
+classObservation[classObservation$numOfobservationsPerId==1,]
+
+```
+### Activity
+* Filter the data frame to only access the second observation
+* Filter the data frame to only access the second and third observations
+
+```{r filteringActivity, exercise=TRUE}
+#classObservation[classObservation$numOfobservationsPerId==1,]
+
+```
+
+
+#### Exploring the Data Set
+Maybe we can start by looking at the histograms per observation
+
+```{r CreatingPlots, exercise=TRUE}
+
+a<-ggplot(classObservation[classObservation$numOfobservationsPerId==1,] , aes(x=ClassManagement )) + 
+  geom_histogram(alpha=0.8,  stat="count")
+b<-ggplot(classObservation[classObservation$numOfobservationsPerId==2,] , aes(x=ClassManagement )) + 
+  geom_histogram(alpha=0.8,  stat="count")
+c<-ggplot(classObservation[classObservation$numOfobservationsPerId==3,] , aes(x=ClassManagement )) + 
+  geom_histogram(alpha=0.8,  stat="count")
+
+d<-ggplot(classObservation[classObservation$numOfobservationsPerId==4,] , aes(x=ClassManagement )) + 
+  geom_histogram(alpha=0.8,  stat="count")
+
+multiplot(a,b,c,d, cols=2)
+```
+
+#### Ordering Categories
+We can organize these categories using the function 'factor', and we also want to add one for Not Available (NA)
+
+```{r orderingCat, exercise=TRUE}
+# NA ==> Missing Data
+
+classObservation$ClassManagement<- factor(classObservation$ClassManagement, 
+                                          levels=c("High", "Mid", "Low", 'NA'))
+
+classObservation[is.na(classObservation$ClassManagement),]$ClassManagement<-'NA'
+
+classObservation
+
+```
+
+### Creating the Plots
+Remember, we first set up the plot
+
+```{r plotSetUp, exercise=TRUE}
+myParallelPlot <- ggplot(classObservation,
+                         aes(x = numOfobservationsPerId, # Observation number is our x axis
+                             stratum = ClassManagement,  # These are the categories within each observation
+                             alluvium = ids,             # Keeps control of individuals
+                             fill = ClassManagement,     # Set up the categories for the color
+                             label = ClassManagement     # What text will we use for each category
+                         ))
+myParallelPlot
+
+
+
+```
+
+Now we can add the streams between observations
+
+```{r prepare-plot}
+myParallelPlot <- ggplot(classObservation,
+                         aes(x = numOfobservationsPerId, # Observation number is our x axis
+                             stratum = ClassManagement,  # These are the categories within each observation
+                             alluvium = ids,             # Keeps control of individuals
+                             fill = ClassManagement,     # Set up the categories for the color
+                             label = ClassManagement     # What text will we use for each category
+                         ))
+```
+
+```{r streamSetUp, exercise=TRUE, exercise.setup = "prepare-plot"}
+myParallelPlot <- myParallelPlot +
+  geom_flow()               # The geom_glow allow us to connect the different observations
+myParallelPlot
+
+```
+
+```{r prepare-plotFlow}
+myParallelPlot <- ggplot(classObservation,
+                         aes(x = numOfobservationsPerId, # Observation number is our x axis
+                             stratum = ClassManagement,  # These are the categories within each observation
+                             alluvium = ids,             # Keeps control of individuals
+                             fill = ClassManagement,     # Set up the categories for the color
+                             label = ClassManagement     # What text will we use for each category
+                         ))+
+                geom_flow()
+
+```
+Now, we can add the distribution boxes along each observation 
+
+```{r distributionSetUp, exercise=TRUE, exercise.setup = "prepare-plotFlow"}
+myParallelPlot <- myParallelPlot +
+  geom_stratum(alpha = .80)+ # The stratum corresponds to our categories
+  geom_text(stat = "stratum", size = 3) # Here we put the text within the boxes
+
+myParallelPlot
+```
+
+
+```{r prepare-plotDistribution}
+myParallelPlot <- ggplot(classObservation,
+                         aes(x = numOfobservationsPerId, # Observation number is our x axis
+                             stratum = ClassManagement,  # These are the categories within each observation
+                             alluvium = ids,             # Keeps control of individuals
+                             fill = ClassManagement,     # Set up the categories for the color
+                             label = ClassManagement     # What text will we use for each category
+                         ))+
+                geom_flow()+
+  geom_stratum(alpha = .80)+ # The stratum corresponds to our categories
+  geom_text(stat = "stratum", size = 3) # Here we put the text within the boxes
+
+```
+Let's add some names to the labels and axes.
+
+```{r addLabels, exercise=TRUE, exercise.setup = "prepare-plotDistribution"}
+
+myParallelPlot+
+  labs(title="Classroom Manamgent Ratings", 
+       subtitle="Progression with visits",
+       y="Number of Teachers", 
+       x="Observation Number", 
+       fill="Rating")
+
+myParallelPlot
+```
+
+### Practice Activity
+Create this plot for the Teaching practices
+
+```{r practiceObservation, exercise=TRUE}
+
+
+```

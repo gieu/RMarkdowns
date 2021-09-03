@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/08914f3296.js" crossorigin="anonymous"></script>
+  <title>RMarkdowns Grupo Informatica Educativa</title>
+</head>
+
+<body>
+  <style>
+    @font-face {
+      font-family: "Gotham";
+      src: url("static/fonts/Gotham/Gotham-Black.otf");
+      font-style: bold;
+    }
+
+    @font-face {
+      font-family: "Gotham";
+      src: url("static/fonts/Gotham/GothamMedium.ttf");
+    }
+
+    body {
+      background-color: #FFFFFF;
+      color: #111;
+      font-family: "Gotham";
+      scroll-behavior: smooth;
+
+      width: 100%;
+
+    }
+
+    html {
+      width: 99%;
+      height: 97%;
+    }
+
+    #title {
+      display: flex;
+      flex-direction: column;
+      font-size: 20px;
+      text-align: center;
+      margin: 100px 0px;
+      font-weight: bold;
+    }
+
+    #content {
+      display: grid;
+      justify-items: center;
+      align-self: center;
+    }
+
+    .section {
+      border: 1px solid #EFF1F3;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 20px;
+      max-width: 600px;
+      max-height: 250px;
+      padding: 7px;
+      gap: 20px;
+      cursor: pointer;
+      align-items: center;
+      position: relative;
+    }
+
+    .r_langlogo {
+      width: 15%;
+    }
+
+    #title_img {
+      width: 150px;
+    }
+    a{
+        text-decoration: none;
+        color: inherit;
+
+    }
+    .back_button{
+        position: absolute;
+        right: 20px;
+    }
+    .backlogo{
+    font-size: 30px;
+    }
+  </style>
+  <div id="title">
+    <figure>
+      <img src="static/logo.png" id="title_img" alt="Informatica Educativa Logo">
+    </figure>
+    Markdowns
+  </div>
+  <div id="content">
+    <a href="./markdowns/IntroEstadistica_Vieira/">
+      <section class="section">
+        <img src="static/r_lang.png" class="r_langlogo" alt=" programming languague logo's">
+        <h3>Introducción Estadística - Vieira</h3>
+        <div class ="back_button">
+            <i class="fas fa-arrow-circle-right backlogo"></i>
+        </div>
+        
+      </section>
+    </a>
+    <a href="./markdowns/IntroEstadistica_Vieira&Garcia/">
+      <section class="section">
+        <img src="static/r_lang.png" class="r_langlogo" alt=" programming languague logo's">
+        <h3>Introducción Estadística - Vieira & García</h3>
+        <div class ="back_button">
+            <i class="fas fa-arrow-circle-right backlogo"></i>
+        </div>
+      </section>
+    </a>
+    <a href="./markdowns/IntroEstadistica_YAPG/">
+      <section class="section">
+        <img src="static/r_lang.png" class="r_langlogo" alt=" programming languague logo's">
+        <h3>Introducción Estadística YAPG</h3>
+        <div class ="back_button">
+            <i class="fas fa-arrow-circle-right backlogo"></i>
+        </div>
+      </section>
+    </a>
+    <a href="./markdowns/plotsLitReviewAPG/">
+      <section class="section">
+        <img src="static/r_lang.png" class="r_langlogo" alt=" programming languague logo's">
+        <h3>Plots Lit Review APG</h3>
+        <div class ="back_button">
+            <i class="fas fa-arrow-circle-right backlogo"></i>
+        </div>
+      </section>
+    </a>
+    <a href="./markdowns/unsupervisedAlgorithms/">
+      <section class="section">
+        <img src="static/r_lang.png" class="r_langlogo" alt=" programming languague logo's">
+        <h3>Unsupervised Algorithms</h3>
+        <div class ="back_button">
+            <i class="fas fa-arrow-circle-right backlogo"></i>
+        </div>
+      </section>
+    </a>
+  </div>
+
+
+
+</body>
+
+</html>
