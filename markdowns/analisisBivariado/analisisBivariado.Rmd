@@ -1,5 +1,5 @@
 ---
-title: "Tutorial: Roxana  "
+title: "Analisis Bivariado"
 author: "Roxana Quintero"
 output: learnr::tutorial
 runtime: shiny_prerendered
@@ -200,12 +200,13 @@ Es un valor de t con n-2 grados de libertad.
 
 **Decisión**
 
-Como el p-valor es 0,14, no se puede rechazar la hipótesis nula con cualquiera de los niveles de significancia posibles (1%, 5%, 10%).
+Como el p-valor es 0,002 se puede rechazar la hipótesis nula con un nivel de significancia de 5%  
 
 **Conclusión**
 
-Como no se rechaza la hiótesis nula:
-No hay correlación entre las variables del puntaje obtenido en el la prueba de Cultura General y el promedio acumulado de los estudiantes.
+Como se rechaza la hiótesis nula: 
+
+Hay correlación entre las variables del puntaje obtenido en el la prueba de Cultura General y el promedio acumulado de los estudiantes. 
 
 
 
