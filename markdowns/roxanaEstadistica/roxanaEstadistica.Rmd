@@ -1,0 +1,425 @@
+---
+title: "Tutorial: Roxana  "
+author: "Roxana Quintero"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE} 
+library(learnr)
+library(rmarkdown)
+library(ggplot2)
+library(readxl)
+DatosDllSocial <- read_excel("../../datos/roxana_DatosDllSocial.xlsx")
+Datos_DllSocial <- read_excel("../../datos/roxana_Datos_DllSocial.xlsx")
+gradethis::gradethis_setup()
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# **Análisis**
+
+El análisis de datos bivariado es una forma evolucionada de análisis estadístico en el cual se cuantifica a nivel descriptivo e inferencial el nivel de covarianza entre dos variables y de esta forma se da cuenta de la relación entre dos variables. La cuantificación de la covarianza consiste en la construcción de coeficientes que permitan integrar en un valor estimado, información con respecto a la varianza conjunta entre dos variables y tiene como objetivo fundamental definir la magnitud y el sentido de la relación entre las variables. De este modo, el análisis conjunto de las varianzas de dos variables (regularmente definidas como X y Y) permite identificar la relación empírica entre éstas, entendiendo por relación el ajuste de los datos a una función lineal estocástica subyacente.
+
+## **Material 1**
+
+### **1. Asociación de variables categóricas**
+
+En este caso, el análisis se basa en tablas de contingencia, por esto el estadístico que se utiliza tienen una definición diferente. El estadístico utilizado es Chi cuadrado y resume que tan alejados está el conteo de cada casilla de la tabla de contingencias al conteo esperado según la hipótesis nula.
+La letra griega x se pronuncia chi o ji en español, por eso se le llama a esta distribución chi cuadrado
+
+#### **Supuestos y distribución muestral**
+
+- Muestras aleatorias dependientes de la población objetivo con variables categóricas presentadas en una tabla de contingencia.
+- Si cada casilla de la tabla de contingencia tienen al menos 5 casos, se asume que la distribución muestral del estadístico es con (f – 1)*(c-1) grados de libertad, donde f es la cantidad de filas y c la cantidad de columnas de la tabla de contingencia. 
+
+#### **Planteamiento de hipótesis**
+
+- Hipótesis estadística: hay asociación entre las variables.
+- Hipótesis nula: Hay independencia entre las variables
+
+#### **Estadístico de prueba**
+
+Es un valor de $x^2$ con (f-1)*(c-1) grados de libertad que se traduce a su p-valor correspondiente
+
+#### **Decisión**
+
+- Si el p-valor es menor que el nivel de significancia establecido, se rechaza la hipótesis nula.
+- Si se rechaza la hipótesis nula: “Hay una asociación estadísticamente significativa entre las variables”.
+- Si el p-valor es mayor o igual que el nivel de significancia establecido, no se rechaza la hipótesis nula.
+- Si no se rechaza la hipótesis nula: “No hay una asociación significativa entre las variables”.
+
+#### **Instructivo R**
+
+
+**Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una prueba de Cultura General, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
+
+- Género (“Genero”)
+- Cambio de carrera (“Cambio”)
+- Estado académico (“NivelA”)
+- Promedio académico acumulado (“PromedioA”)
+- Cultura General Pretest (“CG_Pre”)
+- Cultura General Postest (“CG_Post”)
+
+**Donde:**
+
+- Género es la variable del género con el que se identifican los estudiantes y cuenta con las opciones F como femenino y M como masculino.
+- Cambio de carrera cuenta con opciones “Sí” y “No” 
+- Estado académico cuenta con las categorías “Estudiante distinguido”, “Normal”, “Periodo de prueba”, “Fuera de programa”, “En período de recuperación”.
+- Cultura General pretest es la variable del puntaje obtenido en la evaluación que respondieron al principio del semestre, los valores van de 0 a 100.
+- Cultura General postest es la variable del puntaje obtenido en la evaluación que respondieron al final del semestre, los valores van de 0 a 100.
+- Promedio acumulado describe el promedio acumulado de los estudiantes, que puede tener valores del 1 a 5.
+
+
+#### **Ejercicio**
+
+Se quiere determinar si hay relación entre el cambio de carrera y el género del estudiante.
+
+_Nota: Con el comando names() podrás conocer los nombres de las variables en una base de datos._
+
+```{r, eval=TRUE}
+names(DatosDllSocial)
+```
+
+#### **Cumplimiento de supuestos y distribución**
+Inicialmente se comprobará si la tabla de contingencia del caso de estudio tiene al menos 5 casos por cada casilla:
+
+```{r, eval=TRUE}
+table(DatosDllSocial$Genero, DatosDllSocial$Cambio)
+```
+
+Al ver el número de casos podemos comprobar que se cumple con el supuesto, podríamos asumir que la distribución muestral del estadístico  con 1 grados de libertad.
+
+
+#### **Prueba de hipótesis**
+
+Planteamiento:
+
+Hipótesis científica: Hay relación entre el género de estudiantes y si se ha cambiado o no de carrera.
+
+Hipótesis estadística: Hay asociación entre las variables género y cambio de carrera.
+
+Hipótesis nula: Hay independencia entra las variables de género y cambio de carrera.
+
+```{r, eval=TRUE}
+chisq.test(DatosDllSocial$Genero, DatosDllSocial $Cambio)
+```
+**Estadístico de prueba**
+
+Es un valor de $x^²$  con 1 grado de libertad.
+
+**Decisión**
+
+Como el p-valor es 0.22, no se puede rechazar la hipótesis nula con cualquiera de los niveles de significancia posibles (1%, 5%, 10%).
+
+**Conclusión**
+
+Como no se rechaza la hipótesis nula:
+
+No hay asociación estadísticamente significativa entra las variables género y cambio de carrera.
+
+#### **Ahora hazlo tú**
+Para el siguiente ejercicio se debe seleccionar dos variables categóricas de la base de datos. Una vez las elijas el paso a seguir es plantear las hipótesis de trabajo.
+Nota: como recomendación al momento de realizar un ejercicio práctico puedes colocar tus anotaciones con el signo “#” así puedes tenerlos junto con el análisis realizado.
+Una vez realices el análisis deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos.
+
+
+```{r diy1,exercise=TRUE, echo=TRUE}
+
+```
+
+### **2. Correlación de Pearson**
+Para este tipo de análisis el estadístico se basa en el coeficiente de correlación de Pearson, el cual resume la fuerza de la asociación lineal entre las variables.
+
+#### **Condiciones (supuestos) y distribución muestral**
+
+- Muestras aleatorias dependientes de la población objetivos.
+- Si las poblaciones de las que provienen las muestras son normales, se asume que la distribución muestral del coeficiente de correlación de Pearson es t de Student con n – 2 grados de libertad, donde n es el tamaño de ambas muestras.
+
+#### **Planteamiento de hipótesis**
+
+- Hipótesis estadística: Hay correlación entre variables
+- Hipótesis nula: No hay correlación entre variables.
+
+#### **Estadístico de prueba**
+
+Es un valor de t con n – 2 grados de libertad que se traduce a su p-valor correspondiente.
+
+#### **Decisión**
+
+- Si el p-valor es menor que el nivel de significancia establecido, se rechaza la hipótesis nula.
+- Si el p valor es mayor o igual que el nivel de significancia establecido, no se rechaza la hipótesis nula.
+    
+#### **Conclusión**
+
+- Si se rechaza la hipótesis nula: “Hay una correlación estadísticamente significativa entre las variables”.
+- Si no se rechaza la hipótesis nula: “No hay una correlación estadísticamente significativa entre las variables”.
+
+### **Instructivo R**
+
+**Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una evaluación de cultura general, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
+
+- Género (“Genero”)
+- Cambio de carrera (“Cambio”)
+- Estado académico (“NivelA”)
+- Promedio académico acumulado (“PromedioA”)
+- Cultura General Pretest (“CG_Pre”)
+- Cultura General Postest (“CG_Post”)
+
+**Donde:**
+- Género es la variable del género con el que se identifican los estudiantes y cuenta con las opciones F como femenino y M como masculino.
+- Cambio de carrera cuenta con opciones “Sí” y “No” 
+- Estado académico cuenta con las categorías “Estudiante distinguido”, “Normal”, “Periodo de prueba”, “Fuera de programa”, “En período de recuperación”.
+- Cultura General pretest es la variable del puntaje obtenido en la evaluación que respondieron al principio del semestre, los valores van de 0 a 100.
+- Cultura General postest es la variable del puntaje obtenido en la evaluación que respondieron al final del semestre, los valores van de 0 a 100.
+- Promedio acumulado describe el promedio acumulado de los estudiantes, que puede tener valores del 1 a 5.
+
+#### **Ejercicio**
+Se requiere determinar si existe una relación entre el promedio acumulado y el puntaje obtenido en el pretest de Cultura General.
+
+##### **Condiciones (supuestos) y distribución muestral**
+
+Es necesario comprobar si las poblaciones de las que provienen las variables son normales. Sin embargo, para esta ocasión se asumirá que la distribución es normal.
+#### **Prueba de hipótesis**
+
+**Planteamiento de hipótesis**
+
+Hipótesis científica: Hay relación lineal entre el puntaje obtenido en la prueba de Cultura General y el promedio acumulado de los estudiantes
+
+Hipótesis estadística: Hay correlación entre el puntaje obtenido en la prueba de Cultura General y el promedio acumulado de los estudiantes
+
+Hipótesis nula: No hay correlación entre el puntaje obtenido en la prueba de Cultura General y el promedio acumulado de los estudiantes
+
+```{r}
+
+```
+
+**Estadístico de prueba**
+
+Es un valor de t con n-2 grados de libertad.
+
+**Decisión**
+
+Como el p-valor es 0,14, no se puede rechazar la hipótesis nula con cualquiera de los niveles de significancia posibles (1%, 5%, 10%).
+
+**Conclusión**
+
+Como no se rechaza la hiótesis nula:
+No hay correlación entre las variables del puntaje obtenido en el la prueba de Cultura General y el promedio acumulado de los estudiantes.
+
+
+
+## **Material 2**
+
+### **1. Asociación de variables categóricas**s
+
+#### **Supuestos y distribución muestral**
+
+- Muestras aleatorias dependientes de la población objetivo con variables categóricas presentadas en una tabla de contingencia.
+- Si cada casilla de la tabla de contingencia tienen al menos 5 casos, se asume que la distribución muestral del estadístico es $x^2$ con (f – 1)*(c-1) grados de libertad, donde f es la cantidad de filas y c la cantidad de columnas de la tabla de contingencia. 
+
+#### **Planteamiento de hipótesis**
+
+- Hipótesis estadística: hay asociación entre las variables.
+- Hipótesis nula: Hay independencia entre las variables.
+
+#### **Estadístico de prueba**
+
+Es un valor de $x^2$ con (f-1)*(c-1) grados de libertad que se traduce a su p-valor correspondiente.
+
+
+#### **Decisión**
+
+- Si el p-valor es menor que el nivel de significancia establecido, se rechaza la hipótesis nula.
+- Si se rechaza la hipótesis nula: “Hay una asociación estadísticamente significativa entre las variables”.
+- Si el p-valor es mayor o igual que el nivel de significancia establecido, no se rechaza la hipótesis nula.
+- Si no se rechaza la hipótesis nula: “No hay una asociación significativa entre las variables”.
+
+### **Instructivo R**
+**Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una prueba de Cultura General, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
+
+- Género (“Genero”)
+- Cambio de carrera (“Cambio”)
+- Estado académico (“NivelA”)
+- Promedio académico acumulado (“PromedioA”)
+- Cultura General Pretest (“CG_Pre”)
+- Cultura General Postest (“CG_Post”)
+
+**Donde:**
+
+- Género es la variable del género con el que se identifican los estudiantes y cuenta con las opciones F como femenino y M como masculino.
+- Cambio de carrera cuenta con opciones “Sí” y “No” 
+- Estado académico cuenta con las categorías “Estudiante distinguido”, “Normal”, “Periodo de prueba”, “Fuera de programa”, “En período de recuperación”.
+- Cultura General pretest es la variable del puntaje obtenido en la evaluación que respondieron al principio del semestre, los valores van de 0 a 100.
+- Cultura General postest es la variable del puntaje obtenido en la evaluación que respondieron al final del semestre, los valores van de 0 a 100.
+- Promedio acumulado describe el promedio acumulado de los estudiantes, que puede tener valores del 1 a 5.
+
+
+#### **Ejercicio 1:**
+
+Se quiere determinar si hay relación entre el estado académico y el género del estudiante.
+
+```{r,eval=TRUE}
+names(Datos_DllSocial)
+```
+
+
+#### **Cumplimiento de supuestos y distribución**
+Inicialmente se comprobará si la tabla de contingencia del caso de estudio tiene al menos 5 casos por cada casilla:
+
+```{r, eval=TRUE}
+table(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
+```
+
+Al ver el número de casos podemos comprobar que se cumple con el supuesto, podríamos asumir que la distribución muestral del estadístico $x^2$ con 1 grados de libertad.
+
+#### **Prueba de hipótesis**
+
+Planteamiento:
+
+Hipótesis científica: Hay relación entre el género de estudiantes y el estado académico.
+
+Hipótesis estadística: Hay asociación entre las variables género y el estado académico.
+
+Hipótesis nula: Hay independencia entra las variables de género y el estado académico.
+
+```{r, eval=TRUE}
+table(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
+```
+
+**Estadístico de prueba**
+
+Es un valor de  con 1 grado de libertad.
+
+**Decisión**
+
+Como el p-valor es 0.89, no se puede rechazar la hipótesis nula con cualquiera de los niveles de significancia posibles (1%, 5%, 10%)
+
+**Conclusión**
+
+Como no se rechaza la hipótesis nula:
+
+No hay asociación estadísticamente significativa entra las variables género y el estado académico.
+
+#### **Ejercicio 2:**
+
+Se quiere determinar si hay relación entre el cambio de carrera y el género del estudiante.
+
+#### **Prueba de hipótesis**
+
+Planteamiento:
+
+Hipótesis científica: Hay relación entre el género de estudiantes y si se ha cambiado o no de carrera.
+
+Hipótesis estadística: Hay asociación entre las variables género y cambio de carrera.
+
+Hipótesis nula: Hay independencia entra las variables de género y cambio de carrera.
+
+```{r, eval=TRUE}
+chisq.test(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
+```
+
+
+_Nota: aparece un mensaje de advertencia de que la aproximación del estadístico puede estar incorrecta por la violación de la condición de al menos 5 casos por casilla._
+
+_Antes de realizar cualquier análisis se debe comprobar el cumplimiento de los supuestos. Para esto debemos utilizar el comando “table” acompañado del nombre de la base de datos y las variables categóricas de interés_
+
+```{r, eval=TRUE}
+table(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
+```
+
+Con los resultados obtenidos podemos verificar que no se puede asumir normalidad al no cumplir con el mínimo de casos por casillas. En este caso no se puede realizar el análisis.
+
+#### **Ahora hazlo tú**
+Para el siguiente ejercicio se debe seleccionar dos variables categóricas de la base de datos. Una vez las elijas el paso a seguir es plantear las hipótesis de trabajo.
+Nota: como recomendación al momento de realizar un ejercicio práctico puedes colocar tus anotaciones con el signo “#” así puedes tenerlos junto con el análisis realizado.
+Una vez realices el análisis deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos.
+
+```{r diy2,exercise=TRUE, echo=TRUE}
+
+```
+
+### **2. Correlación de Pearson**
+
+Para este tipo de análisis el estadístico se basa en el coeficiente de correlación de Pearson, el cual resume la fuerza de la asociación lineal entre las variables.
+
+
+##### **Condiciones (supuestos) y distribución muestral**
+
+- Muestras aleatorias dependientes de la población objetivos.
+- Si las poblaciones de las que provienen las muestras son normales, se asume que la distribución muestral del coeficiente de correlación de Pearson es t de Student con n – 2 grados de libertad, donde n es el tamaño de ambas muestras.
+
+#### **Planteamiento de hipótesis**
+
+- Hipótesis estadística: Hay correlación entre variables-
+- Hipótesis nula: No hay correlación entre variables.
+
+#### **Estadístico de prueba**
+
+Es un valor de t con n – 2 grados de libertad que se traduce a su p-valor correspondiente.
+
+#### **Decisión**
+
+- Si el p-valor es menor que el nivel de significancia establecido, se rechaza la hipótesis nula.
+- Si el p valor es mayor o igual que el nivel de significancia establecido, no se rechaza la hipótesis nula.
+    
+#### **Conclusión**
+
+- Si se rechaza la hipótesis nula: “Hay una correlación estadísticamente significativa entre las variables”.
+- Si no se rechaza la hipótesis nula: “No hay una correlación estadísticamente significativa entre las variables”.
+    
+    
+### **Instructivo R**
+
+**Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una evaluación de cultura general, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
+
+- Género (“Genero”)
+- Cambio de carrera (“Cambio”)
+- Estado académico (“NivelA”)
+- Promedio académico acumulado (“PromedioA”)
+- Cultura General Pretest (“CG_Pre”)
+- Cultura General Postest (“CG_Post”)
+
+**Donde:**
+
+- Género es la variable del género con el que se identifican los estudiantes y cuenta con las opciones F como femenino y M como masculino.
+- Cambio de carrera cuenta con opciones “Sí” y “No” 
+- Estado académico cuenta con las categorías “Estudiante distinguido”, “Normal”, “Periodo de prueba”, “Fuera de programa”, “En período de recuperación”.
+- Cultura General pretest es la variable del puntaje obtenido en la evaluación que respondieron al principio del semestre, los valores van de 0 a 100.
+- Cultura General postest es la variable del puntaje obtenido en la evaluación que respondieron al final del semestre, los valores van de 0 a 100.
+- Promedio acumulado describe el promedio acumulado de los estudiantes, que puede tener valores del 1 a 5.
+
+#### **Ejercicio**
+
+Se requiere determinar si existe una relación entre el promedio acumulado y el puntaje obtenido en el pretest de Cultura General.
+
+**Condiciones (Supuestos) y distribución muestral**
+
+Es necesario comprobar si las poblaciones de las que provienen las variables son normales. Sin embargo, para esta ocasión se asumirá que la distribución es normal.
+
+
+**Prueba de hipótesis**
+
+Planteamiento de hipótesis 
+
+```{r WTF, exercise=TRUE,echo=TRUE}
+#hipótesis científica: Hay relación lineal entre el puntaje obtenido en la prueba de Cultura General y el promedio acumulado de los estudiantes
+#Hipótesis estadística: 
+#Hipótesis nula: 
+```
+
+**Análisis**
+
+Para realizar el análisis se debe utilizar el comando “cor.test” acompañado de la información de la base de datos y las variables de interés entre paréntesis.
+
+Ejemplo: “cor.test(NombreDelArchivo\$Variable1, NombreDelArchivo\$Variable2)"
+
+Sigue la guía anterior y realiza el análisis. Una vez realices el ejercicio deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos.
+
+```{r diy3, exercise=TRUE,echo=TRUE}
+
+
+```
+
+
+
