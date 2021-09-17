@@ -47,10 +47,10 @@ Set the working directory to the folder where you have your files and read the f
 
 ```{r}
 #setwd('C:/Users/cvieira/Dropbox/Phd/Administrative/Mimi/FIE/2019/ScriptsAndData/data/')
-setwd('C:/Users/cviei/Dropbox/Phd/Administrative/Mimi/FIE/2019/ScriptsAndData/data/')
+#setwd('C:/Users/cviei/Dropbox/Phd/Administrative/Mimi/FIE/2019/ScriptsAndData/data/')
 
-typesOfKnowledge <- read.csv2("typesOfKnowledge.csv",header=TRUE,sep=",", row.names = 1)
-meltedToK <- read.csv("meltedData.csv",header=TRUE,sep=",", row.names = 1)
+typesOfKnowledge <- read.csv2("https://echidna.informaticaeducativa.cf/datos/typesOfKnowledge.csv",header=TRUE,sep=",", row.names = 1)
+meltedToK <- read.csv("https://echidna.informaticaeducativa.cf/datos/meltedData.csv",header=TRUE,sep=",", row.names = 1)
 
 ```
 
