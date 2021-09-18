@@ -7,6 +7,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE} 
 library(learnr)
+library(httr)
 library(rmarkdown)
 library(ggplot2)
 litReview <- read.csv2("../../datos/litReviewData.csv", header=TRUE, sep=";")
@@ -17,6 +18,28 @@ colnames(datosIntroEst) <- c("Sala de Conferencias","Tema","Exponente")
 edades <- c(12,23,34,23,34,50,23,45,23,15,17,19)
 gradethis::gradethis_setup()
 #knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, context="data",echo=FALSE}
+r <- GET("http://localhost:3500/api/v1/session")
+session<-content(r,as="parsed")
+sessionId_ <- session$data$session_id
+rm(r)
+rm(session)
+```
+
+```{r,context="server"}
+observe({  
+  url <- getDefaultReactiveDomain()$clientData$url_search
+  cedula <- strsplit(url,split="=")[[1]][2]
+  if (!is.na(cedula)){
+    url <- paste('http://localhost:3500/api/v1/session/',sessionId_,sep="")
+    body <- paste('{userId:',cedula,sep="")
+    body <- paste(body,"}",sep="")
+    r <- PUT(url,body =body)
+    r<-content(r,as="parsed")
+  }
+})
 ```
 
 #### Derechos de uso
@@ -564,6 +587,7 @@ hist()
 ```
 
 ```{r createHistGain-check, exercise.eval=TRUE}
+print("Puta")
 grade_result(
   pass_if(~identical(.result,hist(desempenio$LearningGain)))
 )
@@ -599,6 +623,7 @@ aggregate()
 ```
 
 ```{r actividad-check, exercise.eval=TRUE}
+print("Estoy haciendo un post")
 grade_result(
   pass_if(~identical(.result,aggregate(LearningPre~PriorCourses,desempenio,var)))
 )
