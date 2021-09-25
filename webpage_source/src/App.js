@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import r_lang from './assets/r_lang.png';
 import logo from './assets/logo.png';
 
+import { Helmet } from "react-helmet";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
@@ -74,6 +76,10 @@ const App = () => {
 
   return (
     <>
+    <Helmet>
+      <title>RMarkdowns</title>
+      <meta name="description" content="RMarkdowns" />
+    </Helmet>
     <ToastContainer/>
     <div>
       
