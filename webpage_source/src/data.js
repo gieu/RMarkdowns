@@ -1,4 +1,5 @@
-const url_data = [{
+const url_data = [
+    {
         "url": "markdowns/IntroEstadistica_Vieira/",
         "name": "Introducción Estadística - Vieira"
     },
@@ -17,6 +18,10 @@ const url_data = [{
     {
         "url": "markdowns/unsupervisedAlgorithms/",
         "name": "Unsupervised Algorithms"
+    },
+    {
+        "url": "markdowns/PCAandFactorAnalysis/",
+        "name": "PCA and Factor Analysis"
     }
 ];
 
