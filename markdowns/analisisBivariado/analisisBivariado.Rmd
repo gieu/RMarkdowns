@@ -77,14 +77,15 @@ Se quiere determinar si hay relación entre el cambio de carrera y el género de
 
 _Nota: Con el comando names() podrás conocer los nombres de las variables en una base de datos._
 
-```{r, eval=TRUE}
+```{r exp11, exercise=TRUE,eval=TRUE}
 names(DatosDllSocial)
 ```
+
 
 #### **Cumplimiento de supuestos y distribución**
 Inicialmente se comprobará si la tabla de contingencia del caso de estudio tiene al menos 5 casos por cada casilla:
 
-```{r, eval=TRUE}
+```{r exp12, exercise=TRUE,eval=TRUE}
 table(DatosDllSocial$Genero, DatosDllSocial$Cambio)
 ```
 
@@ -120,8 +121,9 @@ No hay asociación estadísticamente significativa entra las variables género y
 
 #### **Ahora hazlo tú**
 Para el siguiente ejercicio se debe seleccionar dos variables categóricas de la base de datos. Una vez las elijas el paso a seguir es plantear las hipótesis de trabajo.
-Nota: como recomendación al momento de realizar un ejercicio práctico puedes colocar tus anotaciones con el signo “#” así puedes tenerlos junto con el análisis realizado.
-Una vez realices el análisis deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos.
+
+_**Nota**: como recomendación al momento de realizar un ejercicio práctico puedes colocar tus anotaciones con el signo “#” así puedes tenerlos junto con el análisis realizado.
+Una vez realices el análisis deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos._
 
 
 ```{r diy1,exercise=TRUE, echo=TRUE}
@@ -167,6 +169,7 @@ Es un valor de t con n – 2 grados de libertad que se traduce a su p-valor corr
 - Cultura General Postest (“CG_Post”)
 
 **Donde:**
+
 - Género es la variable del género con el que se identifican los estudiantes y cuenta con las opciones F como femenino y M como masculino.
 - Cambio de carrera cuenta con opciones “Sí” y “No” 
 - Estado académico cuenta con las categorías “Estudiante distinguido”, “Normal”, “Periodo de prueba”, “Fuera de programa”, “En período de recuperación”.
@@ -260,7 +263,7 @@ Es un valor de $x^2$ con (f-1)*(c-1) grados de libertad que se traduce a su p-va
 
 Se quiere determinar si hay relación entre el estado académico y el género del estudiante.
 
-```{r,eval=TRUE}
+```{r exp1, exercise=TRUE,eval=TRUE}
 names(Datos_DllSocial)
 ```
 
@@ -268,7 +271,7 @@ names(Datos_DllSocial)
 #### **Cumplimiento de supuestos y distribución**
 Inicialmente se comprobará si la tabla de contingencia del caso de estudio tiene al menos 5 casos por cada casilla:
 
-```{r, eval=TRUE}
+```{r exp2, exercise=TRUE,eval=TRUE}
 table(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
 ```
 
@@ -339,6 +342,10 @@ Una vez realices el análisis deberás agregar a modo de comentario la Decisión
 ```{r diy2,exercise=TRUE, echo=TRUE}
 
 ```
+
+<div id="diy2-hint">
+**Pista:** Siempre antes de hacer el análisis revisa el cumplimiento de los supuestos.
+</div>
 
 ### **2. Correlación de Pearson**
 
