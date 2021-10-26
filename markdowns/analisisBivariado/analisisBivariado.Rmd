@@ -13,9 +13,11 @@ library(ggplot2)
 library(readxl)
 DatosDllSocial <- read_excel("../../datos/roxana_DatosDllSocial.xlsx")
 Datos_DllSocial <- read_excel("../../datos/roxana_Datos_DllSocial.xlsx")
-gradethis::gradethis_setup()
+#gradethis::gradethis_setup()
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
 
 # **Análisis**
 
@@ -77,10 +79,17 @@ Se quiere determinar si hay relación entre el cambio de carrera y el género de
 
 _Nota: Con el comando names() podrás conocer los nombres de las variables en una base de datos._
 
-```{r exp11, exercise=TRUE,eval=TRUE}
+```{r exp11, exercise=TRUE}
 names(DatosDllSocial)
 ```
 
+```{r exp11-code-check}
+print(purl())
+```
+
+```{r exp11-check}
+print("IAM HERE!!!!!!")
+```
 
 #### **Cumplimiento de supuestos y distribución**
 Inicialmente se comprobará si la tabla de contingencia del caso de estudio tiene al menos 5 casos por cada casilla:

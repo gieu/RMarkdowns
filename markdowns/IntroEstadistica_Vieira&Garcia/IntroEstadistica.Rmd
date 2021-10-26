@@ -16,12 +16,32 @@ datosIntroEst <- data.frame(datos$CVG,datos$Venue,datos$Author)
 desempenio <- read.csv("../../datos/desempenio.csv",header=TRUE,sep=";")
 colnames(datosIntroEst) <- c("Sala de Conferencias","Tema","Exponente")
 edades <- c(12,23,34,23,34,50,23,45,23,15,17,19)
-gradethis::gradethis_setup()
+api_url <- "http://informaticaeducativa.cf/echidnapi"
+#api_url <- "localhost:3500"
+get_api_url <- function (relative) {
+  return(paste(api_url,relative,sep=""))
+}
+knitr::knit_hooks$set(send_code_data = function(before,options,name) {
+  if (!before) {
+      url <- get_api_url("/api/v1/record/")
+    args <- list(
+      document="IntroEstadistica Viera y Garcia",
+      q_id=options$label,
+      answer=paste(options$code, collapse='\n' )
+    )
+    # "session_id":"',sessionId_,'",
+    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)
+    r <- POST(url,body = requestBody, content_type("application/json"))
+  }
+}
+)
+knitr::opts_chunk$set(send_code_data = TRUE)
 #knitr::opts_chunk$set(echo = FALSE)
+
 ```
 
 ```{r, context="data",echo=FALSE}
-r <- GET("http://localhost:3500/api/v1/session")
+r <- GET(get_api_url("/api/v1/session"))
 session<-content(r,as="parsed")
 sessionId_ <- session$data$session_id
 rm(r)
@@ -31,12 +51,11 @@ rm(session)
 ```{r,context="server"}
 observe({  
   url <- getDefaultReactiveDomain()$clientData$url_search
-  cedula <- strsplit(url,split="=")[[1]][2]
-  if (!is.na(cedula)){
-    url <- paste('http://localhost:3500/api/v1/session/',sessionId_,sep="")
-    body <- paste('{userId:',cedula,sep="")
-    body <- paste(body,"}",sep="")
-    r <- PUT(url,body =body)
+  email <- strsplit(url,split="=")[[1]][2]
+  if (!is.na(email)){
+    url <- paste(get_api_url("/api/v1/session/"),sessionId_,sep="")
+    requestBody = paste0('{"userId":"',email,'"}')
+    r <- PUT(url,body = requestBody, content_type("application/json"))
     r<-content(r,as="parsed")
   }
 })
