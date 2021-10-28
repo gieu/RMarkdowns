@@ -22,6 +22,10 @@ const url_data = [
     {
         "url": "markdowns/PCAandFactorAnalysis/",
         "name": "PCA and Factor Analysis"
+    },
+    {
+        "url": "markdowns/analisisBivariado/",
+        "name": "Analisis Bivariado Roxana Manes"
     }
 ];
 

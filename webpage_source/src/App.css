@@ -23,6 +23,32 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
+}
+
+.modal_btn {
+  margin-top: 20px;
+  background-color: white;
+  border: 1px solid #CCCCCC;
+  padding: 10px;
+  border-radius: 30px;
+}
+
+.modal_input {
+  background-color: white;
+  padding:10px 20px;
+  border-radius: 20px;
+  border: 1px solid #CCCCCC;
+}
+
+.modal_btn:hover {
+  margin-top: 20px;
+  color: white;
+  background-color: #53A3F2;
+  border: 0px solid;
+  padding: 10px;
+  border-radius: 30px;
+  cursor: pointer;
 }
 
 html {
@@ -40,19 +66,26 @@ html {
 }
 
 #content {
+  margin: 0px 15%;
   display: grid;
   justify-items: center;
   align-self: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 20px;
+  column-gap: 20px;
 }
 
 .section {
-  border: 1px solid #EFF1F3;
+  
+  border: 1px solid #939393;
   border-radius: 15px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-bottom: 20px;
-  max-width: 600px;
-  max-height: 250px;
+  
+  width: 350px;
+  height: 150px;
+  text-align: center;
   padding: 7px;
   gap: 20px;
   cursor: pointer;
@@ -74,8 +107,9 @@ a{
 }
 .back_button{
     position: absolute;
-    right: 20px;
+    right: 10px;
+    top: 10px;
 }
 .backlogo{
-font-size: 30px;
+  font-size: 20px;
 }

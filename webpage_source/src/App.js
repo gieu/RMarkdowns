@@ -42,6 +42,8 @@ const ModalTag = ({isModalOpen,setIsModalOpen,sendRequest}) => {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
+      borderRadius: '30px',
+      padding: '40px'
     },
   };
   return (
@@ -53,8 +55,8 @@ const ModalTag = ({isModalOpen,setIsModalOpen,sendRequest}) => {
       ariaHideApp={false}>
       <form id="modal-email" onSubmit={sendRequest}>
         <h2>Digite su correo electronico</h2>
-        <input name="email" type="email" required />
-        <button onSubmit={()=>console.log("Ay que rico")}>Ir al Markdown</button>
+        <input class="modal_input" name="email" type="email" required />
+        <button class="modal_btn" onSubmit={()=>console.log("Ay que rico")}>Ir al Markdown</button>
       </form>
     </Modal>
   )
