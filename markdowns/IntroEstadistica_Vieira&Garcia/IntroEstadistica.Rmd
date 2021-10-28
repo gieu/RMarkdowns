@@ -16,7 +16,7 @@ datosIntroEst <- data.frame(datos$CVG,datos$Venue,datos$Author)
 desempenio <- read.csv("../../datos/desempenio.csv",header=TRUE,sep=";")
 colnames(datosIntroEst) <- c("Sala de Conferencias","Tema","Exponente")
 edades <- c(12,23,34,23,34,50,23,45,23,15,17,19)
-api_url <- "http://informaticaeducativa.cf/echidnapi"
+api_url <- "informaticaeducativa.cf/echidnapi"
 #api_url <- "localhost:3500"
 get_api_url <- function (relative) {
   return(paste(api_url,relative,sep=""))

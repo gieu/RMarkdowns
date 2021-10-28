@@ -15,6 +15,50 @@ DatosDllSocial <- read_excel("../../datos/roxana_DatosDllSocial.xlsx")
 Datos_DllSocial <- read_excel("../../datos/roxana_Datos_DllSocial.xlsx")
 #gradethis::gradethis_setup()
 knitr::opts_chunk$set(echo = TRUE)
+api_url <- "informaticaeducativa.cf/echidnapi"
+#api_url <- "localhost:3500"
+get_api_url <- function (relative) {
+  return(paste(api_url,relative,sep=""))
+}
+knitr::knit_hooks$set(send_code_data = function(before,options,name) {
+  if (!before) {
+      url <- get_api_url("/api/v1/record/")
+    args <- list(
+      document="Analisis Roxana",
+      q_id=options$label,
+      answer=paste(options$code, collapse='\n' )
+    )
+    # "session_id":"',sessionId_,'",
+    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)
+    r <- POST(url,body = requestBody, content_type("application/json"))
+  }
+}
+)
+knitr::opts_chunk$set(send_code_data = TRUE)
+#knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+```{r, context="data",echo=FALSE}
+r <- GET(get_api_url("/api/v1/session"))
+session<-content(r,as="parsed")
+sessionId_ <- session$data$session_id
+rm(r)
+rm(session)
+```
+
+```{r,context="server"}
+observe({  
+  url <- getDefaultReactiveDomain()$clientData$url_search
+  email <- strsplit(url,split="=")[[1]][2]
+  if (!is.na(email)){
+    url <- paste(get_api_url("/api/v1/session/"),sessionId_,sep="")
+    requestBody = paste0('{"userId":"',email,'"}')
+    r <- PUT(url,body = requestBody, content_type("application/json"))
+    r<-content(r,as="parsed")
+  }
+})
+```
 ```
 
 
