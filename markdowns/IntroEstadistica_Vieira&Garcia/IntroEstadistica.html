@@ -314,7 +314,6 @@ randNumbers</code></pre>
 <div id="section-gráficas" class="section level3">
 <h3>Gráficas</h3>
 <p>Hay muchas maneras de crear gráficas en R. Por ejemplo, puedes crear un histograma con la función <em>hist</em>. Sin embargo, la mayoría de graficas realizadas en R hoy en día se hacen con la librearía <em>ggplot</em> . Vamos a cargar la libreria <em>ggplot</em></p>
-<pre class="r"><code>library(ggplot2)</code></pre>
 <p>Ahora vamos a cargar datos que están alojados en nuestro servidor.</p>
 <div class="tutorial-exercise" data-label="readLItData" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># The data is stored in a variable called litReview
@@ -614,16 +613,16 @@ knitr::knit_hooks$set(send_code_data = function(before,options,name) {
     args <- list(
       document="IntroEstadistica Viera y Garcia",
       q_id=options$label,
-      answer=paste(options$code, collapse='\n' )
+      answer=paste(options$code, collapse='\n' ),
+      session_id=sessionId_
     )
-    # "session_id":"',sessionId_,'",
     requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)
     r <- POST(url,body = requestBody, content_type("application/json"))
   }
 }
 )
-knitr::opts_chunk$set(send_code_data = TRUE)
-#knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE)
+
 
 </script>
  
@@ -685,20 +684,19 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "varAsignacion", code = "y <- 5\n# Y si queremos ver el valor contenido de la variable la ponemos sola:\ny", 
-        opts = list(label = "\"varAsignacion\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, options = list(eval = FALSE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        strip.white = TRUE, size = "normalsize", background = "#F7F7F7", 
-        cache = 0, cache.path = "IntroEstadistica_cache/html/", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "varAsignacion", code = "y <- 5\n# Y si queremos ver el valor contenido de la variable la ponemos sola:\ny", 
+        opts = list(label = "\"varAsignacion\"", exercise = "TRUE", 
+            send_code_data = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, strip.white = TRUE, size = "normalsize", 
+        background = "#F7F7F7", cache = 0, cache.path = "IntroEstadistica_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
         fig.show = "asis", fig.align = "default", fig.path = "IntroEstadistica_files/figure-html/", 
@@ -710,9 +708,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "varAsignacion", 
-        exercise = TRUE, code = c("y <- 5", "# Y si queremos ver el valor contenido de la variable la ponemos sola:", 
-        "y"), out.width.px = 624, out.height.px = 384, params.src = "varAsignacion, exercise=TRUE", 
+        max.print = 1000, label = "varAsignacion", exercise = TRUE, 
+        send_code_data = TRUE, code = c("y <- 5", "# Y si queremos ver el valor contenido de la variable la ponemos sola:", 
+        "y"), out.width.px = 624, out.height.px = 384, params.src = "varAsignacion, exercise=TRUE, send_code_data = TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -736,12 +734,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2", 
     chunks = list(list(label = "prepare-XY", code = "y <- 5\nx <- y*2", 
         opts = list(label = "\"prepare-XY\""), engine = "r"), 
         list(label = "varOp", code = " \ny*2\n# Como no asignamos la operación a ninguna variable, y tendrá el mismo valor.\ny\n# Ahora guardaremos el resultado en otra variable llamada 'x':\nx <- y*2\n# Veamos el valor de 'x'\nx\n", 
@@ -764,9 +761,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "varOp", 
-        exercise = TRUE, exercise.setup = "prepare-XY", code = c(" ", 
-        "y*2", "# Como no asignamos la operación a ninguna variable, y tendrá el mismo valor.", 
+        max.print = 1000, label = "varOp", exercise = TRUE, exercise.setup = "prepare-XY", 
+        code = c(" ", "y*2", "# Como no asignamos la operación a ninguna variable, y tendrá el mismo valor.", 
         "y", "# Ahora guardaremos el resultado en otra variable llamada 'x':", 
         "x <- y*2", "# Veamos el valor de 'x'", "x", ""), out.width.px = 624, 
         out.height.px = 384, params.src = "varOp, exercise=TRUE, exercise.setup = \"prepare-XY\"", 
@@ -793,12 +789,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2", 
     chunks = list(list(label = "prepare-XY", code = "y <- 5\nx <- y*2", 
         opts = list(label = "\"prepare-XY\""), engine = "r"), 
         list(label = "primeraActividad", code = "", opts = list(
@@ -823,9 +818,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "primeraActividad", 
-        exercise = TRUE, exercise.setup = "prepare-XY", code = "", 
-        out.width.px = 624, out.height.px = 384, params.src = "primeraActividad, exercise=TRUE, exercise.setup = \"prepare-XY\"", 
+        max.print = 1000, label = "primeraActividad", exercise = TRUE, 
+        exercise.setup = "prepare-XY", code = "", out.width.px = 624, 
+        out.height.px = 384, params.src = "primeraActividad, exercise=TRUE, exercise.setup = \"prepare-XY\"", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -849,12 +844,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "\ny <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "\ny <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
     chunks = list(list(label = "prepare-XYZ", code = "\ny <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
         opts = list(label = "\"prepare-XYZ\""), engine = "r"), 
         list(label = "varArithmetic", code = "x^2\n\n# Si quisieras hallar la raíz de un valor utilizamos la funcion sqrt()\n\nsqrt(x)\n\n#  Una función es un grupo de instrucciones a las cuales les asignamos un nombre\n", 
@@ -877,9 +871,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "varArithmetic", 
-        exercise = TRUE, exercise.setup = "prepare-XYZ", code = c("x^2", 
-        "", "# Si quisieras hallar la raíz de un valor utilizamos la funcion sqrt()", 
+        max.print = 1000, label = "varArithmetic", exercise = TRUE, 
+        exercise.setup = "prepare-XYZ", code = c("x^2", "", "# Si quisieras hallar la raíz de un valor utilizamos la funcion sqrt()", 
         "", "sqrt(x)", "", "#  Una función es un grupo de instrucciones a las cuales les asignamos un nombre", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "varArithmetic, exercise=TRUE, exercise.setup = \"prepare-XYZ\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -905,12 +898,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2", 
     chunks = list(list(label = "prepare-XY", code = "y <- 5\nx <- y*2", 
         opts = list(label = "\"prepare-XY\""), engine = "r"), 
         list(label = "crearVector", code = "z <- c(1.1, 9, pi, 5 , 6, 7, 8) \n# ¿Qué significa tener 'pi' dentro del vector?\n\n# Miremos el valor de la variable z\nz\n", 
@@ -933,8 +925,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "crearVector", 
-        exercise = TRUE, exercise.setup = "prepare-XY", code = c("z <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
+        max.print = 1000, label = "crearVector", exercise = TRUE, 
+        exercise.setup = "prepare-XY", code = c("z <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
         "# ¿Qué significa tener 'pi' dentro del vector?", "", 
         "# Miremos el valor de la variable z", "z", ""), out.width.px = 624, 
         out.height.px = 384, params.src = "crearVector, exercise=TRUE, exercise.setup = \"prepare-XY\"", 
@@ -961,12 +953,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "\ny <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "\ny <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
     chunks = list(list(label = "prepare-XYZ", code = "\ny <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
         opts = list(label = "\"prepare-XYZ\""), engine = "r"), 
         list(label = "compositeVector", code = "\nc(x,z,y)", 
@@ -989,10 +980,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "compositeVector", 
-        exercise = TRUE, exercise.setup = "prepare-XYZ", code = c("", 
-        "c(x,z,y)"), out.width.px = 624, out.height.px = 384, 
-        params.src = "compositeVector, exercise=TRUE, exercise.setup = \"prepare-XYZ\"", 
+        max.print = 1000, label = "compositeVector", exercise = TRUE, 
+        exercise.setup = "prepare-XYZ", code = c("", "c(x,z,y)"
+        ), out.width.px = 624, out.height.px = 384, params.src = "compositeVector, exercise=TRUE, exercise.setup = \"prepare-XYZ\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -1016,12 +1006,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
     chunks = list(list(label = "prepare-ejv1", code = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
         opts = list(label = "\"prepare-ejv1\""), engine = "r"), 
         list(label = "ejerciciosVector1", code = "", opts = list(
@@ -1046,9 +1035,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "ejerciciosVector1", 
-        exercise = TRUE, exercise.setup = "prepare-ejv1", code = "", 
-        out.width.px = 624, out.height.px = 384, params.src = "ejerciciosVector1, exercise=TRUE, exercise.setup = \"prepare-ejv1\"", 
+        max.print = 1000, label = "ejerciciosVector1", exercise = TRUE, 
+        exercise.setup = "prepare-ejv1", code = "", out.width.px = 624, 
+        out.height.px = 384, params.src = "ejerciciosVector1, exercise=TRUE, exercise.setup = \"prepare-ejv1\"", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -1072,12 +1061,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
     chunks = list(list(label = "prepare-ejv1", code = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
         opts = list(label = "\"prepare-ejv1\""), engine = "r"), 
         list(label = "demostracionVector1", code = "z * 2 + 100", 
@@ -1100,8 +1088,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "demostracionVector1", 
-        exercise = TRUE, exercise.setup = "prepare-ejv1", code = "z * 2 + 100", 
+        max.print = 1000, label = "demostracionVector1", exercise = TRUE, 
+        exercise.setup = "prepare-ejv1", code = "z * 2 + 100", 
         out.width.px = 624, out.height.px = 384, params.src = "demostracionVector1, exercise=TRUE, exercise.setup = \"prepare-ejv1\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
@@ -1126,12 +1114,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "\ny <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "\ny <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
     chunks = list(list(label = "prepare-XYZ", code = "\ny <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
         opts = list(label = "\"prepare-XYZ\""), engine = "r"), 
         list(label = "helpMean", code = "?mean", opts = list(
@@ -1153,9 +1140,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "helpMean", 
-        exercise = TRUE, exercise.setup = "prepare-XYZ", code = "?mean", 
-        out.width.px = 624, out.height.px = 384, params.src = "helpMean, exercise=TRUE, exercise.setup = \"prepare-XYZ\"", 
+        max.print = 1000, label = "helpMean", exercise = TRUE, 
+        exercise.setup = "prepare-XYZ", code = "?mean", out.width.px = 624, 
+        out.height.px = 384, params.src = "helpMean, exercise=TRUE, exercise.setup = \"prepare-XYZ\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -1179,12 +1166,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
     chunks = list(list(label = "prepare-ejv1", code = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
         opts = list(label = "\"prepare-ejv1\""), engine = "r"), 
         list(label = "ejerciciosMatriz1", code = "", opts = list(
@@ -1209,9 +1195,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "ejerciciosMatriz1", 
-        exercise = TRUE, exercise.setup = "prepare-ejv1", code = "", 
-        out.width.px = 624, out.height.px = 384, params.src = "ejerciciosMatriz1,exercise=TRUE, exercise.setup=\"prepare-ejv1\"", 
+        max.print = 1000, label = "ejerciciosMatriz1", exercise = TRUE, 
+        exercise.setup = "prepare-ejv1", code = "", out.width.px = 624, 
+        out.height.px = 384, params.src = "ejerciciosMatriz1,exercise=TRUE, exercise.setup=\"prepare-ejv1\"", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -1235,12 +1221,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "mi_vector <-1:20\ndim(mi_vector)<-c(4,5)\nmi_matrix <- mi_vector\nstudents <- c('Charlie','Hayden','Alex','Ben')\nrandNumbers <- rnorm(20)", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "mi_vector <-1:20\ndim(mi_vector)<-c(4,5)\nmi_matrix <- mi_vector\nstudents <- c('Charlie','Hayden','Alex','Ben')\nrandNumbers <- rnorm(20)", 
     chunks = list(list(label = "prepare-Matrix", code = "mi_vector <-1:20\ndim(mi_vector)<-c(4,5)\nmi_matrix <- mi_vector\nstudents <- c('Charlie','Hayden','Alex','Ben')\nrandNumbers <- rnorm(20)", 
         opts = list(label = "\"prepare-Matrix\""), engine = "r"), 
         list(label = "randomNumbers", code = "randNumbers <- rnorm(20)\nrandNumbers", 
@@ -1263,8 +1248,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "randomNumbers", 
-        exercise = TRUE, exercise.setup = "prepare-Matrix", code = c("randNumbers <- rnorm(20)", 
+        max.print = 1000, label = "randomNumbers", exercise = TRUE, 
+        exercise.setup = "prepare-Matrix", code = c("randNumbers <- rnorm(20)", 
         "randNumbers"), out.width.px = 624, out.height.px = 384, 
         params.src = "randomNumbers, exercise=TRUE, exercise.setup = \"prepare-Matrix\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1290,12 +1275,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "mi_vector <-1:20\ndim(mi_vector)<-c(4,5)\nmi_matrix <- mi_vector\nstudents <- c('Charlie','Hayden','Alex','Ben')\nrandNumbers <- rnorm(20)\nrandNumbers <- rnorm(20)\nrandNumbers", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "mi_vector <-1:20\ndim(mi_vector)<-c(4,5)\nmi_matrix <- mi_vector\nstudents <- c('Charlie','Hayden','Alex','Ben')\nrandNumbers <- rnorm(20)\nrandNumbers <- rnorm(20)\nrandNumbers", 
     chunks = list(list(label = "prepare-Matrix", code = "mi_vector <-1:20\ndim(mi_vector)<-c(4,5)\nmi_matrix <- mi_vector\nstudents <- c('Charlie','Hayden','Alex','Ben')\nrandNumbers <- rnorm(20)", 
         opts = list(label = "\"prepare-Matrix\""), engine = "r"), 
         list(label = "randomNumbers", code = "randNumbers <- rnorm(20)\nrandNumbers", 
@@ -1323,28 +1307,28 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "randomNumbersActivity", 
-        exercise = TRUE, exercise.setup = "randomNumbers", code = "  ", 
-        out.width.px = 624, out.height.px = 384, params.src = "randomNumbersActivity, exercise=TRUE, exercise.setup=\"randomNumbers\"", 
+        max.print = 1000, label = "randomNumbersActivity", exercise = TRUE, 
+        exercise.setup = "randomNumbers", code = "  ", out.width.px = 624, 
+        out.height.px = 384, params.src = "randomNumbersActivity, exercise=TRUE, exercise.setup=\"randomNumbers\"", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "letter-a", question = structure("¿Qué hace la función mean?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_69f3299", 
+"character")), answers = list(structure(list(id = "lnr_ans_1e39f2b", 
     option = "Calcula la mediana", value = "Calcula la mediana", 
     label = structure("Calcula la mediana", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2ae5c6b", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a385877", 
     option = "Calcula la desviación estandar", value = "Calcula la desviación estandar", 
     label = structure("Calcula la desviación estandar", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e40dac6", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e6420be", 
     option = "Calcula la media", value = "Calcula la media", 
     label = structure("Calcula la media", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3d17f11", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d2c226b", 
     option = "Calcula un resumén del conjuto de datos", value = "Calcula un resumén del conjuto de datos", 
     label = structure("Calcula un resumén del conjuto de datos", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -1356,7 +1340,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "letter-a-answer", question = "letter-a"), loading = structure("<strong>Loading:<\u002fstrong> \n¿Qué hace la función mean?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1132566476.97261, options = list()), class = c("learnr_radio", 
+    seed = 1000878926.03393, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1379,12 +1363,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
     chunks = list(list(label = "prepare-ejv1", code = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
         opts = list(label = "\"prepare-ejv1\""), engine = "r"), 
         list(label = "computeMean", code = "\nmean(z)\n", opts = list(
@@ -1406,10 +1389,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "computeMean", 
-        exercise = TRUE, exercise.setup = "prepare-ejv1", code = c("", 
-        "mean(z)", ""), out.width.px = 624, out.height.px = 384, 
-        params.src = "computeMean, exercise=TRUE, exercise.setup = \"prepare-ejv1\"", 
+        max.print = 1000, label = "computeMean", exercise = TRUE, 
+        exercise.setup = "prepare-ejv1", code = c("", "mean(z)", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "computeMean, exercise=TRUE, exercise.setup = \"prepare-ejv1\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -1433,12 +1415,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
     chunks = list(list(label = "prepare-ejv1", code = "y <- 5\nx <- y*2\nz <- c(1.1, 9, pi, 5 , 6, 7, 8) ", 
         opts = list(label = "\"prepare-ejv1\""), engine = "r"), 
         list(label = "computeModa", code = "edades\n", opts = list(
@@ -1460,9 +1441,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "computeModa", 
-        exercise = TRUE, exercise.setup = "prepare-ejv1", code = c("edades", 
-        ""), out.width.px = 624, out.height.px = 384, params.src = "computeModa, exercise=TRUE, exercise.setup = \"prepare-ejv1\"", 
+        max.print = 1000, label = "computeModa", exercise = TRUE, 
+        exercise.setup = "prepare-ejv1", code = c("edades", ""
+        ), out.width.px = 624, out.height.px = 384, params.src = "computeModa, exercise=TRUE, exercise.setup = \"prepare-ejv1\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -1486,13 +1467,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "readLItData", code = "# The data is stored in a variable called litReview\nlitReview <- read.csv2(\"../../datos/litReviewData.csv\", header=TRUE, sep=\";\")", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "readLItData", code = "# The data is stored in a variable called litReview\nlitReview <- read.csv2(\"../../datos/litReviewData.csv\", header=TRUE, sep=\";\")", 
         opts = list(label = "\"readLItData\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -1511,8 +1491,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "readLItData", 
-        exercise = TRUE, code = c("# The data is stored in a variable called litReview", 
+        max.print = 1000, label = "readLItData", exercise = TRUE, 
+        code = c("# The data is stored in a variable called litReview", 
         "litReview <- read.csv2(\"../../datos/litReviewData.csv\", header=TRUE, sep=\";\")"
         ), out.width.px = 624, out.height.px = 384, params.src = "readLItData, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1538,23 +1518,22 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "showVieiraData", code = "litReview", opts = list(
-        label = "\"showVieiraData\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
-    options = list(eval = FALSE, echo = TRUE, results = "markup", 
-        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
-        comment = NA, highlight = FALSE, strip.white = TRUE, 
-        size = "normalsize", background = "#F7F7F7", cache = 0, 
-        cache.path = "IntroEstadistica_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "IntroEstadistica_files/figure-html/", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "showVieiraData", code = "litReview", 
+        opts = list(label = "\"showVieiraData\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, options = list(eval = FALSE, 
+        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
+        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
+        strip.white = TRUE, size = "normalsize", background = "#F7F7F7", 
+        cache = 0, cache.path = "IntroEstadistica_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "IntroEstadistica_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1563,10 +1542,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "showVieiraData", 
-        exercise = TRUE, code = "litReview", out.width.px = 624, 
-        out.height.px = 384, params.src = "showVieiraData, exercise=TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "showVieiraData", exercise = TRUE, 
+        code = "litReview", out.width.px = 624, out.height.px = 384, 
+        params.src = "showVieiraData, exercise=TRUE", fig.num = 0, 
+        exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  
@@ -1589,13 +1568,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "createGGplot", code = "ggplot(litReview, aes(x=CET, y=SoV))", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "createGGplot", code = "ggplot(litReview, aes(x=CET, y=SoV))", 
         opts = list(label = "\"createGGplot\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -1614,9 +1592,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "createGGplot", 
-        exercise = TRUE, code = "ggplot(litReview, aes(x=CET, y=SoV))", 
-        out.width.px = 624, out.height.px = 384, params.src = "createGGplot, exercise=TRUE", 
+        max.print = 1000, label = "createGGplot", exercise = TRUE, 
+        code = "ggplot(litReview, aes(x=CET, y=SoV))", out.width.px = 624, 
+        out.height.px = 384, params.src = "createGGplot, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -1640,13 +1618,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "showHelp", code = "?aes() # Esta funcion describre como las variables serán usadas dentro de la visualización.\n       # Todo lo que querramos añadir en la visualización deberá estar acá.", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "showHelp", code = "?aes() # Esta funcion describre como las variables serán usadas dentro de la visualización.\n       # Todo lo que querramos añadir en la visualización deberá estar acá.", 
         opts = list(label = "\"showHelp\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -1665,8 +1642,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "showHelp", 
-        exercise = TRUE, code = c("?aes() # Esta funcion describre como las variables serán usadas dentro de la visualización.", 
+        max.print = 1000, label = "showHelp", exercise = TRUE, 
+        code = c("?aes() # Esta funcion describre como las variables serán usadas dentro de la visualización.", 
         "       # Todo lo que querramos añadir en la visualización deberá estar acá."
         ), out.width.px = 624, out.height.px = 384, params.src = "showHelp, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -1692,13 +1669,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "addGeomPoint", code = "ggplot(litReview, aes(x=CET, y=SoV))+\n  geom_point()  # Añadiendo está linea le estamos indicando que queremos un gráfico de disperción", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "addGeomPoint", code = "ggplot(litReview, aes(x=CET, y=SoV))+\n  geom_point()  # Añadiendo está linea le estamos indicando que queremos un gráfico de disperción", 
         opts = list(label = "\"addGeomPoint\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -1717,9 +1693,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "addGeomPoint", 
-        exercise = TRUE, code = c("ggplot(litReview, aes(x=CET, y=SoV))+", 
-        "  geom_point()  # Añadiendo está linea le estamos indicando que queremos un gráfico de disperción"
+        max.print = 1000, label = "addGeomPoint", exercise = TRUE, 
+        code = c("ggplot(litReview, aes(x=CET, y=SoV))+", "  geom_point()  # Añadiendo está linea le estamos indicando que queremos un gráfico de disperción"
         ), out.width.px = 624, out.height.px = 384, params.src = "addGeomPoint, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
@@ -1744,13 +1719,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "addGHistogram", code = "ggplot(litReview, aes(x=CET))+\n  geom_histogram()", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "addGHistogram", code = "ggplot(litReview, aes(x=CET))+\n  geom_histogram()", 
         opts = list(label = "\"addGHistogram\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -1769,11 +1743,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "addGHistogram", 
-        exercise = TRUE, code = c("ggplot(litReview, aes(x=CET))+", 
-        "  geom_histogram()"), out.width.px = 624, out.height.px = 384, 
-        params.src = "addGHistogram, exercise=TRUE", fig.num = 0, 
-        exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "addGHistogram", exercise = TRUE, 
+        code = c("ggplot(litReview, aes(x=CET))+", "  geom_histogram()"
+        ), out.width.px = 624, out.height.px = 384, params.src = "addGHistogram, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  
@@ -1796,13 +1769,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "activity1", code = "# Escribe tu código acá.", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "activity1", code = "# Escribe tu código acá.", 
         opts = list(label = "\"activity1\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -1821,9 +1793,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "activity1", 
-        exercise = TRUE, code = "# Escribe tu código acá.", 
-        out.width.px = 624, out.height.px = 384, params.src = "activity1, exercise=TRUE", 
+        max.print = 1000, label = "activity1", exercise = TRUE, 
+        code = "# Escribe tu código acá.", out.width.px = 624, 
+        out.height.px = 384, params.src = "activity1, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -1847,13 +1819,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "backToPlotting", code = "ggplot(litReview, aes(x=CET, y=SoV))+\n      geom_point()  # Recuerda que cambiando esta linea estamos especificando el tipo de gráfica.", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "backToPlotting", code = "ggplot(litReview, aes(x=CET, y=SoV))+\n      geom_point()  # Recuerda que cambiando esta linea estamos especificando el tipo de gráfica.", 
         opts = list(label = "\"backToPlotting\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -1872,9 +1843,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "backToPlotting", 
-        exercise = TRUE, code = c("ggplot(litReview, aes(x=CET, y=SoV))+", 
-        "      geom_point()  # Recuerda que cambiando esta linea estamos especificando el tipo de gráfica."
+        max.print = 1000, label = "backToPlotting", exercise = TRUE, 
+        code = c("ggplot(litReview, aes(x=CET, y=SoV))+", "      geom_point()  # Recuerda que cambiando esta linea estamos especificando el tipo de gráfica."
         ), out.width.px = 624, out.height.px = 384, params.src = "backToPlotting, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
@@ -1899,13 +1869,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "coloredPoints", code = "ggplot(litReview, aes(x=CET, y=SoV))+\n  geom_point(aes(color=Venue), size=3)  # ¿Recuerdas la función aes()? Aquí está nuevamente.", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "coloredPoints", code = "ggplot(litReview, aes(x=CET, y=SoV))+\n  geom_point(aes(color=Venue), size=3)  # ¿Recuerdas la función aes()? Aquí está nuevamente.", 
         opts = list(label = "\"coloredPoints\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -1924,9 +1893,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "coloredPoints", 
-        exercise = TRUE, code = c("ggplot(litReview, aes(x=CET, y=SoV))+", 
-        "  geom_point(aes(color=Venue), size=3)  # ¿Recuerdas la función aes()? Aquí está nuevamente."
+        max.print = 1000, label = "coloredPoints", exercise = TRUE, 
+        code = c("ggplot(litReview, aes(x=CET, y=SoV))+", "  geom_point(aes(color=Venue), size=3)  # ¿Recuerdas la función aes()? Aquí está nuevamente."
         ), out.width.px = 624, out.height.px = 384, params.src = "coloredPoints, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
@@ -1951,13 +1919,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "settingAxis", code = "ggplot(litReview, aes(x=CET, y=SoV))+\n  geom_point(aes(color=Venue), size=3)+\n  ylim(c(0, 10))", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "settingAxis", code = "ggplot(litReview, aes(x=CET, y=SoV))+\n  geom_point(aes(color=Venue), size=3)+\n  ylim(c(0, 10))", 
         opts = list(label = "\"settingAxis\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -1976,11 +1943,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "settingAxis", 
-        exercise = TRUE, code = c("ggplot(litReview, aes(x=CET, y=SoV))+", 
-        "  geom_point(aes(color=Venue), size=3)+", "  ylim(c(0, 10))"
-        ), out.width.px = 624, out.height.px = 384, params.src = "settingAxis, exercise=TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "settingAxis", exercise = TRUE, 
+        code = c("ggplot(litReview, aes(x=CET, y=SoV))+", "  geom_point(aes(color=Venue), size=3)+", 
+        "  ylim(c(0, 10))"), out.width.px = 624, out.height.px = 384, 
+        params.src = "settingAxis, exercise=TRUE", fig.num = 0, 
+        exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  
@@ -2003,13 +1970,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "activity2", code = "# Escribe tu código acá.", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "activity2", code = "# Escribe tu código acá.", 
         opts = list(label = "\"activity2\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -2028,28 +1994,28 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "activity2", 
-        exercise = TRUE, code = "# Escribe tu código acá.", 
-        out.width.px = 624, out.height.px = 384, params.src = "activity2, exercise=TRUE", 
+        max.print = 1000, label = "activity2", exercise = TRUE, 
+        code = "# Escribe tu código acá.", out.width.px = 624, 
+        out.height.px = 384, params.src = "activity2, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "pregunta1", question = structure("¿Qué tipo de variable seria la cantidad de libros de un niño?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a567e5d", 
+"character")), answers = list(structure(list(id = "lnr_ans_bcaf09d", 
     option = "Cualitativa Nominal", value = "Cualitativa Nominal", 
     label = structure("Cualitativa Nominal", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1f14fad", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e5e27e8", 
     option = "Cualitativa Ordinal", value = "Cualitativa Ordinal", 
     label = structure("Cualitativa Ordinal", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7d63649", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_374f37b", 
     option = "Cuantitativa Discreta", value = "Cuantitativa Discreta", 
     label = structure("Cuantitativa Discreta", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_93a8171", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_82c02a", 
     option = "Cuantitativa Continua", value = "Cuantitativa Continua", 
     label = structure("Cuantitativa Continua", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -2061,25 +2027,25 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "pregunta1-answer", question = "pregunta1"), loading = structure("<strong>Loading:<\u002fstrong> \n¿Qué tipo de variable seria la cantidad de libros de un niño?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1152640903.46326, options = list()), class = c("learnr_radio", 
+    seed = 493716065.270096, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "pregunta2", question = structure("¿Qué tipo de variable seria el grado de un estudiante?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_53fabdc", 
+"character")), answers = list(structure(list(id = "lnr_ans_e8eb65f", 
     option = "Cualitativa Nominal", value = "Cualitativa Nominal", 
     label = structure("Cualitativa Nominal", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_46aa480", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_e304a1a", 
     option = "Cualitativa Ordinal", value = "Cualitativa Ordinal", 
     label = structure("Cualitativa Ordinal", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_edba908", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3cda91c", 
     option = "Cuantitativa Discreta", value = "Cuantitativa Discreta", 
     label = structure("Cuantitativa Discreta", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_70c8a96", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1b9bb83", 
     option = "Cuantitativa Continua", value = "Cuantitativa Continua", 
     label = structure("Cuantitativa Continua", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -2091,7 +2057,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "pregunta2-answer", question = "pregunta2"), loading = structure("<strong>Loading:<\u002fstrong> \n¿Qué tipo de variable seria el grado de un estudiante?\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1744618098.1876, options = list()), class = c("learnr_radio", 
+    seed = 892067959.084599, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2114,13 +2080,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "loadingDataR", code = "desempenio <- read.csv(\"https://echidna.informaticaeducativa.cf/datos/desempenio.csv\",header=TRUE,sep=\";\")\nhead(desempenio)", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "loadingDataR", code = "desempenio <- read.csv(\"https://echidna.informaticaeducativa.cf/datos/desempenio.csv\",header=TRUE,sep=\";\")\nhead(desempenio)", 
         opts = list(label = "\"loadingDataR\"", exercise = "TRUE", 
             echo = "FALSE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = NULL, options = list(
@@ -2139,8 +2104,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "loadingDataR", 
-        exercise = TRUE, code = c("desempenio <- read.csv(\"https://echidna.informaticaeducativa.cf/datos/desempenio.csv\",header=TRUE,sep=\";\")", 
+        max.print = 1000, label = "loadingDataR", exercise = TRUE, 
+        code = c("desempenio <- read.csv(\"https://echidna.informaticaeducativa.cf/datos/desempenio.csv\",header=TRUE,sep=\";\")", 
         "head(desempenio)"), out.width.px = 624, out.height.px = 384, 
         params.src = "loadingDataR, exercise=TRUE, echo = FALSE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -2166,22 +2131,22 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "exploreData", code = "\n", opts = list(label = "\"exploreData\"", 
-        exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = NULL, solution = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, strip.white = TRUE, size = "normalsize", 
-        background = "#F7F7F7", cache = 0, cache.path = "IntroEstadistica_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "IntroEstadistica_files/figure-html/", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "exploreData", code = "\n", opts = list(
+        label = "\"exploreData\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, strip.white = TRUE, 
+        size = "normalsize", background = "#F7F7F7", cache = 0, 
+        cache.path = "IntroEstadistica_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "IntroEstadistica_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -2190,10 +2155,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "exploreData", 
-        exercise = TRUE, code = c("", ""), out.width.px = 624, 
-        out.height.px = 384, params.src = "exploreData, exercise=TRUE", 
-        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "exploreData", exercise = TRUE, 
+        code = c("", ""), out.width.px = 624, out.height.px = 384, 
+        params.src = "exploreData, exercise=TRUE", fig.num = 0L, 
+        exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  
@@ -2216,13 +2181,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "ejemploIntroEst2", code = "valores <- c(3,2,3,3,4,2,4)\nmean(valores)", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "ejemploIntroEst2", code = "valores <- c(3,2,3,3,4,2,4)\nmean(valores)", 
         opts = list(label = "\"ejemploIntroEst2\"", exercise = "TRUE", 
             echo = "FALSE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = NULL, options = list(
@@ -2241,10 +2205,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "ejemploIntroEst2", 
-        exercise = TRUE, code = c("valores <- c(3,2,3,3,4,2,4)", 
-        "mean(valores)"), out.width.px = 624, out.height.px = 384, 
-        params.src = "ejemploIntroEst2, exercise=TRUE,echo=FALSE", 
+        max.print = 1000, label = "ejemploIntroEst2", exercise = TRUE, 
+        code = c("valores <- c(3,2,3,3,4,2,4)", "mean(valores)"
+        ), out.width.px = 624, out.height.px = 384, params.src = "ejemploIntroEst2, exercise=TRUE,echo=FALSE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -2268,22 +2231,22 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "computeMeans", code = "\n", opts = list(label = "\"computeMeans\"", 
-        exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = NULL, solution = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, strip.white = TRUE, size = "normalsize", 
-        background = "#F7F7F7", cache = 0, cache.path = "IntroEstadistica_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "IntroEstadistica_files/figure-html/", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "computeMeans", code = "\n", opts = list(
+        label = "\"computeMeans\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, strip.white = TRUE, 
+        size = "normalsize", background = "#F7F7F7", cache = 0, 
+        cache.path = "IntroEstadistica_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "IntroEstadistica_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -2292,10 +2255,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "computeMeans", 
-        exercise = TRUE, code = c("", ""), out.width.px = 624, 
-        out.height.px = 384, params.src = "computeMeans, exercise=TRUE", 
-        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "computeMeans", exercise = TRUE, 
+        code = c("", ""), out.width.px = 624, out.height.px = 384, 
+        params.src = "computeMeans, exercise=TRUE", fig.num = 0L, 
+        exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  
@@ -2318,13 +2281,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "ejemploIntroEst3", code = "valores <- c(3,2,3,3,4,2,4)\nmedian(valores)", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "ejemploIntroEst3", code = "valores <- c(3,2,3,3,4,2,4)\nmedian(valores)", 
         opts = list(label = "\"ejemploIntroEst3\"", exercise = "TRUE", 
             echo = "FALSE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = NULL, options = list(
@@ -2343,10 +2305,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "ejemploIntroEst3", 
-        exercise = TRUE, code = c("valores <- c(3,2,3,3,4,2,4)", 
-        "median(valores)"), out.width.px = 624, out.height.px = 384, 
-        params.src = "ejemploIntroEst3,exercise=TRUE, echo=FALSE", 
+        max.print = 1000, label = "ejemploIntroEst3", exercise = TRUE, 
+        code = c("valores <- c(3,2,3,3,4,2,4)", "median(valores)"
+        ), out.width.px = 624, out.height.px = 384, params.src = "ejemploIntroEst3,exercise=TRUE, echo=FALSE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -2370,19 +2331,19 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "computeMedian", code = "\n", opts = list(label = "\"computeMedian\"", 
-        exercise = "TRUE"), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = NULL, solution = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, strip.white = TRUE, size = "normalsize", 
-        background = "#F7F7F7", cache = 0, cache.path = "IntroEstadistica_cache/html/", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "computeMedian", code = "\n", 
+        opts = list(label = "\"computeMedian\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, options = list(eval = FALSE, 
+        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
+        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
+        strip.white = TRUE, size = "normalsize", background = "#F7F7F7", 
+        cache = 0, cache.path = "IntroEstadistica_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
         fig.show = "asis", fig.align = "default", fig.path = "IntroEstadistica_files/figure-html/", 
@@ -2394,10 +2355,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "computeMedian", 
-        exercise = TRUE, code = c("", ""), out.width.px = 624, 
-        out.height.px = 384, params.src = "computeMedian, exercise=TRUE", 
-        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "computeMedian", exercise = TRUE, 
+        code = c("", ""), out.width.px = 624, out.height.px = 384, 
+        params.src = "computeMedian, exercise=TRUE", fig.num = 0L, 
+        exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  
@@ -2420,13 +2381,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "ejemploIntroEst5", code = "sd(desempenio$LearningPre)", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "ejemploIntroEst5", code = "sd(desempenio$LearningPre)", 
         opts = list(label = "\"ejemploIntroEst5\"", exercise = "TRUE", 
             echo = "FALSE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = NULL, options = list(
@@ -2445,9 +2405,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "ejemploIntroEst5", 
-        exercise = TRUE, code = "sd(desempenio$LearningPre)", 
-        out.width.px = 624, out.height.px = 384, params.src = "ejemploIntroEst5, exercise=TRUE, echo=FALSE", 
+        max.print = 1000, label = "ejemploIntroEst5", exercise = TRUE, 
+        code = "sd(desempenio$LearningPre)", out.width.px = 624, 
+        out.height.px = 384, params.src = "ejemploIntroEst5, exercise=TRUE, echo=FALSE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -2471,13 +2431,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "ejemploIntroEst6", code = "var(desempenio$LearningPre)", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "ejemploIntroEst6", code = "var(desempenio$LearningPre)", 
         opts = list(label = "\"ejemploIntroEst6\"", exercise = "TRUE", 
             echo = "FALSE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = NULL, options = list(
@@ -2496,9 +2455,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "ejemploIntroEst6", 
-        exercise = TRUE, code = "var(desempenio$LearningPre)", 
-        out.width.px = 624, out.height.px = 384, params.src = "ejemploIntroEst6, exercise=TRUE, echo=FALSE", 
+        max.print = 1000, label = "ejemploIntroEst6", exercise = TRUE, 
+        code = "var(desempenio$LearningPre)", out.width.px = 624, 
+        out.height.px = 384, params.src = "ejemploIntroEst6, exercise=TRUE, echo=FALSE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
@@ -2522,13 +2481,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "ejemploIntroEst7", code = "#Aqu&iacute; vemos un histograma de la variable LearningPre\nhist(desempenio$LearningPre)", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "ejemploIntroEst7", code = "#Aqu&iacute; vemos un histograma de la variable LearningPre\nhist(desempenio$LearningPre)", 
         opts = list(label = "\"ejemploIntroEst7\"", exercise = "TRUE", 
             echo = "FALSE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = NULL, options = list(
@@ -2547,8 +2505,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "ejemploIntroEst7", 
-        exercise = TRUE, code = c("#Aqu&iacute; vemos un histograma de la variable LearningPre", 
+        max.print = 1000, label = "ejemploIntroEst7", exercise = TRUE, 
+        code = c("#Aqu&iacute; vemos un histograma de la variable LearningPre", 
         "hist(desempenio$LearningPre)"), out.width.px = 624, 
         out.height.px = 384, params.src = "ejemploIntroEst7, exercise=TRUE, echo=FALSE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -2574,16 +2532,15 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "createHistGain", code = "hist()", opts = list(
-        label = "\"createHistGain\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = structure(c("print(\"Puta\")", 
-    "grade_result(", "  pass_if(~identical(.result,hist(desempenio$LearningGain)))", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "createHistGain", code = "hist()", 
+        opts = list(label = "\"createHistGain\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure(c("print(\"Puta\")", "grade_result(", "  pass_if(~identical(.result,hist(desempenio$LearningGain)))", 
     ")"), chunk_opts = list(label = "createHistGain-check", exercise.eval = TRUE)), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
@@ -2601,10 +2558,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "createHistGain", 
-        exercise = TRUE, code = "hist()", out.width.px = 624, 
-        out.height.px = 384, params.src = "createHistGain, exercise=TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "createHistGain", exercise = TRUE, 
+        code = "hist()", out.width.px = 624, out.height.px = 384, 
+        params.src = "createHistGain, exercise=TRUE", fig.num = 0, 
+        exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  
@@ -2627,13 +2584,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "computeSumma", code = "summary(desempenio)", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "computeSumma", code = "summary(desempenio)", 
         opts = list(label = "\"computeSumma\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -2652,10 +2608,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "computeSumma", 
-        exercise = TRUE, code = "summary(desempenio)", out.width.px = 624, 
-        out.height.px = 384, params.src = "computeSumma, exercise=TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "computeSumma", exercise = TRUE, 
+        code = "summary(desempenio)", out.width.px = 624, out.height.px = 384, 
+        params.src = "computeSumma, exercise=TRUE", fig.num = 0, 
+        exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  
@@ -2678,13 +2634,12 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "descriptivaGrupos", code = "aggregate(LearningPre~PriorCourses,desempenio,mean)\naggregate(LearningPre~PriorCourses,desempenio,sd)", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "descriptivaGrupos", code = "aggregate(LearningPre~PriorCourses,desempenio,mean)\naggregate(LearningPre~PriorCourses,desempenio,sd)", 
         opts = list(label = "\"descriptivaGrupos\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
@@ -2703,8 +2658,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "descriptivaGrupos", 
-        exercise = TRUE, code = c("aggregate(LearningPre~PriorCourses,desempenio,mean)", 
+        max.print = 1000, label = "descriptivaGrupos", exercise = TRUE, 
+        code = c("aggregate(LearningPre~PriorCourses,desempenio,mean)", 
         "aggregate(LearningPre~PriorCourses,desempenio,sd)"), 
         out.width.px = 624, out.height.px = 384, params.src = "descriptivaGrupos, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
@@ -2730,15 +2685,15 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  return(paste(api_url,relative,sep=\"\"))", "}", "knitr::knit_hooks$set(send_code_data = function(before,options,name) {", 
 "  if (!before) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"IntroEstadistica Viera y Garcia\",", 
-"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' )", 
-"    )", "    # \"session_id\":\"',sessionId_,'\",", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
+"      q_id=options$label,", "      answer=paste(options$code, collapse='\\n' ),", 
+"      session_id=sessionId_", "    )", "    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)", 
 "    r <- POST(url,body = requestBody, content_type(\"application/json\"))", 
-"  }", "}", ")", "knitr::opts_chunk$set(send_code_data = TRUE)", 
-"#knitr::opts_chunk$set(echo = FALSE)", ""), chunk_opts = list(
-    label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "actividad", code = "aggregate()\n", opts = list(
-        label = "\"actividad\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = structure(c("print(\"Estoy haciendo un post\")", 
+"  }", "}", ")", "knitr::opts_chunk$set(echo = FALSE)", "", ""
+), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
+    chunks = list(list(label = "actividad", code = "aggregate()\n", 
+        opts = list(label = "\"actividad\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = structure(c("print(\"Estoy haciendo un post\")", 
     "grade_result(", "  pass_if(~identical(.result,aggregate(LearningPre~PriorCourses,desempenio,var)))", 
     ")"), chunk_opts = list(label = "actividad-check", exercise.eval = TRUE)), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
@@ -2757,10 +2712,10 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, send_code_data = TRUE, label = "actividad", 
-        exercise = TRUE, code = c("aggregate()", ""), out.width.px = 624, 
-        out.height.px = 384, params.src = "actividad, exercise=TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "actividad", exercise = TRUE, 
+        code = c("aggregate()", ""), out.width.px = 624, out.height.px = 384, 
+        params.src = "actividad, exercise=TRUE", fig.num = 0, 
+        exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r"), class = "tutorial_exercise"))
 </script>
  <!--html_preserve-->

@@ -21,15 +21,15 @@ api_url <- "https://informaticaeducativa.cf/echidnapi"
 get_api_url <- function (relative) {
   return(paste(api_url,relative,sep=""))
 }
-knitr::knit_hooks$set(send_code_data = function(before,options,name) {
-  if (!before) {
+knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {
+  if (!before && !(identical(globalenv(), envir))) {
       url <- get_api_url("/api/v1/record/")
     args <- list(
       document="Analisis Roxana",
       q_id=options$label,
-      answer=paste(options$code, collapse='\n' )
+      answer=paste(options$code, collapse='\n' ),
+      session_id=sessionId_
     )
-    # "session_id":"',sessionId_,'",
     requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)
     r <- POST(url,body = requestBody, content_type("application/json"))
   }
@@ -37,7 +37,6 @@ knitr::knit_hooks$set(send_code_data = function(before,options,name) {
 )
 knitr::opts_chunk$set(send_code_data = TRUE)
 #knitr::opts_chunk$set(echo = FALSE)
-
 ```
 
 ```{r, context="data",echo=FALSE}
