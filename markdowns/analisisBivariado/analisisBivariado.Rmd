@@ -11,11 +11,12 @@ library(learnr)
 library(rmarkdown)
 library(ggplot2)
 library(readxl)
+library(httr)
 DatosDllSocial <- read_excel("../../datos/roxana_DatosDllSocial.xlsx")
 Datos_DllSocial <- read_excel("../../datos/roxana_Datos_DllSocial.xlsx")
 #gradethis::gradethis_setup()
 knitr::opts_chunk$set(echo = TRUE)
-api_url <- "informaticaeducativa.cf/echidnapi"
+api_url <- "https://informaticaeducativa.cf/echidnapi"
 #api_url <- "localhost:3500"
 get_api_url <- function (relative) {
   return(paste(api_url,relative,sep=""))
@@ -58,7 +59,6 @@ observe({
     r<-content(r,as="parsed")
   }
 })
-```
 ```
 
 
