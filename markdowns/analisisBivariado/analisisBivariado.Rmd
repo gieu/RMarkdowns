@@ -14,13 +14,19 @@ library(readxl)
 library(httr)
 DatosDllSocial <- read_excel("../../datos/roxana_DatosDllSocial.xlsx")
 Datos_DllSocial <- read_excel("../../datos/roxana_Datos_DllSocial.xlsx")
-#gradethis::gradethis_setup()
-knitr::opts_chunk$set(echo = TRUE)
+
 api_url <- "https://informaticaeducativa.cf/echidnapi"
-#api_url <- "localhost:3500"
 get_api_url <- function (relative) {
   return(paste(api_url,relative,sep=""))
 }
+
+r <- GET(get_api_url("/api/v1/session"))
+session<-content(r,as="parsed")
+sessionId_ <- session$data$session_id
+rm(r)
+rm(session)
+
+knitr::opts_chunk$set(echo = TRUE)
 knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {
   if (!before && !(identical(globalenv(), envir))) {
       url <- get_api_url("/api/v1/record/")
@@ -37,14 +43,6 @@ knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {
 )
 knitr::opts_chunk$set(send_code_data = TRUE)
 #knitr::opts_chunk$set(echo = FALSE)
-```
-
-```{r, context="data",echo=FALSE}
-r <- GET(get_api_url("/api/v1/session"))
-session<-content(r,as="parsed")
-sessionId_ <- session$data$session_id
-rm(r)
-rm(session)
 ```
 
 ```{r,context="server"}
