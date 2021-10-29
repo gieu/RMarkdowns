@@ -126,13 +126,7 @@ _Nota: Con el comando names() podrás conocer los nombres de las variables en un
 names(DatosDllSocial)
 ```
 
-```{r exp11-code-check}
-print(purl())
-```
 
-```{r exp11-check}
-print("IAM HERE!!!!!!")
-```
 
 #### **Cumplimiento de supuestos y distribución**
 Inicialmente se comprobará si la tabla de contingencia del caso de estudio tiene al menos 5 casos por cada casilla:
@@ -154,7 +148,7 @@ Hipótesis estadística: Hay asociación entre las variables género y cambio de
 
 Hipótesis nula: Hay independencia entra las variables de género y cambio de carrera.
 
-```{r, eval=TRUE}
+```{r, exercise=TRUE,eval=TRUE}
 chisq.test(DatosDllSocial$Genero, DatosDllSocial $Cambio)
 ```
 **Estadístico de prueba**
@@ -245,8 +239,8 @@ Hipótesis estadística: Hay correlación entre el puntaje obtenido en la prueba
 
 Hipótesis nula: No hay correlación entre el puntaje obtenido en la prueba de Cultura General y el promedio acumulado de los estudiantes
 
-```{r}
-
+```{r correlacionPearson, exercise=TRJE, eval=TRUE}
+cor.test(DatosDllSocial$PromedioA, DatosDllSocial$CG_Pre)
 ```
 
 **Estadístico de prueba**
@@ -339,7 +333,7 @@ Hipótesis estadística: Hay asociación entre las variables género y el estado
 
 Hipótesis nula: Hay independencia entra las variables de género y el estado académico.
 
-```{r, eval=TRUE}
+```{r mod2hipo,exercise=TRUE, eval=TRUE}
 table(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
 ```
 
@@ -371,7 +365,7 @@ Hipótesis estadística: Hay asociación entre las variables género y cambio de
 
 Hipótesis nula: Hay independencia entra las variables de género y cambio de carrera.
 
-```{r, eval=TRUE}
+```{r, exercise= TRUE, val=TRUE}
 chisq.test(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
 ```
 
@@ -380,7 +374,7 @@ _Nota: aparece un mensaje de advertencia de que la aproximación del estadístic
 
 _Antes de realizar cualquier análisis se debe comprobar el cumplimiento de los supuestos. Para esto debemos utilizar el comando “table” acompañado del nombre de la base de datos y las variables categóricas de interés_
 
-```{r, eval=TRUE}
+```{r,exercise=TRUE, eval=TRUE}
 table(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
 ```
 
@@ -462,7 +456,7 @@ Es necesario comprobar si las poblaciones de las que provienen las variables son
 
 Planteamiento de hipótesis 
 
-```{r WTF, exercise=TRUE,echo=TRUE}
+```{r planteamiento hipótesis, exercise=TRUE,echo=TRUE}
 #hipótesis científica: Hay relación lineal entre el puntaje obtenido en la prueba de Cultura General y el promedio acumulado de los estudiantes
 #Hipótesis estadística: 
 #Hipótesis nula: 
