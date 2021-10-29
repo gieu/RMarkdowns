@@ -148,7 +148,7 @@ Hipótesis estadística: Hay asociación entre las variables género y cambio de
 
 Hipótesis nula: Hay independencia entra las variables de género y cambio de carrera.
 
-```{r, exercise=TRUE,eval=TRUE}
+```{r, exercise=TRUE,eval=TRUE, label='ex151'}
 chisq.test(DatosDllSocial$Genero, DatosDllSocial $Cambio)
 ```
 **Estadístico de prueba**
@@ -229,7 +229,6 @@ Se requiere determinar si existe una relación entre el promedio acumulado y el 
 ##### **Condiciones (supuestos) y distribución muestral**
 
 Es necesario comprobar si las poblaciones de las que provienen las variables son normales. Sin embargo, para esta ocasión se asumirá que la distribución es normal.
-#### **Prueba de hipótesis**
 
 **Planteamiento de hipótesis**
 
@@ -239,7 +238,7 @@ Hipótesis estadística: Hay correlación entre el puntaje obtenido en la prueba
 
 Hipótesis nula: No hay correlación entre el puntaje obtenido en la prueba de Cultura General y el promedio acumulado de los estudiantes
 
-```{r correlacionPearson, exercise=TRJE, eval=TRUE}
+```{r correlacionPearson, exercise=TRUE, eval=TRUE}
 cor.test(DatosDllSocial$PromedioA, DatosDllSocial$CG_Pre)
 ```
 
@@ -365,7 +364,7 @@ Hipótesis estadística: Hay asociación entre las variables género y cambio de
 
 Hipótesis nula: Hay independencia entra las variables de género y cambio de carrera.
 
-```{r, exercise= TRUE, val=TRUE}
+```{r, exercise= TRUE, val=TRUE,label='ex368'}
 chisq.test(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
 ```
 
@@ -374,7 +373,7 @@ _Nota: aparece un mensaje de advertencia de que la aproximación del estadístic
 
 _Antes de realizar cualquier análisis se debe comprobar el cumplimiento de los supuestos. Para esto debemos utilizar el comando “table” acompañado del nombre de la base de datos y las variables categóricas de interés_
 
-```{r,exercise=TRUE, eval=TRUE}
+```{r,exercise=TRUE, eval=TRUE, label='ex377'}
 table(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
 ```
 
@@ -456,7 +455,7 @@ Es necesario comprobar si las poblaciones de las que provienen las variables son
 
 Planteamiento de hipótesis 
 
-```{r planteamiento hipótesis, exercise=TRUE,echo=TRUE}
+```{r planteamiento hipótesis, exercise=TRUE,echo=TRUE, label='ex459'}
 #hipótesis científica: Hay relación lineal entre el puntaje obtenido en la prueba de Cultura General y el promedio acumulado de los estudiantes
 #Hipótesis estadística: 
 #Hipótesis nula: 
