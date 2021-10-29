@@ -23,7 +23,7 @@ api_url <- "https://informaticaeducativa.cf/echidnapi"
 get_api_url <- function (relative) {
   return(paste(api_url,relative,sep=""))
 }
-
+r_values <- ""
 
 knitr::opts_chunk$set(echo = TRUE)
 knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {
