@@ -24,8 +24,6 @@ get_api_url <- function (relative) {
   return(paste(api_url,relative,sep=""))
 }
 
-sessionId_ <- stri_rand_strings(1, 16)
-
 
 knitr::opts_chunk$set(echo = TRUE)
 knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {
@@ -35,7 +33,7 @@ knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {
       document="Analisis Roxana",
       q_id=options$label,
       answer=paste(options$code, collapse='\n' ),
-      session_id=sessionId_
+      session_id=isolate(r_values$email)
     )
     requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)
     r <- POST(url,body = requestBody, content_type("application/json"))
@@ -46,13 +44,17 @@ knitr::opts_chunk$set(send_code_data = TRUE)
 #knitr::opts_chunk$set(echo = FALSE)
 ```
 
+```{r,context="data"}
+r_values <- reactiveValues(sessionId_=stri_rand_strings(1, 16))
+```
+
 ```{r,context="server"}
-print(session$clientData)
 observe({  
   url <- getDefaultReactiveDomain()$clientData$url_search
   email <- strsplit(url,split="=")[[1]][2]
+  r_values$email <- email
   if (!is.na(email)){
-    url <- paste(get_api_url("/api/v1/session/"),sessionId_,sep="")
+    url <- paste(get_api_url("/api/v1/session/"),r_values$sessionId_,sep="")
     requestBody = paste0('{"userId":"',email,'"}')
     r <- PUT(url,body = requestBody, content_type("application/json"))
     r<-content(r,as="parsed")
@@ -60,7 +62,9 @@ observe({
 })
 ```
 
-
+```{r correo, exercise=TRUE,send_code_data=FALSE}
+email <-
+```
 
 # **Análisis**
 
