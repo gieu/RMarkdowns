@@ -12,19 +12,20 @@ library(rmarkdown)
 library(ggplot2)
 library(readxl)
 library(httr)
+library(stringi)
+
 DatosDllSocial <- read_excel("../../datos/roxana_DatosDllSocial.xlsx")
 Datos_DllSocial <- read_excel("../../datos/roxana_Datos_DllSocial.xlsx")
+
+##### Sending data to informatica educativa
 
 api_url <- "https://informaticaeducativa.cf/echidnapi"
 get_api_url <- function (relative) {
   return(paste(api_url,relative,sep=""))
 }
 
-r <- GET(get_api_url("/api/v1/session"))
-session<-content(r,as="parsed")
-sessionId_ <- session$data$session_id
-rm(r)
-rm(session)
+sessionId_ <- stri_rand_strings(1, 16)
+
 
 knitr::opts_chunk$set(echo = TRUE)
 knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {
@@ -46,6 +47,7 @@ knitr::opts_chunk$set(send_code_data = TRUE)
 ```
 
 ```{r,context="server"}
+print(session$clientData)
 observe({  
   url <- getDefaultReactiveDomain()$clientData$url_search
   email <- strsplit(url,split="=")[[1]][2]

@@ -492,19 +492,20 @@ library(rmarkdown)
 library(ggplot2)
 library(readxl)
 library(httr)
+library(stringi)
+
 DatosDllSocial <- read_excel("../../datos/roxana_DatosDllSocial.xlsx")
 Datos_DllSocial <- read_excel("../../datos/roxana_Datos_DllSocial.xlsx")
+
+##### Sending data to informatica educativa
 
 api_url <- "https://informaticaeducativa.cf/echidnapi"
 get_api_url <- function (relative) {
   return(paste(api_url,relative,sep=""))
 }
 
-r <- GET(get_api_url("/api/v1/session"))
-session<-content(r,as="parsed")
-sessionId_ <- session$data$session_id
-rm(r)
-rm(session)
+sessionId_ <- stri_rand_strings(1, 16)
+
 
 knitr::opts_chunk$set(echo = TRUE)
 knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {
@@ -544,6 +545,7 @@ session$onSessionEnded(function() {
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
+print(session$clientData)
 observe({  
   url <- getDefaultReactiveDomain()$clientData$url_search
   email <- strsplit(url,split="=")[[1]][2]
@@ -566,13 +568,12 @@ output$`tutorial-exercise-exp11-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -616,13 +617,12 @@ output$`tutorial-exercise-exp12-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -667,13 +667,12 @@ output$`tutorial-exercise-ex151-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -718,13 +717,12 @@ output$`tutorial-exercise-diy1-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -768,13 +766,12 @@ output$`tutorial-exercise-correlacionPearson-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -819,13 +816,12 @@ output$`tutorial-exercise-exp1-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -869,13 +865,12 @@ output$`tutorial-exercise-exp2-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -920,13 +915,12 @@ output$`tutorial-exercise-mod2hipo-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -971,13 +965,12 @@ output$`tutorial-exercise-ex368-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -1022,13 +1015,12 @@ output$`tutorial-exercise-ex377-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -1073,13 +1065,12 @@ output$`tutorial-exercise-diy2-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -1123,13 +1114,12 @@ output$`tutorial-exercise-ex459-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
@@ -1178,13 +1168,12 @@ output$`tutorial-exercise-diy3-output` <- renderUI({
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library(learnr)", 
 "library(rmarkdown)", "library(ggplot2)", "library(readxl)", 
-"library(httr)", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
+"library(httr)", "library(stringi)", "", "DatosDllSocial <- read_excel(\"../../datos/roxana_DatosDllSocial.xlsx\")", 
 "Datos_DllSocial <- read_excel(\"../../datos/roxana_Datos_DllSocial.xlsx\")", 
-"", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
+"", "##### Sending data to informatica educativa", "", "api_url <- \"https://informaticaeducativa.cf/echidnapi\"", 
 "get_api_url <- function (relative) {", "  return(paste(api_url,relative,sep=\"\"))", 
-"}", "", "r <- GET(get_api_url(\"/api/v1/session\"))", "session<-content(r,as=\"parsed\")", 
-"sessionId_ <- session$data$session_id", "rm(r)", "rm(session)", 
-"", "knitr::opts_chunk$set(echo = TRUE)", "knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
+"}", "", "sessionId_ <- stri_rand_strings(1, 16)", "", "", "knitr::opts_chunk$set(echo = TRUE)", 
+"knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {", 
 "  if (!before && !(identical(globalenv(), envir))) {", "      url <- get_api_url(\"/api/v1/record/\")", 
 "    args <- list(", "      document=\"Analisis Roxana\",", "      q_id=options$label,", 
 "      answer=paste(options$code, collapse='\\n' ),", "      session_id=sessionId_", 
