@@ -44,7 +44,7 @@ knitr::opts_chunk$set(send_code_data = TRUE)
 #knitr::opts_chunk$set(echo = FALSE)
 ```
 
-```{r,context="data"}
+```{r,context="data",echo=FALSE}
 r_values <- reactiveValues(sessionId_=stri_rand_strings(1, 16))
 ```
 
@@ -62,9 +62,6 @@ observe({
 })
 ```
 
-```{r correo, exercise=TRUE,send_code_data=FALSE}
-email <-
-```
 
 # **Análisis**
 
