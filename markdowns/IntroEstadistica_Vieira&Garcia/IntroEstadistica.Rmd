@@ -338,7 +338,7 @@ Ahora vamos a cargar datos que están alojados en nuestro servidor.
 
 ```{r readLItData, exercise=TRUE}
 # The data is stored in a variable called litReview
-litReview <- read.csv2("../../datos/litReviewData.csv", header=TRUE, sep=";")
+litReview <- read.csv2("https://echidna.informaticaeducativa.cf/datos/litReviewData.csv", header=TRUE, sep=";")
 ```
 
 ### Actividad
