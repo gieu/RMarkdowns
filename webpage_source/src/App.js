@@ -54,9 +54,9 @@ const ModalTag = ({isModalOpen,setIsModalOpen,sendRequest}) => {
       style={customStyles}
       ariaHideApp={false}>
       <form id="modal-email" onSubmit={sendRequest}>
-        <h2>Digite su correo electronico</h2>
+        <h2>Please insert your email address</h2>
         <input class="modal_input" name="email" type="email" required />
-        <button class="modal_btn" onSubmit={()=>console.log("Ay que rico")}>Ir al Markdown</button>
+        <button class="modal_btn" onSubmit={()=>console.log("")}>Go to Markdown</button>
       </form>
     </Modal>
   )
@@ -71,7 +71,7 @@ const App = () => {
   const sendRequest = (e) => {
     e.preventDefault();
     const email = e.target[0].value;
-    toast.success("Correo guardado correctamente");
+    toast.success("Email saved!");
     console.log(selectedMarkdown)
     window.location.href = window.location.href+selectedMarkdown["url"]+`?email=${email}`
   }
