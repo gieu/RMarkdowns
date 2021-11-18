@@ -1,147 +1,244 @@
 ---
-title: "PCA and Factor Analysis"
-author: "cvieira"
-date: "August 4, 2020"
-output: html_document
+title: "Principal Component Analysis and Factor Analysis"
+output: learnr::tutorial
+runtime: shiny_prerendered
 ---
-  
-  ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+```{r setup, include=FALSE}
+library(learnr)
+library(Hmisc)
+library(psych)
+surveyData<- bfi[,1:15]
+corResults <- rcorr(as.matrix(surveyData[,-1]))
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-### Learning Outcomes
-By the end of this Activity, you will be able to:
-  
-  * Invoke the kmeans algorithm to cluster individual students into groups
+## PCA and Factor Analysis 
+#### Usage-Rigts
+These materials were created for educational purposes. They are licenced under creative commonts. 
 
-* Create different plots using the ggplot2 package to represent data from educational phenomena
 
-*** 
-  Part of this tutorial was adapted from:
-  
-  * http://r-statistics.co/Complete-Ggplot2-Tutorial-Part1-With-R-Code.html 
+### References
+This interactive tutorial is based on several sources, including the amazing R community that share their practices and scripts online to help each other. The theory behind this tutorial is based on:
 
-* Our own work on visualizations
-+ Vieira, C., Parsons, P., & Byrd, V. (2018). Visual learning analytics of educational data: A systematic literature review and research agenda. Computers & Education, 122, 119-135.
-+ Vieira, C., Magana, A. J., Roy, A., & Falk, M. L. (2019). Student explanations in the context of computational science and engineering education. Cognition and Instruction, 37(2), 201-231.
-+ Magana, A. J., Fennell, H. W., Vieira, C., & Falk, M. L. (2019). Characterizing the interplay of cognitive and metacognitive knowledge in computational modeling and simulation practices. Journal of Engineering Education, 108(2), 276-303.
-***
-  
-  Since we want to use the plots from the library ggplot2, the first thing we need to do is to import this library. 
+* Hair, J. F., Black, W. C., Babin, B. J., & Anderson, R. E. (2019). Multivariate data analysis (8th ed.). Boston: Cengage
 
-```{r}
-#install.packages('ggplot2')   # install it first if it is not installed yet
-library(ggplot2)
-library(tibble)
+* Field, A. (2009). Discovering Statistics Using SPSS, Thrid Edition. SAGE
+
+### Definitions
+We will be working, in parallel, with two methods that are quite similar, but have different goals:
+
+**Common Factor Analysis:** Identify the underlying factors/dimensions that reflect what variables share in common	
+
+**Principal Component Analysis (PCA):** Summarize most of the original information (variance) in the minimum number of factors for prediction purposes
+
+
+### What does this mean?
+A common example of when to use factor analysis and PCA is to analyze a survey including multiple scale questions. Most people have, at least once, completed a survey where they have the feeling of being asked the same thing multiple times. Statements such as *"I like going to the school"* and *"I enjoy my time at school"* may appear in the same survey aiming at measuring some underlying construct (e.g., motivation at school). We may use factor analysis to identify and validate what items are measuring the same construct (i.e., the underlying structure of the data).
+
+It is **important to note** that factor analysis will always produce factors. Thus, **the researcher is responsible** for analyzing the output, and making sure that the grouped items have certain conceptual coherence.
+
+### Prerequisites of Factor Analysis
+Before we start, there are a few things we should consider to be able to conduct factor analysis or PCA.
+
+*	**Sample Size**: The number of observations will affect your ability to find and trust the underlying structure of the data.	In general, *you must have more than 50 observations (100 would be better), but this number also depends on the number of items.*
+    + Minimum: five observations per item
+    + More Acceptable: 10 observations per item.
+* **Number of items per factor**: Ideally, you should have five variables per factor, although in some cases, four variables give you enough degrees of freedom to work with.
+
+### Assumptions
+There are both conceptual and statistical assumptions that must be considered to conduct factor analysis.
+
+**Conceptual Assumptions**
+
+* There is an underlying structure in the data.
+* If there are heterogeneous groups in the sample that may respond differently to different items, a separate factor analysis must be conducted for each group. The results from these separate factor analyses should be compared and contrasted
+
+**Statistical Assumptions: ** Keep these assumptions in mind, as we will test them later in the tutorial
+
+* **Correlation between items:** If different items are measuring the same constructs, they must have a *correlation coefficient larger than 0.3.*
+*	**Measure of Sampling Adequacy (MSA):** Using our data set, we can assess whether our data and our sample size are appropriate for factor analysis. A commonly used statistic for this purpose is the *Kaiser-Meyer-Olkin (KMO)* statistic. The interpretation 
+    + MSA > 0.8 Meritorious
+    + MSA > 0.7 Middling
+    + MSA > 0.6 Mediocre
+    + MSA > 0.5 Miserable
+    + MSA < 0.5 Unacceptable.  **Note:** Individual items with MSA bellow 0.5 must be removed one by one.
+
+**Note:** The MSA coefficient increases as the sample size, the average correlations, and the number of variables increase, as well as when the number of factors decreases. 
+
+
+### Conducting Factor Analysis and PCA
+
+Both methods, Factor Analysis and PCA, use the variance in the data to identify the underlying structure. We need to consider three different types of variance:
+*	Common variance: The variance that is shared across variables. The amount of sharing is equal to the squared-correlation coefficient.
+*	Specific variance: Unique variance of a variable.
+*	Error variance: Variance that comes from limited reliability on the data collection process.
+
+While **Factor Analysisis** only considers the *shared variance*, **PCA considers** the *total variance* and derives factors that contain small proportions of *unique variance* and *error variance*
+
+#### Remeber
+**Factor analysis** assumes that there is a latent factor that is causing the responses to each item (variable). It includes an error term (ei) that represents the unshared variance:
+```{r, out.width = "400px", fig.align="center"}
+knitr::include_graphics("https://echidna.informaticaeducativa.cf/datos/Figures/Factor%20Analysis.png")
+```
+
+Thus, in **factor analysis** we may use: $V_i = w_i*Factor + e_i$ 
+
+**PCA** allows you to reduce the numb er of variables as a liner combination of the minimum number of factors
+```{r, out.width = "400px", fig.align="center"}
+knitr::include_graphics("https://echidna.informaticaeducativa.cf/datos/Figures/PCA.png")
+```
+
+Thus, in **PCA** we may use: $Construct=V_1w_1+V_2w_2+V_3w_3+V_4w_4+V_5w_5$ 
+
+**Note**: There are other approaches to compute the value for the construct (e.g., linear regression). We will discuss those later in the tutorial.
+
+## Conducting Factor Analysis and PCA
+
+### Correlation among items
+As we said before, the first thing we need to do is to compute the correlation among items to see if there is an actual underlying structure to the data
+
+The function *rcorr* from the  *Hmisc* package allow us to compute these correlations from a matrix. In the following box, we first read our dataset (items in columns, and subjects in rows) and then compute the correlation among items. 
+
+We will use the sample dataset **bfi:**  "25 personality self report items taken from the International Personality Item Pool (ipip.ori.org) were included as part of the Synthetic Aperture Personality Assessment (SAPA) web based personality assessment project. The data from 2800 subjects are included here as a demonstration set for scale construction, factor analysis, and Item Response Theory analysis. Three additional demographic variables (sex, education, and age) are also included." 
+
+For more information about this dataset: https://www.personality-project.org/r/html/bfi.html
+
+For this example, we will only use 15 items, corresponding to three factors.
+
+```{r correlaciones, exercise=TRUE}
+surveyData<- bfi[,1:15]
+corResults <- rcorr(as.matrix(surveyData))
+KMO(corResults$r)
 
 ```
 
-We also import the package tibble, which helps us with the kmeans clustering method.
+### MSA
+We now use the KMO function with the correlation results to compute the measure of sampling adequacy (MSA).
 
-#### Loading the Data
+Remeber that the interpretation of this statistic is as follow:
+* MSA > 0.8 Meritorious
+* MSA > 0.7 Middling
+* MSA > 0.6 Mediocre
+* MSA > 0.5 Miserable
+* MSA < 0.5 Unacceptable.  
 
-
-We first want to load some data, so we need to tell the computer where to get it from
-
-Set the working directory to the folder where you have your files and read the file into a data frame
-
-```{r}
-#setwd('C:/Users/cvieira/Dropbox/Phd/Administrative/Mimi/FIE/2019/ScriptsAndData/data/')
-#setwd('C:/Users/cviei/Dropbox/Phd/Administrative/Mimi/FIE/2019/ScriptsAndData/data/')
-
-typesOfKnowledge <- read.csv2("https://echidna.informaticaeducativa.cf/datos/typesOfKnowledge.csv",header=TRUE,sep=",", row.names = 1)
-meltedToK <- read.csv("https://echidna.informaticaeducativa.cf/datos/meltedData.csv",header=TRUE,sep=",", row.names = 1)
-
-```
-
-### Activity 
-How are these two data frames different? Check them out
-```{r}
-head(typesOfKnowledge)
-head(meltedToK)
-
-```
-
-####Let's get to the clusters now...
-
-We need to set a seed to always get the same set of clusters for the same data
-
-And then we use kmeans function to identify four clusters in the data set.
-
-```{r}
-set.seed(1234)
-stdClusters<- kmeans(typesOfKnowledge, 4)
-stdClusters #Check out the cluster for each student
+#### Practice Activity
+```{r correlationQuiz}
+quiz(
+  question("Which of the following items should be removed for having the lowest MSA?",
+    answer("A1", correct = TRUE),
+    answer("C1"),
+    answer("E1"),
+    answer("E5")
+  )
+)
 ```
 
 
-We need to transform the matrix into a data frame to map the clusters.
+#### Practice Activity
+Remove the items with a MSA below 0.8 one by one, and compute the KMO again.
 
-The as.factor function transforms a numerical variable into a categorical variable
+**Hint:** To remove an item from a dataset, use the *minus* symbol and the number of the column.
+For instance, if you want to remove the 10th column, you would use: *surveyData[,-10]*. 
 
-```{r}
-groups<- as.data.frame(typesOfKnowledge)
+Use the appropriate column number to remove the one we do not want to include in the analysis.
 
-groups$stdClusters<- as.factor(stdClusters$cluster)
-groups <- rownames_to_column(groups, "std") #The students are as row names and we need to have them as column to merge them later
+```{r practiceKMO, exercise=TRUE}
+# Insert your code here
+
 ```
 
 
-Assign the clusters to each student in the melted format (which we will use to plot)
+### Two additional cosiderations to conduct factor analysis and PCA
 
-Make sure R recognizes the cluster as a categorical variable (it should not be a number!)
-```{r}
-meltedToK <- merge(meltedToK,groups[,c('std','stdClusters')], by.x = 'Student', by.y = 'std')
-meltedToK$stdClusters <- factor(meltedToK$stdClusters, levels=c("1", "2","3","4"))
+#### Number of Factors
+
+Factors are extracted one by one, where the first one represents the best summary of the variance; the second factor is the second best one but must be orthogonal (i.e., extracted from the remaining shared variance) to the first factor. 
+
+The eigenvalue of each factor represents the percentage of variance explained by that factor as compared to an individual item. In other words, if the eigen value of a factor is larger than 1, it means that such factor explains more than one individual item.
+
+There are different methods to identify the number of factors for our data:
+
+
+
+
+*	**Latent root criterion:** Eigenvalue larger than 1. The factor accounts for at least the variance of one variable.
+
+* **Percentage of variance**: in the social sciences, the total variance explained should be 60% or more.
+
+* **Scree test**: The scree plot compares the eigenvalues (y-values) to the number of factors (X-axis). When there is a small drop in the eigenvalues between i and i+1 factors (i.e., an elbow), we can decide to extract i factors. The plot looks like this:
+
+
+
+```{r, out.width = "400px", fig.align="center"}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/a/ac/Screeplotr.png")
+```
+**Source:** https://commons.wikimedia.org/wiki/File:Screeplotr.png
+
+
+
+#### Rotation Method
+When conducting factor analysis, we rotate the axes either orthogonally or obliquely to redistribute the remaining variance, achieving a more meaningful factor pattern.
+
+* **Some Orthogonal Rotation Methods** We use these rotation methods when the factors are correlated to each other
+    + *Quartimax*: Simplify the rows variable loads high on one factor and low on all others. Problem: tends to create a general factor with most variables with high loadings.
+    + *Varimax*: Simplify the columns, maximizes the sum of variances of required loadings. Maximizes dispersion of loadings within factors.
+
+* **Some Oblique Rotation Methods:**  We use these rotation methods when the factors are correlated to each other
+    + *Oblimin*: Standar oblique rotation method.
+    + *Promax*: useful for large datasets
+
+### Factor Analysis
+To conduct exploratory factor analysis, we can use the function *fa* from the package *psych*. Note that we can also plot how our items distribute between the dimensions that represent our factors using the function *plot.psych*
+
+Remember that we wanted to remove a few columns from the dataset. We use the following instruction to exclude the column for A1. Execute the following code and think about these things:
+
+* What is the percentage of variance explained by this model?
+
+* Are two factors enough to explain our variances?
+
+**Hint:** Here are some tips to where to look for this information.
+```{r, out.width = "400px", fig.align="center"}
+knitr::include_graphics("https://echidna.informaticaeducativa.cf/datos/Figures/resultsFactorAnalysis.png")
 ```
 
-Now we can create the plot using ggplot.
 
-Note that our X axis will have an interaction between the Types of Knowledge and the Steps of de modeling process (variable)
-```{r}
-ggplot(meltedToK, aes(x=interaction(ToK,variable),Student))+
-  geom_point(aes(size=sum, shape=stdClusters))
+```{r computeEFA, exercise=TRUE}
+
+faResults<-fa(surveyData[, -1], nfactors = 2, rotate = 'varimax' )
+faResults
+plot.psych(faResults)
+```
+#### Practice Activity 
+In the example, we used 2 factors and the rotation method varimax. In this activity you should:
+
+* Try different number of factors, check the eigenvalues, and make an informed decision about the number of factors to extract
+
+* Try different rotation methods, and see which one works best. *Hint:* The correlation among factors is only showed when we use oblique rotation methods.
+
+* Use the following funtion to create a Scree Plot and choose a number of factors
+
+> scree(corResults$r)
+
+```{r practiceEFA, exercise=TRUE}
+# Insert your code here
+
+
 ```
 
-The plot is ready, but it is better to see it organized, so we can do the following:
-  
-  1.  Get the list of students in order based on the clusters.
-2.  Use that to organize the students in the data frame
-```{r}
-students <- groups[order(groups$stdClusters),]$std
+### PCA
+Let's now conduct PCA with the same dataset. Again, we start with two factors and the varimax rotation.
 
-meltedToK$Student <- factor(meltedToK$Student, levels=students)
+Note, however, that we use the correlation results (the r matrix), instead of the original dataset.
 
-#Plot it again:
-ggplot(meltedToK, aes(x=interaction(ToK,variable),Student))+
-  geom_point(aes(size=sum, shape=stdClusters))
+```{r computePCA, exercise=TRUE}
+pc <- principal(corResults$r,2,rotate="varimax")
+print.psych(pc, cut=0.4, sort=TRUE)
+plot.psych(pc)
 ```
-### Activity 
-How differet does our data look like if we choose three or four clusters?
-  
-  Hint:modify the call to kmeans, but make sure you start the script from the beginning because our structures have been modified.)
 
-What else would you need to change? 
-  
-  
-  
-  
-  ```{r}
+#### Practice Activity 
+Complete the same activity that you did for factor analysis (changing number of factors and rotation methods.)
 
-```{r}
-
-
-
-
-```{r}
-
-```{r}
-
-
-
-
-```{r}
-
-```{r}
-
-
+Compare the results from factor analysis and principal component analysis.
