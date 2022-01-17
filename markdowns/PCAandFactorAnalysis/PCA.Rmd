@@ -1,5 +1,6 @@
 ---
 title: "Principal Component Analysis and Factor Analysis"
+author: "Camilo Vieira, Ph.D., cvieira@uninorte.edu.co"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -14,8 +15,9 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ## PCA and Factor Analysis 
+
 #### Usage-Rigts
-These materials were created for educational purposes. They are licenced under creative commonts. 
+These materials were created for educational purposes. They are licensed under creative commons. 
 
 
 ### References
@@ -79,14 +81,14 @@ While **Factor Analysisis** only considers the *shared variance*, **PCA consider
 #### Remeber
 **Factor analysis** assumes that there is a latent factor that is causing the responses to each item (variable). It includes an error term (ei) that represents the unshared variance:
 ```{r, out.width = "400px", fig.align="center"}
-knitr::include_graphics("https://echidna.informaticaeducativa.cf/datos/Figures/Factor%20Analysis.png")
+knitr::include_graphics("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/Figures/Factor%20Analysis.png")
 ```
 
 Thus, in **factor analysis** we may use: $V_i = w_i*Factor + e_i$ 
 
 **PCA** allows you to reduce the numb er of variables as a liner combination of the minimum number of factors
 ```{r, out.width = "400px", fig.align="center"}
-knitr::include_graphics("https://echidna.informaticaeducativa.cf/datos/Figures/PCA.png")
+knitr::include_graphics("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/Figures/PCA.png")
 ```
 
 Thus, in **PCA** we may use: $Construct=V_1w_1+V_2w_2+V_3w_3+V_4w_4+V_5w_5$ 
@@ -110,7 +112,6 @@ For this example, we will only use 15 items, corresponding to three factors.
 surveyData<- bfi[,1:15]
 corResults <- rcorr(as.matrix(surveyData))
 KMO(corResults$r)
-
 ```
 
 ### MSA
@@ -146,7 +147,6 @@ Use the appropriate column number to remove the one we do not want to include in
 
 ```{r practiceKMO, exercise=TRUE}
 # Insert your code here
-
 ```
 
 
@@ -200,12 +200,11 @@ Remember that we wanted to remove a few columns from the dataset. We use the fol
 
 **Hint:** Here are some tips to where to look for this information.
 ```{r, out.width = "400px", fig.align="center"}
-knitr::include_graphics("https://echidna.informaticaeducativa.cf/datos/Figures/resultsFactorAnalysis.png")
+knitr::include_graphics("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/Figures/resultsFactorAnalysis.png")
 ```
 
 
 ```{r computeEFA, exercise=TRUE}
-
 faResults<-fa(surveyData[, -1], nfactors = 2, rotate = 'varimax' )
 faResults
 plot.psych(faResults)
@@ -217,14 +216,14 @@ In the example, we used 2 factors and the rotation method varimax. In this activ
 
 * Try different rotation methods, and see which one works best. *Hint:* The correlation among factors is only showed when we use oblique rotation methods.
 
-* Use the following funtion to create a Scree Plot and choose a number of factors
+* Use the following function to create a Scree Plot and choose a number of factors
 
-> scree(corResults$r)
+ scree(corResults$r)
 
 ```{r practiceEFA, exercise=TRUE}
+
+
 # Insert your code here
-
-
 ```
 
 ### PCA
