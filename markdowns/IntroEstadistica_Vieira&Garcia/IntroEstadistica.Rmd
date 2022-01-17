@@ -17,50 +17,8 @@ datosIntroEst <- data.frame(datos$CVG,datos$Venue,datos$Author)
 desempenio <- read.csv("../../datos/desempenio.csv",header=TRUE,sep=";")
 colnames(datosIntroEst) <- c("Sala de Conferencias","Tema","Exponente")
 edades <- c(12,23,34,23,34,50,23,45,23,15,17,19)
-
-##### Sending data to informatica educativa
-
-api_url <- "https://informaticaeducativa.cf/echidnapi"
-get_api_url <- function (relative) {
-  return(paste(api_url,relative,sep=""))
-}
-r_values <- ""
-
-knitr::opts_chunk$set(echo = TRUE)
-knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {
-  if (!before && !(identical(globalenv(), envir))) {
-      url <- get_api_url("/api/v1/record/")
-    args <- list(
-      document="Vieira y Garcia",
-      q_id=options$label,
-      answer=paste(options$code, collapse='\n' ),
-      session_id=isolate(r_values$email)
-    )
-    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)
-    r <- POST(url,body = requestBody, content_type("application/json"))
-  }
-}
-)
 knitr::opts_chunk$set(send_code_data = TRUE)
 #knitr::opts_chunk$set(echo = FALSE)
-```
-
-```{r,context="data",echo=FALSE}
-r_values <- reactiveValues(sessionId_=stri_rand_strings(1, 16))
-```
-
-```{r,context="server"}
-observe({  
-  url <- getDefaultReactiveDomain()$clientData$url_search
-  email <- strsplit(url,split="=")[[1]][2]
-  r_values$email <- email
-  if (!is.na(email)){
-    url <- paste(get_api_url("/api/v1/session/"),r_values$sessionId_,sep="")
-    requestBody = paste0('{"userId":"',email,'"}')
-    r <- PUT(url,body = requestBody, content_type("application/json"))
-    r<-content(r,as="parsed")
-  }
-})
 ```
 
 #### Derechos de uso
