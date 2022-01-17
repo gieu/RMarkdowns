@@ -1,6 +1,6 @@
 ---
 title: "Unsupervised ML Algorithms"
-author: "cvieira"
+author: "Camilo Vieira, Ph.D., cvieira@uninorte.edu.co"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -10,10 +10,7 @@ library(learnr)
 library(Hmisc)
 library(ggalluvial)
 #knitr::opts_chunk$set(echo = FALSE)
-
 groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)
-
-
 computeDistance<- function(x, randomCentroids){
   dataPoint<- as.numeric(x[c(1,3)])
   distance<-c(norm(as.matrix(dataPoint-randomCentroids[1,]),"1")^2,
@@ -26,7 +23,7 @@ computeDistance<- function(x, randomCentroids){
 ## K-Means
 
 #### Usage-Rigts
-These materials were created for educational purposes. They are licensed under creative commonts. 
+These materials were created for educational purposes. They are licensed under creative commons. 
 
 ```{r, echo=FALSE}
 htmltools::includeHTML("license.html")
@@ -66,9 +63,7 @@ knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/7/7f/Mat
 Let's start by exploring the columns in the dataset. Execute the following instruction by pressing *Run*
 
 ```{r exploreHead, exercise=TRUE}
-
 iris
-
 ```
 
 We are going to be using the length and width columns to try to group similar flowers into the same species. We will only use the *Species* column to compare results.
@@ -78,7 +73,6 @@ We can start by grouping the flowers using the sepal length and the petal length
 **Question: Do you see any patterns in the plot?**
 
 ```{r explorePlot, exercise=TRUE}
-
 ggplot(iris, aes(x=Petal.Length,y=Sepal.Length))+
   geom_point()
 ```
@@ -90,7 +84,6 @@ While we know the data set contains three species of plants, let's start using t
 ```{r computeTwoKmeans, exercise=TRUE}
 # Since it starts from a random data point, we want to set a seed to obtain the same clusters every time we run it. 
 set.seed(1234)
-
 # Now we use kmeans function passing only the relevant colums, and the number of clusters k=2
 groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)
 # Explore the results
@@ -102,10 +95,8 @@ To plot the clusters, we just need to match the resulting clusters to our datase
 
 ```{r plotTwoClusters, exercise=TRUE}
 iris$group<-groups$cluster
-
 ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+
   geom_point()
-
 ```
 
 #### Did the algorithm find the same groups you had considered?
@@ -116,16 +107,10 @@ We will now run the algorithm to find three clusters, and plot the results.
 What is this algorithm doing? Write comments within the sample code to describe what each line does.
 
 ```{r computeTreKmeans, exercise=TRUE}
-
 set.seed(1234)
-
 groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 3)
-
-
 groups
-
 iris$group<-groups$cluster
-
 ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+
   geom_point()
 ```
@@ -136,7 +121,6 @@ There are now three clusters. Some of the points of the first cluster moved to t
 ```{r plotSpeciesKmeans, exercise=TRUE}
 ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(Species)))+
   geom_point()
-
 ```
 
 #### How did the algorithm did finding groups of flowers from the same species?
@@ -148,7 +132,6 @@ We can compute an indicator of performance by computing the number of flowers ap
 set.seed(1234)
 groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 3)
 groups
-
 iris$group<-groups$cluster
 ```
 
@@ -156,7 +139,6 @@ iris$group<-groups$cluster
 
 
 ```{r indicatorPerformance, exercise=TRUE, exercise.setup = "prepare-indicator"}
-
 iris$group<- factor(iris$group, levels=c(1,2,3), labels=levels(iris$Species))
 performance<- 100*sum(iris$Species==iris$group)/150
 ```
@@ -165,10 +147,6 @@ performance<- 100*sum(iris$Species==iris$group)/150
 Maybe we can improve that indicator of performace if we also include the sepal width and the petal width in the clustering procedure. Use the following box to find three clusters using all four columns (lengths anad widths). Compute and compare the indicator of performance to the one we just did. **Note:** Make sure you include comments within your code to explain how you solved it, and how your program performed.
 
 ```{r activityWidths, exercise=TRUE}
-
-
-
-
 ```
 
 ## Step-by-Step Algorithm
@@ -198,10 +176,8 @@ We start by first generating a random set of centroids. The centroids will be pl
 **Note** that we set a seed to generate the random numbers. We do that to always get the same set of random numbers. However, you can change the seed and see how the random numbers change.
 ```{r generateCentroids, exercise=TRUE}
 set.seed(123)  # Change the value of the seed and execute again to see how the inital centroid change.
-
 initialCentroids<-sample.int(150, 3) # We simply generatae three random positions to be our randomCentroids
 randomCentroids<- iris[initialCentroids,c('Sepal.Length','Petal.Length')]
-
 # Visualize the centroids
 ggplot(iris, aes(x=Petal.Length,y=Sepal.Length))+
   geom_point()+
@@ -212,16 +188,13 @@ ggplot(iris, aes(x=Petal.Length,y=Sepal.Length))+
 set.seed(123)
 initialCentroids<-sample.int(150, 3)
 randomCentroids<- iris[initialCentroids,c('Sepal.Length','Petal.Length')]
-
 # Compute the distance and find the closest centroid
 cluster<- apply(iris, 1, FUN=computeDistance, randomCentroids=randomCentroids)
 # assign the group
 iris$group<-cluster
-
 ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+
   geom_point()+
   geom_point(data = randomCentroids, col='red')
-
 ```
 
 
@@ -240,14 +213,12 @@ iris$group<-cluster
 We now want to find the new centroids. Update the variable *numIter* for a number larger than 1 so you can see how the groups change
 ```{r iterate, exercise=TRUE, exercise.setup = "prepare-iris"}
 numIter=2
-
 dataToPlot<-iris[,c('Sepal.Length','Petal.Length')]
 randomCentroids$group<--1
 randomCentroids$iteration<-0
 dataToPlot$group<-1 
 dataToPlot$iteration<-0
 dataToPlot<-rbind(dataToPlot,randomCentroids)
-
 for(i in 0:numIter) {
   # Compute the new centroids
   randomCentroids[1,]<-c(colMeans(iris[iris$group==1,c('Sepal.Length','Petal.Length')]),-1,i)
@@ -258,7 +229,6 @@ for(i in 0:numIter) {
   cluster<- apply(iris, 1, FUN=computeDistance, randomCentroids=randomCentroids[,1:2])
   iris$group<-cluster
   iris$iteration<-i
-
   dataToPlot<-rbind(dataToPlot,
                     iris[,c('Sepal.Length','Petal.Length','group','iteration')],
                     randomCentroids)
@@ -268,6 +238,4 @@ dataToPlot$group<- factor(dataToPlot$group, levels=c(-1,1,2,3), labels=c('Centro
 ggplot(dataToPlot, aes(x=Petal.Length,y=Sepal.Length, color=group))+
   geom_point()+
   facet_grid(vars(factor(iteration)))
-
-
 ```
