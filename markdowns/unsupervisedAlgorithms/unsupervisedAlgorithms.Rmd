@@ -8,7 +8,7 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE} 
 library(learnr)
 library(Hmisc)
-library(ggalluvial)
+
 #knitr::opts_chunk$set(echo = FALSE)
 groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)
 computeDistance<- function(x, randomCentroids){
