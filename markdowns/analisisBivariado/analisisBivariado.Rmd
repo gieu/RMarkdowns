@@ -9,57 +9,14 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE} 
 library(learnr)
 library(rmarkdown)
-library(ggplot2)
 library(readxl)
-library(httr)
-library(stringi)
 
 DatosDllSocial <- read_excel("../../datos/roxana_DatosDllSocial.xlsx")
 Datos_DllSocial <- read_excel("../../datos/roxana_Datos_DllSocial.xlsx")
 
-##### Sending data to informatica educativa
-
-api_url <- "https://informaticaeducativa.cf/echidnapi"
-get_api_url <- function (relative) {
-  return(paste(api_url,relative,sep=""))
-}
-r_values <- ""
-
 knitr::opts_chunk$set(echo = TRUE)
-knitr::knit_hooks$set(send_code_data = function(before,options,name,envir) {
-  if (!before && !(identical(globalenv(), envir))) {
-      url <- get_api_url("/api/v1/record/")
-    args <- list(
-      document="Analisis Roxana",
-      q_id=options$label,
-      answer=paste(options$code, collapse='\n' ),
-      session_id=isolate(r_values$email)
-    )
-    requestBody = jsonlite::toJSON(args, auto_unbox=TRUE)
-    r <- POST(url,body = requestBody, content_type("application/json"))
-  }
-}
-)
 knitr::opts_chunk$set(send_code_data = TRUE)
 #knitr::opts_chunk$set(echo = FALSE)
-```
-
-```{r,context="data",echo=FALSE}
-r_values <- reactiveValues(sessionId_=stri_rand_strings(1, 16))
-```
-
-```{r,context="server"}
-observe({  
-  url <- getDefaultReactiveDomain()$clientData$url_search
-  email <- strsplit(url,split="=")[[1]][2]
-  r_values$email <- email
-  if (!is.na(email)){
-    url <- paste(get_api_url("/api/v1/session/"),r_values$sessionId_,sep="")
-    requestBody = paste0('{"userId":"',email,'"}')
-    r <- PUT(url,body = requestBody, content_type("application/json"))
-    r<-content(r,as="parsed")
-  }
-})
 ```
 
 
