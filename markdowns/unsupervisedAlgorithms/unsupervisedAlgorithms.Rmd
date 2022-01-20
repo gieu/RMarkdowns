@@ -1,16 +1,1 @@
----
-title: "Principal Component Analysis and Factor Analysis"
-author: "Camilo Vieira, Ph.D., cvieira@uninorte.edu.co"
-output: learnr::tutorial
-runtime: shiny_prerendered
----
 
-```{r setup, include=FALSE}
-
-library(car)
-surveyData<- bfi[,1:15]
-corResults <- rcorr(as.matrix(surveyData[,-1]))
-knitr::opts_chunk$set(echo = FALSE)
-```
-
-## PCA and Factor Analysis 
