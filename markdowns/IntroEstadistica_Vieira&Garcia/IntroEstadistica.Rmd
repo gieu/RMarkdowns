@@ -7,10 +7,9 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE} 
 library(learnr)
-library(httr)
 library(rmarkdown)
 library(ggplot2)
-library(stringi)
+
 litReview <- read.csv2("../../datos/litReviewData.csv", header=TRUE, sep=";")
 datos <- read.csv2("../../datos/litReviewData.csv", header=TRUE, sep=";")
 datosIntroEst <- data.frame(datos$CVG,datos$Venue,datos$Author)
