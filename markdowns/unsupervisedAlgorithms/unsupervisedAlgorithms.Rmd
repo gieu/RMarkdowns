@@ -21,7 +21,7 @@ computeDistance<- function(x, randomCentroids){
 }
 ```
 
-## K-Means
+## K-Meas
 
 #### Usage-Rigts
 These materials were created for educational purposes. They are licensed under creative commons. 
