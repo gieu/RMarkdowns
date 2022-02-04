@@ -235,6 +235,9 @@ performance&lt;- 100*sum(iris$Species==iris$group)/150</code></pre>
 <div id="section-step-by-step-algorithm" class="section level2">
 <h2>Step-by-Step Algorithm</h2>
 <p>As we discussed in the previos section, we would like to minimize the within-cluster variation (i.e, when the data points are closest to their centroid). This variation for each cluster <span class="math inline">\(C_j\)</span> is defined by the following equation:</p>
+<div align="center">
+<p><span class="math inline">\(W(C_j)=\sum_{x_i \in C_j} (x_i-\mu_j)^2\)</span></p>
+</div>
 <div id="section-the-first-set-of-centroids" class="section level4">
 <h4>THe first set of centroids</h4>
 <p>We start by first generating a random set of centroids. The centroids will be plotted in red.</p>
