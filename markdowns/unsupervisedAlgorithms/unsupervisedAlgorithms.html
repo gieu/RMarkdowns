@@ -238,9 +238,8 @@ performance&lt;- 100*sum(iris$Species==iris$group)/150</code></pre>
 <div align="center">
 <p><span class="math inline">\(W(C_j)=\sum_{x_i \in C_j} (x_i-\mu_j)^2\)</span></p>
 </div>
-<div align="center">
-<p><span class="math inline">\(TotalWithinCluster=\sum_{j=1}^{j=k} W(C_k)=\sum_{j=1}^{j=k}\sum_{x_i \in C_k} (x_i-\mu_k)^2\)</span></p>
-</div>
+<p>Where <span class="math inline">\(x_i\)</span> is a data point in the cluster <span class="math inline">\(C_j\)</span>, and <span class="math inline">\(\mu_j\)</span> is the mean value (centroid) of a cluster <span class="math inline">\(C_j\)</span>.</p>
+<p>The total within-cluster variation, which is minimized in the algorithm, is then the sum of all the within-cluster variations:</p>
 <div id="section-the-first-set-of-centroids" class="section level4">
 <h4>THe first set of centroids</h4>
 <p>We start by first generating a random set of centroids. The centroids will be plotted in red.</p>
