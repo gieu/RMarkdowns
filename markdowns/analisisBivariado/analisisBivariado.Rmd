@@ -1,6 +1,6 @@
 ---
 title: "Analisis Bivariado"
-author: "Roxana Quintero"
+author: "Roxana Quintero M"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
