@@ -23,7 +23,7 @@ const Section = ({url, name, func}) => {
     <div href={url} onClick={() => func()}>
       <section className="section">
         <img src={r_lang} className="r_langlogo" alt=" programming languague logo's" />
-        <h3>{name}</h3>
+        <h4>{name}</h4>
         <div className="back_button">
           <FontAwesomeIcon className="backlogo" icon={faArrowCircleRight} />
         </div>
@@ -93,7 +93,9 @@ const App = () => {
       }
       <div id="title">
         <figure>
+          <a href="/">
           <img src={logo} id="title_img" alt="Informatica Educativa Logo" />
+          </a>
         </figure>
         Markdowns
       </div>

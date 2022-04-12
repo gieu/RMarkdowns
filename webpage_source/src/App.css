@@ -15,7 +15,7 @@ body {
   font-family: "Gotham";
   scroll-behavior: smooth;
 
-  width: 100%;
+  width: 100vw;
 
 }
 
@@ -37,7 +37,7 @@ body {
 .modal_input {
   background-color: white;
   padding:10px 20px;
-  border-radius: 20px;
+  border-radius: 5px;
   border: 1px solid #CCCCCC;
 }
 
@@ -51,10 +51,7 @@ body {
   cursor: pointer;
 }
 
-html {
-  width: 99%;
-  height: 97%;
-}
+
 
 #title {
   display: flex;
@@ -65,29 +62,33 @@ html {
   font-weight: bold;
 }
 
+#root{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
 #content {
-  margin: 0px 15%;
-  display: grid;
-  justify-items: center;
-  align-self: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  row-gap: 20px;
-  column-gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 70vw;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .section {
   
-  border: 1px solid #939393;
+  border: 1px solid #F0F0DF;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
   
-  width: 350px;
-  height: 150px;
+  width: 20vw;
+  height: 20vh;
+  margin: 10px;
   text-align: center;
   padding: 7px;
-  gap: 20px;
   cursor: pointer;
   align-items: center;
   position: relative;
@@ -112,4 +113,26 @@ a{
 }
 .backlogo{
   font-size: 20px;
+}
+
+
+@media (max-width: 750px) {
+  #content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 90vw;
+    flex-direction: column;
+    flex-wrap: single;
+  }
+
+  .section{
+    width: 65vw;
+  }
+
+  .back_button{
+    
+    left: 5%;
+    top: 80%;
+  }
 }
