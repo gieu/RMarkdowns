@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.8ede8899.chunk.css",
-    "main.js": "/static/js/main.e2f33511.chunk.js",
-    "main.js.map": "/static/js/main.e2f33511.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.767d9953.js",
-    "runtime-main.js.map": "/static/js/runtime-main.767d9953.js.map",
-    "static/css/2.dfa6656c.chunk.css": "/static/css/2.dfa6656c.chunk.css",
-    "static/js/2.7bcd6b8f.chunk.js": "/static/js/2.7bcd6b8f.chunk.js",
-    "static/js/2.7bcd6b8f.chunk.js.map": "/static/js/2.7bcd6b8f.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/2.dfa6656c.chunk.css.map": "/static/css/2.dfa6656c.chunk.css.map",
-    "static/css/main.8ede8899.chunk.css.map": "/static/css/main.8ede8899.chunk.css.map",
-    "static/js/2.7bcd6b8f.chunk.js.LICENSE.txt": "/static/js/2.7bcd6b8f.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/static/media/GothamMedium.0a910c0b.ttf",
-    "static/media/r_lang.c61d5f9e.png": "/static/media/r_lang.c61d5f9e.png"
+    "main.css": "/shiny/static/css/main.482b8259.chunk.css",
+    "main.js": "/shiny/static/js/main.d6ddcc48.chunk.js",
+    "main.js.map": "/shiny/static/js/main.d6ddcc48.chunk.js.map",
+    "runtime-main.js": "/shiny/static/js/runtime-main.417a746f.js",
+    "runtime-main.js.map": "/shiny/static/js/runtime-main.417a746f.js.map",
+    "static/css/2.dfa6656c.chunk.css": "/shiny/static/css/2.dfa6656c.chunk.css",
+    "static/js/2.ec855607.chunk.js": "/shiny/static/js/2.ec855607.chunk.js",
+    "static/js/2.ec855607.chunk.js.map": "/shiny/static/js/2.ec855607.chunk.js.map",
+    "index.html": "/shiny/index.html",
+    "static/css/2.dfa6656c.chunk.css.map": "/shiny/static/css/2.dfa6656c.chunk.css.map",
+    "static/css/main.482b8259.chunk.css.map": "/shiny/static/css/main.482b8259.chunk.css.map",
+    "static/js/2.ec855607.chunk.js.LICENSE.txt": "/shiny/static/js/2.ec855607.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/shiny/static/media/GothamMedium.0a910c0b.ttf",
+    "static/media/r_lang.c61d5f9e.png": "/shiny/static/media/r_lang.c61d5f9e.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.767d9953.js",
+    "static/js/runtime-main.417a746f.js",
     "static/css/2.dfa6656c.chunk.css",
-    "static/js/2.7bcd6b8f.chunk.js",
-    "static/css/main.8ede8899.chunk.css",
-    "static/js/main.e2f33511.chunk.js"
+    "static/js/2.ec855607.chunk.js",
+    "static/css/main.482b8259.chunk.css",
+    "static/js/main.d6ddcc48.chunk.js"
   ]
 }
