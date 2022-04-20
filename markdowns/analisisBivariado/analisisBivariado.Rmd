@@ -31,7 +31,7 @@ El análisis de datos bivariado es una forma de análisis estadístico en el cua
 ### **1. Asociación de variables categóricas**
 
 En este caso, el análisis se basa en tablas de contingencia, por esto el estadístico que se utiliza tienen una definición diferente. El estadístico utilizado es Chi cuadrado y resume que tan alejados está el conteo de cada casilla de la tabla de contingencias al conteo esperado según la hipótesis nula.
-La letra griega x se pronuncia chi o ji en español, por eso se le llama a esta distribución chi cuadrado
+Se representa con la letra griega x se pronuncia chi o ji en español, por eso se le llama a esta distribución chi cuadrado.
 
 #### **Supuestos y distribución muestral**
 
@@ -224,7 +224,7 @@ Ahora se requiere determinar si existe una relación entre el promedio acumulado
 Sigue la guía anterior y realiza el análisis. Una vez lleves a cabo el ejercicio deberás agregar a modo de comentario la decisión y conclusión de acuerdo con los resultados obtenido, recuerda que: 
 
 **1.** No solo debes incluir los comandos, siempre que se realiza un análisis debes empezar a revisar el cumplimiento de los supuestos.
-**2.** En caso de asumir la distribución normal debe quedar expresado.
+**2.** En caso de asumir la distribución normal debe quedar expresado, para este caso si no se cumple igual deberás realizar el ejercicios haciendo la observación.
 **3.** Detalla tus hipotesis de trabajo.
 **4.** Analiza e interpreta los resultados.
 
@@ -240,7 +240,7 @@ Sigue la guía anterior y realiza el análisis. Una vez lleves a cabo el ejercic
 ### **1. Asociación de variables categóricas**
 
 En este caso, el análisis se basa en tablas de contingencia, por esto el estadístico que se utiliza tienen una definición diferente. El estadístico utilizado es Chi cuadrado y resume que tan alejados está el conteo de cada casilla de la tabla de contingencias al conteo esperado según la hipótesis nula.
-La letra griega x se pronuncia chi o ji en español, por eso se le llama a esta distribución chi cuadrado
+Se representa con la letra griega x se pronuncia chi o ji en español, por eso se le llama a esta distribución chi cuadrado
 
 #### **Supuestos y distribución muestral**
 
@@ -361,7 +361,7 @@ Con los resultados obtenidos podemos verificar que no se puede asumir normalidad
 
 #### **Ahora hazlo tú**
 Para el siguiente ejercicio se debe seleccionar dos variables categóricas de la base de datos. Una vez las elijas el paso a seguir es plantear las hipótesis de trabajo.
-Nota: como recomendación al momento de realizar un ejercicio práctico puedes colocar tus anotaciones con el signo “#” así puedes tenerlos junto con el análisis realizado.
+**Nota:** como recomendación al momento de realizar un ejercicio práctico puedes colocar tus anotaciones con el signo “#” así puedes tenerlos junto con el análisis realizado.
 Una vez realices el análisis deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos.
 
 ```{r diy2,exercise=TRUE, echo=TRUE}
@@ -450,7 +450,8 @@ Ejemplo: “cor.test(NombreDelArchivo\$Variable1, NombreDelArchivo\$Variable2)"
 Sigue la guía anterior y realiza el análisis. Una vez realices el ejercicio deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos, recuerda que: 
 
 **1.** No solo debes incluir los comandos, siempre que se realiza un análisis debes empezar a revisar el cumplimiento de los supuestos,
-**2.** En caso de asumir la distribución normal debe quedar expresado
+**2.** En caso de asumir la distribución normal debe quedar expresado, para este caso si no se cumple igual deberás realizar el ejercicios haciendo la observación.
+**3.** Detalla tus hipotesis de trabajo.
 **3.** Detalla tus hipotesis de trabajo
 **4.** Analiza e interpreta los resultados
 
