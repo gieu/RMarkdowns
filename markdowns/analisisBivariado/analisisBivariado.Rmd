@@ -176,14 +176,14 @@ Es un valor de t con n – 2 grados de libertad que se traduce a su p-valor corr
 
 **Donde:**
 
-- Género es la variable del género con el que se identifican los estudiantes y cuenta con las opciones F como femenino y M como masculino.
+- Género es la variable en la que los estudiantes señalan el género con el que se identifican y cuenta con las opciones F como femenino y M como masculino.
 - Cambio de carrera cuenta con opciones “Sí” y “No” 
 - Estado académico cuenta con las categorías “Estudiante distinguido”, “Normal”, “Periodo de prueba”, “Fuera de programa”, “En período de recuperación”.
 - Cultura General pretest es la variable del puntaje obtenido en la evaluación que respondieron al principio del semestre, los valores van de 0 a 100.
 - Cultura General postest es la variable del puntaje obtenido en la evaluación que respondieron al final del semestre, los valores van de 0 a 100.
 - Promedio acumulado describe el promedio acumulado de los estudiantes, que puede tener valores del 1 a 5.
 
-#### **Ejercicio**
+#### **Ejercicio 1**
 Se requiere determinar si existe una relación entre el promedio acumulado y el puntaje obtenido en el pretest de Cultura General.
 
 ##### **Condiciones (supuestos) y distribución muestral**
@@ -216,6 +216,23 @@ Como se rechaza la hiótesis nula:
 
 Hay correlación entre las variables del puntaje obtenido en el la prueba de Cultura General y el promedio acumulado de los estudiantes. 
 
+
+**Ejercicio 2**
+
+Ahora se requiere determinar si existe una relación entre el promedio acumulado y el puntaje obtenido en el postest de Cultura General.
+
+Sigue la guía anterior y realiza el análisis. Una vez lleves a cabo el ejercicio deberás agregar a modo de comentario la decisión y conclusión de acuerdo con los resultados obtenido, recuerda que: 
+
+**1.** No solo debes incluir los comandos, siempre que se realiza un análisis debes empezar a revisar el cumplimiento de los supuestos.
+**2.** En caso de asumir la distribución normal debe quedar expresado.
+**3.** Detalla tus hipotesis de trabajo.
+**4.** Analiza e interpreta los resultados.
+
+
+```{r diy4, exercise=TRUE,echo=TRUE}
+
+
+```
 
 
 ## **Material 2**
@@ -430,7 +447,12 @@ Para realizar el análisis se debe utilizar el comando “cor.test” acompañad
 
 Ejemplo: “cor.test(NombreDelArchivo\$Variable1, NombreDelArchivo\$Variable2)"
 
-Sigue la guía anterior y realiza el análisis. Una vez realices el ejercicio deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos.
+Sigue la guía anterior y realiza el análisis. Una vez realices el ejercicio deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos, recuerda que: 
+
+**1.** No solo debes incluir los comandos, siempre que se realiza un análisis debes empezar a revisar el cumplimiento de los supuestos,
+**2.** En caso de asumir la distribución normal debe quedar expresado
+**3.** Detalla tus hipotesis de trabajo
+**4.** Analiza e interpreta los resultados
 
 ```{r diy3, exercise=TRUE,echo=TRUE}
 
