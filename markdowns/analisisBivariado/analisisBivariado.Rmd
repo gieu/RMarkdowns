@@ -24,7 +24,7 @@ knitr::opts_chunk$set(send_code_data = TRUE)
 
 # **Análisis Bivariado**
 
-El análisis de datos bivariado es una forma evolucionada de análisis estadístico en el cual se cuantifica a nivel descriptivo e inferencial el nivel de covarianza entre dos variables y de esta forma se da cuenta de la relación entre dos variables. La cuantificación de la covarianza consiste en la construcción de coeficientes que permitan integrar en un valor estimado, información con respecto a la varianza conjunta entre dos variables y tiene como objetivo fundamental definir la magnitud y el sentido de la relación entre las variables. De este modo, el análisis conjunto de las varianzas de dos variables (regularmente definidas como X y Y) permite identificar la relación empírica entre éstas, entendiendo por relación el ajuste de los datos a una función lineal estocástica subyacente.
+El análisis de datos bivariado es una forma de análisis estadístico en el cual se cuantifica a nivel descriptivo e inferencial el nivel de covarianza entre dos variables y de esta forma se da cuenta de la relación entre dos variables. La cuantificación de la covarianza consiste en la construcción de coeficientes que permitan integrar en un valor estimado, información con respecto a la varianza conjunta entre dos variables y tiene como objetivo fundamental definir la magnitud y el sentido de la relación entre las variables. De este modo, el análisis conjunto de las varianzas de dos variables (regularmente definidas como X y Y) permite identificar la relación empírica entre éstas, entendiendo por relación el ajuste de los datos a una función estadísticas subyacente.
 
 ## **Material 1**
 
@@ -54,7 +54,7 @@ Es un valor de $x^2$ con (f-1)*(c-1) grados de libertad que se traduce a su p-va
 - Si el p-valor es mayor o igual que el nivel de significancia establecido, no se rechaza la hipótesis nula.
 - Si no se rechaza la hipótesis nula: “No hay una asociación significativa entre las variables”.
 
-#### **Instructivo R**
+#### **Ejemplo:**
 
 
 **Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una prueba de Cultura General, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
@@ -163,7 +163,7 @@ Es un valor de t con n – 2 grados de libertad que se traduce a su p-valor corr
 - Si se rechaza la hipótesis nula: “Hay una correlación estadísticamente significativa entre las variables”.
 - Si no se rechaza la hipótesis nula: “No hay una correlación estadísticamente significativa entre las variables”.
 
-### **Instructivo R**
+### **Ejemplo:**
 
 **Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una evaluación de cultura general, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
 
@@ -220,7 +220,10 @@ Hay correlación entre las variables del puntaje obtenido en el la prueba de Cul
 
 ## **Material 2**
 
-### **1. Asociación de variables categóricas**s
+### **1. Asociación de variables categóricas**
+
+En este caso, el análisis se basa en tablas de contingencia, por esto el estadístico que se utiliza tienen una definición diferente. El estadístico utilizado es Chi cuadrado y resume que tan alejados está el conteo de cada casilla de la tabla de contingencias al conteo esperado según la hipótesis nula.
+La letra griega x se pronuncia chi o ji en español, por eso se le llama a esta distribución chi cuadrado
 
 #### **Supuestos y distribución muestral**
 
@@ -244,7 +247,7 @@ Es un valor de $x^2$ con (f-1)*(c-1) grados de libertad que se traduce a su p-va
 - Si el p-valor es mayor o igual que el nivel de significancia establecido, no se rechaza la hipótesis nula.
 - Si no se rechaza la hipótesis nula: “No hay una asociación significativa entre las variables”.
 
-### **Instructivo R**
+### **Ejemplo:**
 **Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una prueba de Cultura General, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
 
 - Género (“Genero”)
@@ -382,7 +385,7 @@ Es un valor de t con n – 2 grados de libertad que se traduce a su p-valor corr
 - Si no se rechaza la hipótesis nula: “No hay una correlación estadísticamente significativa entre las variables”.
     
     
-### **Instructivo R**
+### **Ejemplo:**
 
 **Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una evaluación de cultura general, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
 
