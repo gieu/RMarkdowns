@@ -13,11 +13,11 @@ library(ggdendro)
 library(tibble)
 
 knitr::opts_chunk$set(echo = FALSE)
-desempenio <- read.csv("https://vieiradata.s3.us-east-2.amazonaws.com/desempenio.csv",header=TRUE,sep=";")
-litReview <- read.csv2("https://vieiradata.s3.us-east-2.amazonaws.com/litReviewData.csv", header=TRUE, sep=";")
-heatM <- read.csv("https://vieiradata.s3.us-east-2.amazonaws.com/twoSampleSections.csv",header=TRUE,sep=",")
-typesOfKnowledge <- read.csv("https://vieiradata.s3.us-east-2.amazonaws.com/typesOfKnowledge.csv",header=TRUE,sep=",")
-meltedToK <- read.csv("https://vieiradata.s3.us-east-2.amazonaws.com/meltedData.csv",header=TRUE,sep=",")
+desempenio <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/desempenio.csv",header=TRUE,sep=";")
+litReview <- read.csv2("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/litReviewData.csv", header=TRUE, sep=";")
+heatM <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/twoSampleSections.csv",header=TRUE,sep=",")
+typesOfKnowledge <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/typesOfKnowledge.csv",header=TRUE,sep=",")
+meltedToK <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/meltedData.csv",header=TRUE,sep=",")
 
 aggregateKnowSubType <- function(heatM, sectionNumber){
   # Categories for each type of knowledge
@@ -463,7 +463,7 @@ We now want to load some data and our data is stored in a server.
 
 # The data is stored in a variable called litReview
 
-litReview <- read.csv2("https://vieiradata.s3.us-east-2.amazonaws.com/litReviewData.csv", header=TRUE, sep=";")
+litReview <- read.csv2("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/litReviewData.csv", header=TRUE, sep=";")
 ```
 
 ### Activity
@@ -680,7 +680,7 @@ We are going to first read some sample data to work on the visualizations and cl
 
 ```{r loadHeatMap, exercise=TRUE}
 
-heatM <- read.csv("https://vieiradata.s3.us-east-2.amazonaws.com/twoSampleSections.csv",header=TRUE,sep=",") 
+heatM <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/twoSampleSections.csv",header=TRUE,sep=",") 
 heatM
 
 ```
@@ -838,8 +838,8 @@ As usual, we first want to load some data, so we need to tell the computer where
 
 
 ```{r loadHeatMapToK, exercise=TRUE}
-typesOfKnowledge <- read.csv("https://vieiradata.s3.us-east-2.amazonaws.com/typesOfKnowledge.csv",header=TRUE,sep=",")
-meltedToK <- read.csv("https://vieiradata.s3.us-east-2.amazonaws.com/meltedData.csv",header=TRUE,sep=",")
+typesOfKnowledge <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/typesOfKnowledge.csv",header=TRUE,sep=",")
+meltedToK <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/meltedData.csv",header=TRUE,sep=",")
 
 ```
 
