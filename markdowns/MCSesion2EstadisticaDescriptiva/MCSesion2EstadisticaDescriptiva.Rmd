@@ -6,6 +6,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(msm)
 knitr::opts_chunk$set(echo = FALSE)
 desempenio <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/desempenio.csv",header=TRUE,sep=";")
 
@@ -69,12 +70,69 @@ En la siguiente ventana de c&oacute;digo, crea un historama para los valores del
 hist(desempenio$LearningPre)
 ```
 
+### Cambios en la desviación estándar a medida que aumenta el tamaño de la muestra
+Como hemos discutido, la desviación estándar representa qué tanto varían mis datos. 
+Para esto, se calcula un promedio, el promedio de la distancia entre cada dato y la media. 
+Para esto, se utiliza la siguiente fórmula:
+
+<div align=center>
+$s=\sum_i{\sqrt{\frac{(x_i - \bar{X})^{2}}{N-1}}}=\sqrt{\frac{((x_0 - \bar{X})^{2}+(x_1 - \bar{X})^{2}+...(x_n - \bar{X})^{2})}{N-1}}$ 
+</div>
+
+
+
+¿Qué pasará entonces si el tamaño de la muestra (N) aumenta mucho?
+
+Veamos... En el siguiente bloque encontrarás un conjunto de 10 datos que representa las notas de un grupo de estudiantes en un curso. 
+A este conjunto de datos le calculamos la media y la desviación estándar. 
+
+Duplica varias veces la cantidad de datos manteniendote en el rango de notas (0-5), y observa qué ocurre con la desviación estándar
+
+
+```{r sdN, exercise=TRUE}
+notas<- c(1,5,4,4,3,2,3,2,1,0)
+mean(notas)
+sd(notas)
+```
+
+### Distribución, Media y Desviación Estándar
+Vamos a crear un conjunto de datos aleatorios que representen el desempeño de estudiantes. Utilizaremos la función rtnorm que me da un conjunto de datos que siguen la distribución normal. 
+
+Luego de esto, crearemos el histograma con la función hist y verificaremos el valor de la media y desviación estándar
+```{r sdDistri, exercise=TRUE}
+
+# Generamos los datos aleatorios, pero asegurándonos que tengan una media (mean) y
+# una desviación estándar (SD) que nosotros definimos. Por ejemplo: mean=2.5 y SD=0.5
+# También definimos los límites inferior y superior.
+y <- rtnorm(100, mean=2.5, sd=0.5, lower=0, upper=5)
+
+#Veamos nuestros datos 
+y
+
+# Ahora veamos como se ve el histograma
+hist(y, col ='red', xlab='Rango Datos', main='Histograma', xlim=c(0, 5))
+
+
+#Verifiquemos los valores de mean y SD
+mean(y)
+sd(y)
+
+```
+
+#### Actividad
+Vuelve al bloque anterior, y modifica la media a los siguientes valores (uno a la vez): 0.5, 1, 1.5, 4, 4.5, 5. 
+
+- Explica: ¿Cómo cambia la distribución de los datos?
+
+Ahora vuelve a usar la media de 2.5, y modifica la desviación estándar a los siguientes valores (uno a la vez): 0.1, 0.3, 0.5, 1, 2, 3.
+
+- Explica:  ¿Cómo cambia la distribución de los datos? ¿Qué implicaciones podría tener esto para calcular la probabilidad de  que la nota sea mayor que 0.5?
 
 ### Hablemos de Distribuciones Muestrales...
 Ya sabes cómo cargar los datos y ver un histograma. En el siguiente ejemplo, veremos c&oacute;mo podemos tomar una muestra de un conjunto grande de
 datos, y hacer un histograma de esta muestra. Dicha actividad la podemos repetir muchas veces y ver c&oacute;mo se distribuyen los datos de cada muestra.
 
-Modifica el programa para generar m&aacute;s muestras y muestras m&aacute;s grandes. C&oacute;mo se distribuyen los datos de cada muestra?
+Modifica el programa para generar m&aacute;s muestras y muestras m&aacute;s grandes. ¿ Cómo se distribuyen los datos de cada muestra?
 
 ```{r ctl, exercise=TRUE}
 
@@ -147,6 +205,7 @@ sd(desempenio$LearningPre) # Desv. Est.
 * Modifica el c&oacute;digo anterior para calcular las medidas de tendencia central y variabilidad para el posttest.
 
 * Calcula estas medidas tambi&eacute;n para tus datos
+
 ```{r activdidadMedidas, exercise=TRUE}
 
 ```
