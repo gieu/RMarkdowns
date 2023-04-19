@@ -119,6 +119,7 @@ método kmeans</p></li>
 <li><p>Crear gráficos simples para representar los grupos en un conjunto
 de datos</p></li>
 </ul>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 <div id="section-k-means" class="section level2">
 <h2>K-Means</h2>
 <p>K-means es un algoritmo de aprendizaje automático no supervisado que
@@ -167,12 +168,12 @@ la longitud del pétalo, y ver cómo le va. Para comenzar a explorar los
 datos, podemos crear un diagrama de dispersión donde el eje x es la
 longitud del pétalo, mientras que el eje y es la longitud del
 sépalo.</p>
-<strong>Pregunta: ¿ves algún patrón en la gráfica? (responde en el
-formulario)</strong>
+<p><strong>Pregunta: ¿ves algún patrón en la gráfica? (responde en el
+formulario)</strong></p>
 <div class="tutorial-exercise" data-label="explorePlot"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
-<pre class="text"><code>ggplot(iris, aes(x=Petal.Length,y=Sepal.Length))+
+<pre class="text"><code>ggplot(iris, aes(x = Petal.Length,y=Sepal.Length))+
   geom_point()</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
@@ -189,7 +190,7 @@ data-lines="0">
 set.seed(1234)
 
 # Ahora usamos la función kmeans pasando solo las columnas relevantes y el número de grupos deseado (k = 2)
-groups&lt;- kmeans(iris[,c(&#39;Sepal.Length&#39;,&#39;Petal.Length&#39;)], 2)
+groups &lt;- kmeans(iris[,c(&quot;Sepal.Length&quot;,&quot;Petal.Length&quot;)], 2)
 
 # Exploramos los resultados
 groups</code></pre>
@@ -206,6 +207,7 @@ pertenecen a cada grupo.</p>
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
 <pre class="text"><code>iris$group&lt;-groups$cluster
+
 ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+
   geom_point()</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -230,7 +232,7 @@ data-lines="0">
 <pre class="text"><code># Recuerda que así se agregan los comentarios
 set.seed(1234)
 
-groups&lt;- kmeans(iris[,c(&#39;Sepal.Length&#39;,&#39;Petal.Length&#39;)], 3)
+groups&lt;- kmeans(iris[,c(&quot;Sepal.Length&quot;,&quot;Petal.Length&quot;)], 3)
 
 groups
 
@@ -281,11 +283,13 @@ data-lines="0">
 </div>
 <p>
 <script type="application/shiny-prerendered" data-context="server-start">
+
 library(learnr)
 library(Hmisc)
 library(ggalluvial)
-#knitr::opts_chunk$set(echo = FALSE)
-groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)
+iris
+groups <- kmeans(iris[,c("Sepal.Length","Petal.Length")], 2)
+
 computeDistance<- function(x, randomCentroids){
   dataPoint<- as.numeric(x[c(1,3)])
   distance<-c(norm(as.matrix(dataPoint-randomCentroids[1,]),"1")^2,
@@ -293,6 +297,7 @@ computeDistance<- function(x, randomCentroids){
               norm(as.matrix(dataPoint-randomCentroids[3,]),"1")^2)
   which.min(distance)
 }
+
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -324,22 +329,23 @@ output$`tutorial-exercise-exploreHead-output` <- renderUI({
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(label = "exploreHead", global_setup = structure(c("library(learnr)", 
-"library(Hmisc)", "library(ggalluvial)", "#knitr::opts_chunk$set(echo = FALSE)", 
-"groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)", 
-"computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
+learnr:::store_exercise_cache(structure(list(label = "exploreHead", global_setup = structure(c("", 
+"library(learnr)", "library(Hmisc)", "library(ggalluvial)", "iris", 
+"groups <- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 2)", 
+"", "computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
 "  distance<-c(norm(as.matrix(dataPoint-randomCentroids[1,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[2,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[3,]),\"1\")^2)", 
-"  which.min(distance)", "}"), chunk_opts = list(label = "setup", 
+"  which.min(distance)", "}", ""), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "exploreHead", 
-    code = "iris", opts = list(label = "\"exploreHead\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = NULL, tests = NULL, options = list(eval = FALSE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "KMeans_cache/html/", cache.vars = NULL, 
+    code = "\niris\n", opts = list(label = "\"exploreHead\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = NULL, tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "KMeans_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
         fig.align = "default", fig.path = "KMeans_files/figure-html/", 
@@ -352,7 +358,7 @@ learnr:::store_exercise_cache(structure(list(label = "exploreHead", global_setup
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "exploreHead", exercise = TRUE, 
-        code = "iris", out.width.px = 624, out.height.px = 384, 
+        code = c("", "iris", ""), out.width.px = 624, out.height.px = 384, 
         params.src = "exploreHead, exercise=TRUE", fig.num = 0, 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -368,16 +374,16 @@ output$`tutorial-exercise-explorePlot-output` <- renderUI({
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(label = "explorePlot", global_setup = structure(c("library(learnr)", 
-"library(Hmisc)", "library(ggalluvial)", "#knitr::opts_chunk$set(echo = FALSE)", 
-"groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)", 
-"computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
+learnr:::store_exercise_cache(structure(list(label = "explorePlot", global_setup = structure(c("", 
+"library(learnr)", "library(Hmisc)", "library(ggalluvial)", "iris", 
+"groups <- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 2)", 
+"", "computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
 "  distance<-c(norm(as.matrix(dataPoint-randomCentroids[1,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[2,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[3,]),\"1\")^2)", 
-"  which.min(distance)", "}"), chunk_opts = list(label = "setup", 
+"  which.min(distance)", "}", ""), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "explorePlot", 
-    code = "ggplot(iris, aes(x=Petal.Length,y=Sepal.Length))+\n  geom_point()", 
+    code = "\nggplot(iris, aes(x = Petal.Length,y=Sepal.Length))+\n  geom_point()\n", 
     opts = list(label = "\"explorePlot\"", exercise = "TRUE"), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
     solution = NULL, tests = NULL, options = list(eval = FALSE, 
@@ -397,8 +403,8 @@ learnr:::store_exercise_cache(structure(list(label = "explorePlot", global_setup
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "explorePlot", exercise = TRUE, 
-        code = c("ggplot(iris, aes(x=Petal.Length,y=Sepal.Length))+", 
-        "  geom_point()"), out.width.px = 624, out.height.px = 384, 
+        code = c("", "ggplot(iris, aes(x = Petal.Length,y=Sepal.Length))+", 
+        "  geom_point()", ""), out.width.px = 624, out.height.px = 384, 
         params.src = "explorePlot, exercise=TRUE", fig.num = 0, 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -414,16 +420,16 @@ output$`tutorial-exercise-computeTwoKmeans-output` <- renderUI({
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(label = "computeTwoKmeans", global_setup = structure(c("library(learnr)", 
-"library(Hmisc)", "library(ggalluvial)", "#knitr::opts_chunk$set(echo = FALSE)", 
-"groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)", 
-"computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
+learnr:::store_exercise_cache(structure(list(label = "computeTwoKmeans", global_setup = structure(c("", 
+"library(learnr)", "library(Hmisc)", "library(ggalluvial)", "iris", 
+"groups <- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 2)", 
+"", "computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
 "  distance<-c(norm(as.matrix(dataPoint-randomCentroids[1,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[2,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[3,]),\"1\")^2)", 
-"  which.min(distance)", "}"), chunk_opts = list(label = "setup", 
+"  which.min(distance)", "}", ""), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "computeTwoKmeans", 
-    code = "# Dado que comienza desde un punto de datos aleatorio, queremos establecer una \"semilla\" para obtener siempre los mismos resultados\nset.seed(1234)\n\n# Ahora usamos la función kmeans pasando solo las columnas relevantes y el número de grupos deseado (k = 2)\ngroups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)\n\n# Exploramos los resultados\ngroups", 
+    code = "\n# Dado que comienza desde un punto de datos aleatorio, queremos establecer una \"semilla\" para obtener siempre los mismos resultados\nset.seed(1234)\n\n# Ahora usamos la función kmeans pasando solo las columnas relevantes y el número de grupos deseado (k = 2)\ngroups <- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 2)\n\n# Exploramos los resultados\ngroups\n", 
     opts = list(label = "\"computeTwoKmeans\"", exercise = "TRUE"), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
     solution = NULL, tests = NULL, options = list(eval = FALSE, 
@@ -443,10 +449,10 @@ learnr:::store_exercise_cache(structure(list(label = "computeTwoKmeans", global_
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "computeTwoKmeans", exercise = TRUE, 
-        code = c("# Dado que comienza desde un punto de datos aleatorio, queremos establecer una \"semilla\" para obtener siempre los mismos resultados", 
+        code = c("", "# Dado que comienza desde un punto de datos aleatorio, queremos establecer una \"semilla\" para obtener siempre los mismos resultados", 
         "set.seed(1234)", "", "# Ahora usamos la función kmeans pasando solo las columnas relevantes y el número de grupos deseado (k = 2)", 
-        "groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)", 
-        "", "# Exploramos los resultados", "groups"), out.width.px = 624, 
+        "groups <- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 2)", 
+        "", "# Exploramos los resultados", "groups", ""), out.width.px = 624, 
         out.height.px = 384, params.src = "computeTwoKmeans, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -462,16 +468,16 @@ output$`tutorial-exercise-plotTwoClusters-output` <- renderUI({
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(label = "plotTwoClusters", global_setup = structure(c("library(learnr)", 
-"library(Hmisc)", "library(ggalluvial)", "#knitr::opts_chunk$set(echo = FALSE)", 
-"groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)", 
-"computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
+learnr:::store_exercise_cache(structure(list(label = "plotTwoClusters", global_setup = structure(c("", 
+"library(learnr)", "library(Hmisc)", "library(ggalluvial)", "iris", 
+"groups <- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 2)", 
+"", "computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
 "  distance<-c(norm(as.matrix(dataPoint-randomCentroids[1,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[2,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[3,]),\"1\")^2)", 
-"  which.min(distance)", "}"), chunk_opts = list(label = "setup", 
+"  which.min(distance)", "}", ""), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "plotTwoClusters", 
-    code = "iris$group<-groups$cluster\nggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+\n  geom_point()", 
+    code = "\niris$group<-groups$cluster\n\nggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+\n  geom_point()\n", 
     opts = list(label = "\"plotTwoClusters\"", exercise = "TRUE"), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
     solution = NULL, tests = NULL, options = list(eval = FALSE, 
@@ -491,8 +497,8 @@ learnr:::store_exercise_cache(structure(list(label = "plotTwoClusters", global_s
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "plotTwoClusters", exercise = TRUE, 
-        code = c("iris$group<-groups$cluster", "ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+", 
-        "  geom_point()"), out.width.px = 624, out.height.px = 384, 
+        code = c("", "iris$group<-groups$cluster", "", "ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+", 
+        "  geom_point()", ""), out.width.px = 624, out.height.px = 384, 
         params.src = "plotTwoClusters, exercise=TRUE", fig.num = 0, 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -508,16 +514,16 @@ output$`tutorial-exercise-computeTreKmeans-output` <- renderUI({
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(label = "computeTreKmeans", global_setup = structure(c("library(learnr)", 
-"library(Hmisc)", "library(ggalluvial)", "#knitr::opts_chunk$set(echo = FALSE)", 
-"groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)", 
-"computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
+learnr:::store_exercise_cache(structure(list(label = "computeTreKmeans", global_setup = structure(c("", 
+"library(learnr)", "library(Hmisc)", "library(ggalluvial)", "iris", 
+"groups <- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 2)", 
+"", "computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
 "  distance<-c(norm(as.matrix(dataPoint-randomCentroids[1,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[2,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[3,]),\"1\")^2)", 
-"  which.min(distance)", "}"), chunk_opts = list(label = "setup", 
+"  which.min(distance)", "}", ""), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "computeTreKmeans", 
-    code = "# Recuerda que así se agregan los comentarios\nset.seed(1234)\n\ngroups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 3)\n\ngroups\n\niris$group<-groups$cluster\n\nggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+\n  geom_point()", 
+    code = "\n# Recuerda que así se agregan los comentarios\nset.seed(1234)\n\ngroups<- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 3)\n\ngroups\n\niris$group<-groups$cluster\n\nggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+\n  geom_point()\n", 
     opts = list(label = "\"computeTreKmeans\"", exercise = "TRUE"), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
     solution = NULL, tests = NULL, options = list(eval = FALSE, 
@@ -537,10 +543,10 @@ learnr:::store_exercise_cache(structure(list(label = "computeTreKmeans", global_
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "computeTreKmeans", exercise = TRUE, 
-        code = c("# Recuerda que así se agregan los comentarios", 
-        "set.seed(1234)", "", "groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 3)", 
+        code = c("", "# Recuerda que así se agregan los comentarios", 
+        "set.seed(1234)", "", "groups<- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 3)", 
         "", "groups", "", "iris$group<-groups$cluster", "", "ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(group)))+", 
-        "  geom_point()"), out.width.px = 624, out.height.px = 384, 
+        "  geom_point()", ""), out.width.px = 624, out.height.px = 384, 
         params.src = "computeTreKmeans, exercise=TRUE", fig.num = 0, 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -556,16 +562,16 @@ output$`tutorial-exercise-plotSpeciesKmeans-output` <- renderUI({
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(label = "plotSpeciesKmeans", global_setup = structure(c("library(learnr)", 
-"library(Hmisc)", "library(ggalluvial)", "#knitr::opts_chunk$set(echo = FALSE)", 
-"groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)", 
-"computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
+learnr:::store_exercise_cache(structure(list(label = "plotSpeciesKmeans", global_setup = structure(c("", 
+"library(learnr)", "library(Hmisc)", "library(ggalluvial)", "iris", 
+"groups <- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 2)", 
+"", "computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
 "  distance<-c(norm(as.matrix(dataPoint-randomCentroids[1,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[2,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[3,]),\"1\")^2)", 
-"  which.min(distance)", "}"), chunk_opts = list(label = "setup", 
+"  which.min(distance)", "}", ""), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "plotSpeciesKmeans", 
-    code = "ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(Species)))+\n  geom_point()", 
+    code = "\nggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(Species)))+\n  geom_point()\n", 
     opts = list(label = "\"plotSpeciesKmeans\"", exercise = "TRUE"), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
     solution = NULL, tests = NULL, options = list(eval = FALSE, 
@@ -585,8 +591,8 @@ learnr:::store_exercise_cache(structure(list(label = "plotSpeciesKmeans", global
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "plotSpeciesKmeans", exercise = TRUE, 
-        code = c("ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(Species)))+", 
-        "  geom_point()"), out.width.px = 624, out.height.px = 384, 
+        code = c("", "ggplot(iris, aes(x=Petal.Length,y=Sepal.Length, color=factor(Species)))+", 
+        "  geom_point()", ""), out.width.px = 624, out.height.px = 384, 
         params.src = "plotSpeciesKmeans, exercise=TRUE", fig.num = 0, 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -602,18 +608,18 @@ output$`tutorial-exercise-indicatorPerformance-output` <- renderUI({
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(label = "indicatorPerformance", global_setup = structure(c("library(learnr)", 
-"library(Hmisc)", "library(ggalluvial)", "#knitr::opts_chunk$set(echo = FALSE)", 
-"groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)", 
-"computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
+learnr:::store_exercise_cache(structure(list(label = "indicatorPerformance", global_setup = structure(c("", 
+"library(learnr)", "library(Hmisc)", "library(ggalluvial)", "iris", 
+"groups <- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 2)", 
+"", "computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
 "  distance<-c(norm(as.matrix(dataPoint-randomCentroids[1,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[2,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[3,]),\"1\")^2)", 
-"  which.min(distance)", "}"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = "set.seed(1234)\ngroups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 3)\ngroups\niris$group<-groups$cluster", 
-    chunks = list(list(label = "prepare-indicator", code = "set.seed(1234)\ngroups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 3)\ngroups\niris$group<-groups$cluster", 
+"  which.min(distance)", "}", ""), chunk_opts = list(label = "setup", 
+    include = FALSE)), setup = "\nset.seed(1234)\ngroups<- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 3)\ngroups\niris$group<-groups$cluster\n", 
+    chunks = list(list(label = "prepare-indicator", code = "\nset.seed(1234)\ngroups<- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 3)\ngroups\niris$group<-groups$cluster\n", 
         opts = list(label = "\"prepare-indicator\""), engine = "r"), 
-        list(label = "indicatorPerformance", code = "iris$group<- factor(iris$group, levels=c(1,2,3), labels=levels(iris$Species))\nperformance<- 100*sum(iris$Species==iris$group)/150", 
+        list(label = "indicatorPerformance", code = "\niris$group<- factor(iris$group, levels=c(1,2,3), labels=levels(iris$Species))\nperformance<- 100*sum(iris$Species==iris$group)/150\n", 
             opts = list(label = "\"indicatorPerformance\"", exercise = "TRUE", 
                 exercise.setup = "\"prepare-indicator\""), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
@@ -634,9 +640,9 @@ learnr:::store_exercise_cache(structure(list(label = "indicatorPerformance", glo
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "indicatorPerformance", exercise = TRUE, 
-        exercise.setup = "prepare-indicator", code = c("iris$group<- factor(iris$group, levels=c(1,2,3), labels=levels(iris$Species))", 
-        "performance<- 100*sum(iris$Species==iris$group)/150"
-        ), out.width.px = 624, out.height.px = 384, params.src = "indicatorPerformance, exercise=TRUE, exercise.setup = \"prepare-indicator\"", 
+        exercise.setup = "prepare-indicator", code = c("", "iris$group<- factor(iris$group, levels=c(1,2,3), labels=levels(iris$Species))", 
+        "performance<- 100*sum(iris$Species==iris$group)/150", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "indicatorPerformance, exercise=TRUE, exercise.setup = \"prepare-indicator\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -651,14 +657,14 @@ output$`tutorial-exercise-activityWidths-output` <- renderUI({
 
 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache(structure(list(label = "activityWidths", global_setup = structure(c("library(learnr)", 
-"library(Hmisc)", "library(ggalluvial)", "#knitr::opts_chunk$set(echo = FALSE)", 
-"groups<- kmeans(iris[,c('Sepal.Length','Petal.Length')], 2)", 
-"computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
+learnr:::store_exercise_cache(structure(list(label = "activityWidths", global_setup = structure(c("", 
+"library(learnr)", "library(Hmisc)", "library(ggalluvial)", "iris", 
+"groups <- kmeans(iris[,c(\"Sepal.Length\",\"Petal.Length\")], 2)", 
+"", "computeDistance<- function(x, randomCentroids){", "  dataPoint<- as.numeric(x[c(1,3)])", 
 "  distance<-c(norm(as.matrix(dataPoint-randomCentroids[1,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[2,]),\"1\")^2,", 
 "              norm(as.matrix(dataPoint-randomCentroids[3,]),\"1\")^2)", 
-"  which.min(distance)", "}"), chunk_opts = list(label = "setup", 
+"  which.min(distance)", "}", ""), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "activityWidths", 
     code = "", opts = list(label = "\"activityWidths\"", exercise = "TRUE"), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
