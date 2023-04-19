@@ -29,7 +29,7 @@ al finalizar esta actividad, serás capaz de:
 
 
 ```{r, echo=FALSE}
-#htmltools::includeHTML("license.html")
+htmltools::includeHTML("license.html")
 ```
 
 ## K-Means
