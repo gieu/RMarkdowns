@@ -1,21 +1,9 @@
 
-```{r learnr, include=FALSE}
-# Install the learnr package (if not already installed)
-# with a preselected CRAN mirror
-
-if (!requireNamespace("learnr", quietly = TRUE)) {
-  install.packages("learnr")
-}
-
-library(learnr)
-
-```
 
 --- 
 title: "Análisis Estadístico Aplicado a la Educación"
 output: learnr::tutorial
 runtime: shiny_prerendered
-language: es
 ---
 
 
@@ -27,7 +15,7 @@ library(dplyr)      # Manipulación de datos con verbos
 library(ggpubr)     # Visualizaciones extendidas
 library(car)        # Para pruebas estadísticas como Levene
 
-data <- read_excel("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/Education_Research_Sample_Data.xlsx")
+data <- read_excel("../../datos/Education_Research_Sample_Data.xlsx")
 cross_tab <- table(data$Gender, data$Participation_Level)
 anova_result <- aov(Final_Grade ~ Program, data = data)
 
@@ -42,7 +30,7 @@ Lo primero que hacemos es cargar los datos, que están en un archivo de Excel. A
 
 ```{r carga_datos}
 # Cargamos el archivo Excel con los datos de los estudiantes
-data <- read_excel("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/Education_Research_Sample_Data.xlsx")
+data <- read_excel("../../datos/Education_Research_Sample_Data.xlsx")
 
 # Visualizamos las primeras filas del conjunto de datos para explorarlo
 head(data)
