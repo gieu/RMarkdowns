@@ -1,0 +1,249 @@
+
+```{r learnr, include=FALSE}
+# Install the learnr package (if not already installed)
+# with a preselected CRAN mirror
+
+if (!requireNamespace("learnr", quietly = TRUE)) {
+  install.packages("learnr")
+}
+
+library(learnr)
+
+```
+
+--- 
+title: "Análisis Estadístico Aplicado a la Educación"
+output: learnr::tutorial
+runtime: shiny_prerendered
+language: es
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)  # Conjunto de paquetes para manipulación y análisis de datos
+library(ggplot2)    # Para crear visualizaciones
+library(readxl)     # Para leer archivos Excel
+library(dplyr)      # Manipulación de datos con verbos
+library(ggpubr)     # Visualizaciones extendidas
+library(car)        # Para pruebas estadísticas como Levene
+
+data <- read_excel("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/Education_Research_Sample_Data.xlsx")
+cross_tab <- table(data$Gender, data$Participation_Level)
+anova_result <- aov(Final_Grade ~ Program, data = data)
+
+```
+
+## Introducción
+
+En este tutorial interactivo, aprenderás a realizar análisis estadísticos fundamentales en investigación educativa. Utilizaremos un conjunto de datos simulado sobre el rendimiento de 150 estudiantes.
+
+## Carga de datos
+Lo primero que hacemos es cargar los datos, que están en un archivo de Excel. Además, con la función head podemos ver cómo se ven las primeras filas del archivo.
+
+```{r carga_datos}
+# Cargamos el archivo Excel con los datos de los estudiantes
+data <- read_excel("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/Education_Research_Sample_Data.xlsx")
+
+# Visualizamos las primeras filas del conjunto de datos para explorarlo
+head(data)
+```
+
+## 1. Prueba t pareada: ¿mejoraron los puntajes?
+Queremos verificar si hay diferencias significativas entre pretest y posttest, para eso usamos una prueba t pareada, en la que tenemos en cuenta que cada participante tiene una medida inicial y una medida final.
+
+### Verifica los supuestos
+Recordemos que el principal supiuesto de la prueba t pareada es que ésta siga una distribución normal. Acá verás tres maneras de verificar este supuesto:
+
+- Primero, hacemos un histograma de los datos, para ver si tiene la forma de una distribución normal.
+
+- También podemos hacer el test de shapiro, que verifica esta normalidad con una prueba de hipótesis.
+
+- Por último, es común también ver el qq-plot de los residuales. si la distribución es normal, la gráfica se debe ver cercana a la diagonal principal
+
+```{r t_pareada_supuesto, exercise=TRUE}
+# Calculamos la diferencia entre los puntajes post y pre test, para verificar su normalidad
+paired_diff <- data$Post_Test_Score - data$Pre_Test_Score
+
+hist(paired_diff) # Veamos el histograma de esta variable.
+
+# Aplicamos la prueba de Shapiro-Wilk para verificar normalidad de la diferencia
+shapiro.test(paired_diff) # Si p > 0.05, la diferencia sigue una distribución normal
+
+qqnorm(paired_diff)
+qqline(paired_diff, col = "red")
+
+```
+
+### Aplica la prueba t pareada
+Ahora si podemos ejecutar la prueba. Es una simple instrucción, donde te debes asegurar de incluir el parámetro paired=TRUE, pues si no, se ejecutará una prueba de dos muestras.
+
+```{r t_pareada_prueba, exercise=TRUE}
+# Aplicamos la prueba t pareada para ver si hay mejora significativa
+t.test(data$Post_Test_Score, data$Pre_Test_Score, paired = TRUE)
+# Si p < 0.05, la diferencia entre los puntajes es estadísticamente significativa
+
+```
+
+### Visualiza los resultados
+
+Ahora veamos visualmente esta comparación entre pretest y posttest. Para esto, debemos reoganizar nuestro conjunto de datos, para que, en lugar de tener cada prueba en una columna diferente, tengamos ambos valores en la misma columna, y generamos una nueva columna 'Tipo_Prueba', que determinará si el valor es del pretest (Pre_Test_Score) o del posttest (Post_Test_Score)
+```{r t_pareada_grafico, exercise=TRUE}
+# Transformamos los datos a formato largo para graficar
+long_scores <- data %>%
+  select(Student_ID, Pre_Test_Score, Post_Test_Score) %>%
+  pivot_longer(cols = c("Pre_Test_Score", "Post_Test_Score"), names_to = "Tipo_Prueba", values_to = "Puntaje")
+
+#con esta función, puedes ver los 10 primeros datos
+head(long_scores)
+
+# Creamos un gráfico de caja para comparar visualmente los puntajes
+# antes y después de la intervención
+ggplot(long_scores, aes(x = Tipo_Prueba, y = Puntaje)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(title = "Puntajes Pre vs Post Test")
+```
+
+## 2. Prueba t para muestras independientes: género y nota final
+
+Ya comparamos pretest y posttest, pero ahora queremos comparar si existen diferencias significativas entre dos grupos. En este caso, queremos ver si hay diferencias entre hombres y mujeres en la nota final.
+
+### Verifica los supuestos
+
+Esta vez, además de la normalidad, validamos que exista homogeneidad de varianzas entre los dos grupos. Para esto usamos el test de Levene.
+
+```{r t_indep_supuesto, exercise=TRUE}
+# Verificamos normalidad de la nota final para cada género
+shapiro.test(data$Final_Grade[data$Gender == "Male"]) # Si p > 0.05, la diferencia sigue una distribución normal
+shapiro.test(data$Final_Grade[data$Gender == "Female"]) # Si p > 0.05, la diferencia sigue una distribución normal
+
+# Verificamos homogeneidad de varianza entre géneros (prueba de Levene)
+leveneTest(Final_Grade ~ Gender, data = data)
+```
+
+### Aplica la prueba t
+Dado que verificamos que las varianzas son equivalentes, usamos el parámetro var.equal=TRUE, de tal manera que ejecute la prueba paramétrica, 
+```{r t_indep_prueba, exercise=TRUE}
+# Comparamos la nota final entre hombres y mujeres
+t.test(Final_Grade ~ Gender, data = data, var.equal=TRUE)
+
+# Si p < 0.05, hay diferencia estadísticamente significativa entre géneros
+```
+
+### Visualiza la diferencia
+Esta vez ya tenemos organizados los datos de manera vertical, pues la columna Gender nos dice cuáles estudiantes son hombres y cuáles son mujeres.
+```{r t_indep_grafico, exercise=TRUE}
+# Creamos un gráfico de caja para mostrar visualmente la diferencia
+ggplot(data, aes(x = Gender, y = Final_Grade, fill = Gender)) +
+  geom_boxplot() +
+  labs(title = "Nota Final por Género")
+```
+
+## 3. Prueba de Chi-cuadrado: género y participación
+Como sabemos,la prueba Chi-cuadrado nos permite encontrar si existe asociación entre dos variables categóricas. En este caso, queremos explorar esta asociación entre el género del estudiante y su nivel de participación. Es decir, queremos saber si existe diferencia entre el nivel de partiicpacion de  hombres y mujeres
+
+### Verifica los supuestos
+Lo primero que hacemos es contar cuántos casos hay para cada cruce género-nivel de participación. 
+
+Luego, verificamos el supuesto:
+
+- Frecuencias esperadas ≥ 5 en al menos el 80% de las celdas. Este número, aunque parece arbitrario, tiene que ver con el número de observaciones que se requiere para que los datos sí sigan la distribución Chi.
+
+- Independencia entre observaciones (cada participante pertenece a una sola celda de la tabla). Esta no se valida estadísticamente, sino conceptualmente.
+
+
+```{r chi2_supuesto, exercise=TRUE}
+# Creamos tabla de contingencia género vs nivel de participación
+cross_tab <- table(data$Gender, data$Participation_Level)
+cross_tab
+# Revisamos los valores esperados en la tabla
+chisq.test(cross_tab)$expected  # Todos deben ser > 5
+```
+
+### Aplica la prueba de independencia
+Ahora si hacemos el análisis de Chi-cuadrado. Si la prueba da significativa, significa que sí existe una relación entre estas dos variables. Es decir, hombres o mujeres tienen mayor nivel de participación que su contraparte.
+```{r chi2_prueba, exercise=TRUE}
+# Prueba de independencia entre género y nivel de participación
+chisq.test(cross_tab)
+```
+
+### Visualiza la relación
+
+```{r chi2_grafico, exercise=TRUE}
+# Gráfico de barras para visualizar participación por género
+ggplot(data, aes(x = Participation_Level, fill = Gender)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Nivel de Participación por Género")
+```
+
+## 4. Correlación: ¿horas de estudio influyen en la nota?
+Ahora seguimos con la correlación, donde queremos buscar si existe una relación entre las horas de estudio y la nota final.
+
+### Verifica los supuestos
+Acá el supuesto es, nuevamente, que cada variable tenga una distribución normal. Pero además, para explorar cómo se podría ver esa relación, hacemos un gráfico de dispersión.
+
+```{r correlacion_supuesto, exercise=TRUE}
+# Gráfico de dispersión para revisar relación lineal
+plot(data$Study_Hours_per_Week, data$Final_Grade)
+
+# Pruebas de normalidad para ambas variables
+shapiro.test(data$Study_Hours_per_Week) # Si p > 0.05, la diferencia sigue una distribución normal
+shapiro.test(data$Final_Grade) # Si p > 0.05, la diferencia sigue una distribución normal
+```
+
+### Aplica correlación de Pearson
+
+```{r correlacion_prueba, exercise=TRUE}
+# Calculamos la correlación entre horas de estudio y nota final
+cor.test(data$Study_Hours_per_Week, data$Final_Grade)
+# Si p < 0.05, hay una relación lineal significativa
+
+```
+
+### Visualiza la relación
+Acá completamos el gráfico de dispersión con una línea que describe la relación entre las dos variables.
+
+```{r correlacion_grafico, exercise=TRUE}
+# Gráfico de dispersión con línea de tendencia lineal
+ggplot(data, aes(x = Study_Hours_per_Week, y = Final_Grade)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Horas de Estudio vs Nota Final")
+```
+
+## 5. ANOVA: diferencias por programa académico
+Por último, queremos identificar si existen diferencias significativas entre las notas de los estudiantes según el programa que estudian; para esto, usamos el análisis de varianza, ANOVA.
+
+### Verifica los supuestos
+
+```{r anova_supuesto, exercise=TRUE}
+# Prueba de normalidad por grupo
+by(data$Final_Grade, data$Program, shapiro.test)
+
+# Prueba de homogeneidad de varianzas
+leveneTest(Final_Grade ~ Program, data = data)
+```
+
+### Aplica ANOVA
+
+```{r anova_prueba, exercise=TRUE}
+# ANOVA para comparar notas finales entre programas académicos
+anova_result <- aov(Final_Grade ~ Program, data = data)
+summary(anova_result)
+```
+
+### Realiza prueba post-hoc
+Cuando las diferencias en el ANOVA son estadísticamente significativas, eso nos dice que vale la pena comparar entre parejas, para ver cuáles son significativas entre sí. Para esto, usamos un post-hoc analysis, y uno muy común es el de Tukey. Este nos da un valor p por cada comparación.
+```{r anova_posthoc, exercise=TRUE}
+# Prueba de comparaciones múltiples para identificar diferencias entre pares
+TukeyHSD(anova_result)
+```
+
+### Visualiza los resultados
+
+```{r anova_grafico, exercise=TRUE}
+# Gráfico de caja para visualizar diferencias por programa
+
+ggplot(data, aes(x = Program, y = Final_Grade, fill = Program)) +
+  geom_boxplot() +
+  labs(title = "Nota Final por Programa Académico")
+```
