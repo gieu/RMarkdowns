@@ -1,0 +1,12 @@
+name: SEFIWorkshop
+title: SEFIWorkshop
+username:
+account: cvieiram
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2766553
+bundleId: 3603817
+url: https://cvieiram.shinyapps.io/SEFIWorkshop/
+when: 1599515851.28777
+asMultiple: FALSE
+asStatic: FALSE

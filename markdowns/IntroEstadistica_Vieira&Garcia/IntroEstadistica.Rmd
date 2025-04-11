@@ -7,39 +7,17 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE} 
 library(learnr)
-library(httr)
 library(rmarkdown)
 library(ggplot2)
+
 litReview <- read.csv2("../../datos/litReviewData.csv", header=TRUE, sep=";")
 datos <- read.csv2("../../datos/litReviewData.csv", header=TRUE, sep=";")
 datosIntroEst <- data.frame(datos$CVG,datos$Venue,datos$Author)
 desempenio <- read.csv("../../datos/desempenio.csv",header=TRUE,sep=";")
 colnames(datosIntroEst) <- c("Sala de Conferencias","Tema","Exponente")
 edades <- c(12,23,34,23,34,50,23,45,23,15,17,19)
-gradethis::gradethis_setup()
+knitr::opts_chunk$set(send_code_data = TRUE)
 #knitr::opts_chunk$set(echo = FALSE)
-```
-
-```{r, context="data",echo=FALSE}
-r <- GET("http://localhost:3500/api/v1/session")
-session<-content(r,as="parsed")
-sessionId_ <- session$data$session_id
-rm(r)
-rm(session)
-```
-
-```{r,context="server"}
-observe({  
-  url <- getDefaultReactiveDomain()$clientData$url_search
-  cedula <- strsplit(url,split="=")[[1]][2]
-  if (!is.na(cedula)){
-    url <- paste('http://localhost:3500/api/v1/session/',sessionId_,sep="")
-    body <- paste('{userId:',cedula,sep="")
-    body <- paste(body,"}",sep="")
-    r <- PUT(url,body =body)
-    r<-content(r,as="parsed")
-  }
-})
 ```
 
 #### Derechos de uso
@@ -62,7 +40,7 @@ Al finalizar esta actividad, estarás en capacidad de:
 El símbolo *<-* asigna un valor a una variable
 Por ejemplo, si queremos asignar el valor 5 a la variable *'y'*, hacemos:
 
-```{r varAsignacion, exercise=TRUE }
+```{r varAsignacion, exercise=TRUE, send_code_data = TRUE}
 y <- 5
 # Y si queremos ver el valor contenido de la variable la ponemos sola:
 y
@@ -317,7 +295,7 @@ Ahora vamos a cargar datos que están alojados en nuestro servidor.
 
 ```{r readLItData, exercise=TRUE}
 # The data is stored in a variable called litReview
-litReview <- read.csv2("../../datos/litReviewData.csv", header=TRUE, sep=";")
+litReview <- read.csv2("https://echidna.informaticaeducativa.cf/datos/litReviewData.csv", header=TRUE, sep=";")
 ```
 
 ### Actividad

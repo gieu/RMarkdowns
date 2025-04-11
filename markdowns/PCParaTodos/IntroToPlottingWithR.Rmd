@@ -1,0 +1,749 @@
+---
+title: "Tutorial Estad&iacute;stica Descriptiva e Inferencial"
+author: "cvieira"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE} 
+library(learnr)
+library(Hmisc)
+#knitr::opts_chunk$set(echo = FALSE)
+#desempenio <- read.csv("https://vieiradata.s3.us-east-2.amazonaws.com/desempenio.csv",header=TRUE,sep=";")
+desempenio <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/desempenio.csv",header=TRUE,sep=";")
+litReview <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/litReviewData.csv",header=TRUE,sep=";")
+myPlot <- ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point(aes(color=Venue), size=3)+
+  ylim(c(0, 10))
+```
+
+
+## Intro to R
+
+#### Usage-Rigts
+Estos materiales fueron creados con prop&oacute;sitos educativos. Tienen licencia creative commons, y pueden ser usados con la referencia adecuada.
+
+```{r, echo=FALSE}
+htmltools::includeHTML("license.html")
+```
+
+
+#### Learning outcomes
+Al finalizar esta actividad, estar&aacute;s en capacidad de: 
+
+* Crear variables, asignar y leer valores hacia/desde dichas variables
+
+* Hacer c&aacute;lculos simples entre variables/valores
+
+* Convertir el tipo de dato de las variables.
+
+* Crear e invocar funciones que hagan c&aacute;lculos sencillos
+
+#### Variables
+
+El s&iacute;mbolo *<-* asigna un valor a una variable
+Por ejemplo, si queremos asignar el valor 5 a la variable *'y'*, hacemos:
+
+```{r varAssignment, exercise=TRUE}
+y <- 5
+# Let's make sure it has the corresponding value - please execute the following line
+y
+
+
+```
+
+
+```{r prepare-Y}
+y <- 5
+
+```
+
+Ahora podemos usar la variable *y*. En el siguiente bloque, multiplicamos *y* por 2, y luego lo asignamos a la variable x.
+```{r varOperation, exercise=TRUE, exercise.setup = "prepare-Y"}
+y*2
+# Since we did not assign it to any variable, 'y' will keep the same value
+y
+# Now, if we want to save the result in a variable 'x':
+x <- y*2
+# Check out the value of variable 'x' now
+x
+```
+
+```{r prepare-XY}
+y <- 5
+x <- y*2
+```
+
+### Actividad 
+
+* Divide 'x' entre 'y'  y asigna el resultado a la variable *a*
+
+* Verifica que *a* tiene el valor correcto
+
+```{r assignmentActivity, exercise=TRUE, exercise.setup = "prepare-XY"}
+
+```
+
+Ahora vamos a trabajar con otro tipo de variables. Vamos a crear un listado de datos llamado *vector*.
+Un vector es una lista de datos almacenada en una &uacute;nica variable. Para crear un vector, usamos la instrucci&oacute;n *c()*:
+```{r createVector, exercise=TRUE, exercise.setup = "prepare-XY"}
+z <- c(1.1, 9, pi, 5 , 6, 7, 8) 
+
+# What is the meaning of having 'pi' in this vector?
+
+# Check out the value of the variable 'z' 
+z
+
+```
+
+Este vector puede ser usados para crear otros m&aacute;s grandes. Por ejemplo, si queremos crear un vector con todos los valores en *z*,
+pero que tambi&eacute;n incluya los valores  'x' y  'y', hacemos lo siguiente:
+```{r prepare-XYZ}
+
+y <- 5
+x <- y*2
+z <- c(1.1, 9, pi, 5 , 6, 7, 8) 
+```
+
+```{r compositeVector, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+
+c(x,z,y)
+```
+
+### Actividad
+
+* Modifica el programa anterior para crear un vector con todos los valores de *z* dos veces, y el valor de 'x' en el medio.
+El contenido de tu vector debe ser el siguiente: 1.1, 9, 3.141593, 5 , 6, 7, 8, 10, 1.1, 9, 3.141593, 5 , 6, 7, 8
+
+* Qu&eacute; ocurre si multiplicamos un vector por un n&uacute;mero?  z * 2 + 100
+
+### Artim&eacute;tica
+Otros operadores que pueden ser usados son : `+`, `-`, `/`, y `^`. x^2 quiere decir *x al cuadrado*.
+x^2
+
+```{r varArithmetic, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+x^2
+
+#if you want to find the square root of a variable, you will need to use the function sqrt().
+
+# A function is a group of instructions that we assign a name to
+sqrt(x)
+
+```
+
+### Help - Ayuda
+Cada que tengas una pregunta sobre una funci&oacute;n de R, puedes acceder a  you can access its information using '?'
+Por ejemplo, si quieres saber qu&eacute; hace la funci&oacute;n *mean*:
+
+```{r helpMean, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+?mean
+```
+
+### Preguta
+Qu&eacute; hace la funci&oacute;n *mean*?
+
+Puedes usarla con el vector *z*, asu&iacute;:
+
+```{r computeMean, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+
+mean(z)
+
+```
+
+Podemos tambi&eacute;n hacer opereaciones entre vectores. Por ejemplo::
+
+```{r vectorArithmetic, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+
+# The following instruction will multiply one by one the elements from both vectors
+z * c(2, 1, 2,3,5,6,4)
+
+# When the length is different for both vectors, R 'recycles' the numbers from the smaller vector
+# This recylcing process re-uses the numbers on the same order. For instance:
+c(2, 2, 4, 4) + c(1, 2)
+
+# The outcome is a vector including four elements, just like executing:
+# c(2, 2, 4, 4) + c(1, 2, 1, 2)
+
+```
+
+#### Matrices
+
+Ahora, si queremos tener varias columnas en una sola variable, podemos usar una matriz o un data.frame. La  principal diferencia entre estas dos estructuras de datos es que las matrices solo pueden almacenar un tipo de datos (ej. n&uacute;meros), mientras que los data.frames puede incluir diferentes tipos (ej. n&uacute;meros y texto)
+ 
+
+```{r creatingMatices, exercise=TRUE, exercise.setup = "prepare-XYZ"}
+# Let's first create a vector called mi_vector containing all integers from 1 to 20.
+# We can do that using the operator ':' 
+mi_vector <-1:20
+# Check out the content of mi_vector
+mi_vector
+
+# To validate the data type, we can use the function 'class'
+class(mi_vector)
+
+# If we want to know how many elements are in there, we can use the function 'length'
+length(mi_vector)
+
+```
+
+
+### Actividad
+
+Cu&aacute;ntos elementos hay en 'z'?
+
+```{r prepare-Vector}
+mi_vector <-1:20
+dim(mi_vector)<-c(4,5)
+mi_matrix <- mi_vector
+students <- c('Charlie','Hayden','Alex','Ben')
+randNumbers <- rnorm(20)
+```
+
+```{r convertIntoMatices, exercise=TRUE, exercise.setup = "prepare-Vector"}
+
+#  Now we can turn our vector into a 4x5 matrix
+dim(mi_vector)<-c(4,5)
+
+# What we just did was to tell R that mi_vector will have four rows and five columns
+mi_vector
+
+```
+
+
+### Actividad
+Revisa nuevamente el tipo de dato de  mi_vector 
+
+```{r crateMatrixTwo, exercise=TRUE, exercise.setup = "prepare-Vector"}
+
+# Let's use an appropriate name for our variable
+mi_matrix <- mi_vector
+
+# Another approach to create this matrix is:
+matrix(1:20,nrow=5, ncol=5)
+
+```
+
+
+Ahora imagina que los n&uacute;meros de cada fila corresponden a estudiantes, de los cuales contamos con cinco valores (columnas):
+edad, altura, grado, promedio y peso (age, height, grade, GPA, and weight).
+
+Nos gustar&iacute;a saber qu&eacute; estudiante corresponde a cada fila, as&iacute; que creamos una columna adicional
+
+```{r assignNames, exercise=TRUE, exercise.setup = "prepare-Vector"}
+
+students <- c('Charlie','Hayden','Alex','Ben')
+mi_data <- cbind (students, mi_matrix)
+
+# Now all the values in mi_matrix have quotation marks around them
+mi_data
+
+```
+
+Como ves, ahora tenemos comillas alrededor de cada dato que tenemos. Esto ocurre porque una matriz puede solo almacenar un tipo de dato. En este caso, todos los valores son considerados texto. Para mantener nuestros tipos de dato originales, debemos usar un data.frame
+
+
+```{r createDF, exercise=TRUE, exercise.setup = "prepare-Vector"}
+mi_data <- data.frame(students, mi_matrix)
+mi_data
+
+# Now, to assign names to the columns, we use the function 'colnames'
+colnames(mi_data)<- c("Name", "age", "height", "grade", "GPA", "weight")
+
+
+# If you want to access a single column from the data frame, use the '$' symbol
+# Uncomment (remove the #) the line you would like to execute
+# mi_data
+# mi_data$age
+# mi_data$Name
+```
+
+### Funciones
+
+Como ya has visto, podemos invocar funciones existentes como *mean* o *cbind* para hacer ciertas tareas.
+Hay muchas funciones en R, y cada vez que quieras hacer algo, debes comenzar por buscar si ya existe alguna funci&oacute;n para &eacute;sto.
+
+Por ejemplo, para obtener una lista (vector) con 20 n&uacute;meros aleatorios que sigan una distribuci&oacute;n normal:
+```{r randomNumbers, exercise=TRUE, exercise.setup = "prepare-Vector"}
+randNumbers <- rnorm(20)
+randNumbers
+```
+### Actividad
+Encuentra la funci&oacute;n que te permita encontrar el valor m&iacute;nimo en randNumbers
+
+
+### Creando mis funciones
+Si no encontramos funciones que nos sirvan, podemos crear las nuestras. En R, funciona similar a la creaci&oacute;n de variables en el sentido que podemos asignar una funci&oacute;n con'<-'. 
+
+La siguiente funci&oacute;n multiplica *a* y *b*, y divide el resultado entre *c*
+
+```{r createMyFunciton, exercise=TRUE}
+myFunction <- function(a,b,c)
+{
+  x <- (a*b)
+  y <- x/c
+  y
+}
+
+# Podemos invocar myFunction con los siguientes valores a=10 b=5, c=2 
+myFunction(10,5,2)
+# Una alternativa para hacerlo es:
+myFunction(b=5, c=2, a=10)
+
+
+```
+
+### La funci&oacute;n *Apply* en R
+
+La funci&oacute;n *apply* es a veces compleja de entender, pero puede ser muy &uacute;til. Las funciones *apply* ejecutan un conjunto de operaciones (una funci&oacute;n dada) para todas las filas de un conjunto de datos.
+
+Explora: ??apply
+
+```{r applyFunctions, exercise=TRUE, exercise.setup = "prepare-Vector"}
+
+# For instance, if we create a function to print numbers from a list one by one:
+printNumber <- function(number)
+{
+  textToPrint <- paste('The number is: ',number)
+  print(textToPrint)
+}
+
+printNumber(3)
+printNumber(5)
+
+# We can invoke this function for all the elements from randNumbers 
+output <- lapply(randNumbers, printNumber)
+
+```
+
+Nota que le pasamos el nombre de nuestra funci&oacute;n (printNumber) como un par&aacute;metro a lapply. Cu&aacute;l es el resultado?
+
+
+Ahora que ha dominas las instrucciones b&aacute;sicas en R, vamos a hacer algunos an&aacute;lisis estad&iacute;sticos en la siguiente secci&oacute;n!
+
+## Estad&iacute;stica Descriptiva
+
+### Resultados de aprendizaje
+
+Al finalizar esta actividad, estar&aacute;s en capacidad de:
+
+* Cargar datos en R desde un archivo separado por comas (CSV)
+* Hacer un res&uacute;men general de los datos a trav&eacute;s de estad&iacute;stica descriptiva
+* Calcular correlaciones y pruebas T
+
+
+### &iquest;De qu&eacute; se trata?
+
+En este sitio trabajaremos con un tutorial interactivo de R. R es un lenguaje de programaci&oacute;n estad&iacute;stico. 
+A Medida que avances en este tutorial, ver&aacute;s explicaciones y ejemplos de instrucciones que ejecutar&aacute; el programa. Para ejecutar un conjunto de instrucciones, debes dar clic en Run, en la esquina superior derecha.
+
+
+#### Empecemos por cargar los datos. 
+
+Para el ejemplo, cargaremos unos datos de desempelo pretest/posttest. 
+
+* Si trabajaras desde tu computador, primero le decimos al programa
+d&oacute;nde van a estar los archivos utilizando la instrucci&oacute;n setwd. 
+Como est&aacute;s desde tu navegador, esta l&iacute;nea tiene el s&iacute;mbolo *#*, que 
+significa *comentario*, es decir, que no se ejecuta.
+
+* Luego le decimos que lea los datos de un archivo csv, separado por ;. En este caso, lo tomamos 
+desde una direcci&oacute;n en Internet.
+
+```{r two-plus-two, exercise=TRUE}
+
+#setwd('C:/Users/cvieira/data/')
+
+# Los datos los guardamos en una variable que se llama desempenio
+# desempenio <- read.csv("https://vieiradata.s3.us-east-2.amazonaws.com/desempenio.csv",header=TRUE,sep=";")
+desempenio <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/desempenio.csv",header=TRUE,sep=";")
+```
+
+
+Puedes ver todos los datos utilizando el nombre de la variable, pero como hay tantos registros, 
+la funci&oacute; *head* te permite ver &uacute;nicamente los primeros diez registros
+```{r showEncabezado, exercise=TRUE}
+head(desempenio)
+# desempenio   # Esta instrucci&oacute; tiene el # al inicio para que no se ejecute.
+```
+
+Elimina el s&iacute;mbolo *#* y ejecuta nuevamente. Como puedes ver, aqu&iacute; tenemos datos de desempe&ntilde;o en pretest/posttest para 90 estudiantes.
+
+Lo primero que vamos a hacer entonces es ver la distribuci&oacute;n de cada uno de estos datos.
+Para esto, creamos un histograma con la funci&oacute;n *hist* . Por ejemplo, para el pretest, lo hacemos as&iacute;:
+
+
+```{r showHist, exercise=TRUE}
+hist(desempenio$LearningPre)
+```
+
+
+#### &iquest; Es una distribuci&oacute;n normal?
+
+### Actividad
+En la siguiente ventana de c&oacute;digo, crea un historama para los valores del posttest y gain
+
+```{r createHist, exercise=TRUE}
+hist(desempenio$LearningPre)
+```
+
+### Estad&iacute;sitica Descriptiva
+Ahora vamos a calcular las medidas de tendencia central y de variabilidad:
+
+
+
+```{r computeDesc, exercise=TRUE}
+mean(desempenio$LearningPre) # Media
+median(desempenio$LearningPre) # Mediana
+var(desempenio$LearningPre) # Varianza
+sd(desempenio$LearningPre) # Desv. Est.
+```
+
+### Actividad
+* Modifica el c&oacute;digo anterior para calcular las medidas de tendencia central y variabilidad para el posttest.
+
+* Verifica si la desviaci&oacute;n est&aacute;ndar es similar entre las dos medidas.
+
+### Resumen de las Columnas
+Ahora, tambi&eacute;n podr&iacute;amos calcular la media de todas las columnas, con la instrucci&oacute;n *summary*
+
+
+```{r computeSumma, exercise=TRUE}
+summary(desempenio)
+```
+
+#### Medidas de estad&iacute;stica descriptiva por grupos
+
+Nota que en los datos tenemos una columa que describe el tipo y n&uacute;mero de cursos previos: *PriorCourses*.
+Si queremos comparar el campo de *Pretest* a *Posttest* se&uacute;n diferentes experiencias,
+podemos comenzar por ver la media y la desviaci&oacute;n est&aacute;ndar para cada grupo utilizando
+la funci&oacute;n *aggregate*
+
+```{r descriptivaGrupos, exercise=TRUE}
+aggregate(LearningPre~PriorCourses,desempenio,mean)
+
+aggregate(LearningPre~PriorCourses,desempenio,sd)
+
+```
+
+### Actividad
+* Modifica el c&oacute;digo anterior para calcular las medidas de tendencia central y variabilidad para el posttest de acuerdo al n&uacute;mero de cursos previos.
+
+
+El siguiente paso es la estad&iacute;stica inferencial. En la siguiente secci&oacute;n veremos c&oacute;mo hacer correlaciones y los diferentes t-test
+
+## Estad&iacute;stica Inferencial
+
+### Correlaciones
+
+Las correlaciones las calculamos entre variables num&eacute;ricas. Por esto, debemos tomar solo las columnas que tienen n&uacute;meros. Recuerda que lo que tenemos entre corchetes sigue la 
+estructura [filas,columnas]. Es decir, si queremos ver las 8 primeras filas, hacemos desempenio[1:8,].
+Para las columnas 3 a la 5, hacemos lo siguiente:
+
+```{r columnas, exercise=TRUE}
+desempenio[,3:5]
+```
+
+#### Actividad
+ Modifica el c&oacute;digo anterior para obtener las filas 10 a la 20, para las columnas 1 a la 3.
+
+
+#### Volvamos a  las correlaciones
+La funci&oacute;n *rcorr* del paquete *Hmisc* permite calcular las correlaciones entre m&uacute;ltiples variables metidas en una matriz
+```{r correlaciones, exercise=TRUE}
+rcorr(as.matrix(desempenio[,3:5]))
+```
+
+Nota que en los resultados tenemos dos tablas:
+
+* La tabla con los coeficientes de correlaci&oacute;n
+* La tabla de valores p para decir cu&aacute;les de las correlaciones fueron significativas
+
+### Pregunta
+
+Qu&eacute; puedes concluir de la tabla de correlaciones?
+
+### Comparando Dos Medidas
+
+Para comparar dos mediciones, podemos usar una prueba t, siempre y cuando cumplamos con los supuestos requeridos:
+
+- Distribuci&oacute;n normal
+- Homogeneidad de varianzas
+- Independencia
+
+Si queremos comparar dos grupos, entonces usamos el two-sample t-test, mientras que si queremos comparar dos mediciones para un mismo grupo (ej. un pretest y un posttest), usamos el paired t-test.
+
+Empecemos por ver nuevamente la media y la desviaci&oacute;n est&aacute;ndar del pretest y el posttest. Completa el siguiente c&oacute;digo
+
+```{r estDescripive, exercise=TRUE}
+mean(desempenio$LearningPre)
+sd(desempenio$LearningPre)
+```
+
+#### Comparar dos medidas de un mismo grupo
+Vamos a identificar si en realidad el la diferencia entre el pretest y el posttest es estad&oacute;sticamente significativa o no.
+
+Es f&aacute;cil calcular estas pruebas t con la instrucci&oacute;n *t.test*. En nuestro caso, como vamos a comparar pretest vs. posttest para un mismo grupo, utilizamos la opci&oacute;n paired
+```{r pairedTest, exercise=TRUE}
+t.test(desempenio$LearningPre, desempenio$LearningPost, paired=TRUE)
+
+```
+
+#### Pregunta
+Qu&eacute; podemos concluir del resultado del test? Son diferentes?
+
+### Comparar dos grupos
+Ahora queremos comparar el Gain (posttest-pretest) entre los estudiantes que no tienen experiencia y los que si tienen experiencia. Para esto, usamos la variable *PriorCourses*. Si es igual a 'Zero', quiere decir que no tienen experiencia previa, y si es diferente (!=) de 'Zero', quiere decir que si tienen experiencia
+```{r TwoSampleTest, exercise=TRUE}
+t.test(desempenio[desempenio$PriorCourses=='Zero',]$LearningGain, desempenio[desempenio$PriorCourses!='Zero',]$LearningPost, var.equal=TRUE)
+
+```
+#### Validando los supuestos
+Podemos validar el supuesto de normalidad haciendo un histograma, como aprendimos en la primera parte. Adem&aacute;s, podemos usar la funci&oacute;n qqnorm para crear el gr&aacute;fico de nuestra distribuci&oacute;n vs. la distribuci&oacute;n te&oacute;rica. El resultado debe ser una diagonal.
+```{r supuestoNormalidad, exercise=TRUE}
+hist(desempenio$LearningPre)
+hist(desempenio$LearningPost)
+# qq-plot
+qqnorm(desempenio$LearningPre)
+qqnorm(desempenio$LearningPre)
+
+```
+Sobre el supuesto de homogeneidad de varianzas, lo podemos validar con la prueba de Batlett. Para esto, explora la siguiente funci&eacute;n e identifica si las varianzas son equivalentes
+
+```{r supuestoVarianza, exercise=TRUE}
+?bartlett.test
+
+```
+
+
+#### Supuestos no alcanzados
+Cuando los supuestos no se cumplen, podemos hacer una prueba no param&eacute;trica Welch. Solo modificamos la opci&oacute;n *var.equal* a FALSE.
+```{r nonParametricTest, exercise=TRUE}
+t.test(desempenio[desempenio$PriorCourses=='Zero',]$LearningGain, desempenio[desempenio$PriorCourses!='Zero',]$LearningPost, var.equal=FALSE)
+
+```  
+
+### Pregunta
+Se cumplen los suspuestos para las pruebas que hicimos?
+
+### Actividad
+Identifica si existe diferencia significativa entre pretest y posttest, solo para los estudiantes sin experiencia previa
+
+
+## GGPlot
+
+### GGPlot
+
+Existen diferentes maneras de crear gr&aacute;ficas en R. Por ejemplo, puedes crear un histograma con la funci&oacute;n *hist*, como ya lo vimos en el tutorial anterior.
+Sin embargo, la mayoría de las gr&aacute;ficas en R se hacen hoy utilizando la librer&iacute;a *ggplot* . 
+Lo primero que debemos hacer es cargar *ggplot*
+
+```{r loadLibrary, exercise=FALSE, exercise.eval=TRUE}
+#install.packages('ggplot2')   # Si no la instalaste antes en tu computador, debes correr esto
+library(ggplot2)
+```
+
+Ahora queremos cargar algunos datos para visualizarlos. En este caso, vamos a cargar los datos de la revisi&oacute;n de literatura que hemos discutido. 
+Estos datos est&aacute;n en nuestro servidor.
+
+```{r readLItData, exercise=TRUE}
+# Guardamos nuestros datos en la variable llamada litReview
+#litReview <- read.csv2("https://echidna.informaticaeducativa.cf/datos/litReviewData.csv", header=TRUE, sep=";")
+litReview <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/litReviewData.csv",header=TRUE,sep=";")
+```
+
+### Actividad
+
+Revisemos las primeras filas de nuestros datos. Modifica el programa anterior para ver qu&eacute; hay en este conjunto de datos
+
+Un r&aacute;pido repaso de nuestras columnas: 
+
+* Conexi&oacute;n con teor&iacute;as de visualizaci&oacute;n (CVG)
+
+* Conexi&oacute;n con teor&iacute;as Educativas (CET)
+
+* Sofisiticaci&oacute;n de la visualizaci&oacute;n (SoV)
+
+* Venue - Revista o evento donde fue publicado
+
+* Author - Primer autor(a) del art&iacute;culo
+
+
+
+#### Graficando
+
+ La funci&oacute;n  ggplot solo crear&aacute; el espacio en blanco para la figura, especificando los ejes
+
+ Por ejemplo, en la siguiente instrucci&oacute;n, configuramos CET como el eje X, y SoV como el eje y
+
+ Revisa lo que ocurre cuando lo corres.
+
+```{r createGGplot, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))
+```
+
+### Actividad
+Por qu&eacute; incluimos la funci&oacute;n 'aes()' en el programa?
+
+```{r showHelp, exercise=TRUE}
+?aes() # Describe el mapeo de las variables a las propiedades visuales de la figura
+       # Todo lo que queremos tener en la figura de nuestros datos debe estar allí
+```
+
+Ahora necesitamos decirle a ggplot qu&eacute; tipo de gr&aacute;fica queremos
+
+```{r addGeomPoint, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point()  # Adding this line, we are saying we want a scatter plot
+```
+#### Algunas opciones adicionales:
+
+* geom_point() ==> Scatter Plot
+
+* geom_bar() ==> Bar Plot
+
+* geom_line() ==> Line Plot
+
+* geom_histogram() ==> Histogram
+
+Cada gr&aacute;fico necesita dadtos y columnas espec&iacute;ficas dentro de la funci&oacute;n aes. Por ejemplo, para graficar un histograma, solo necesitamos la variable x:
+
+```{r addGHistogram, exercise=TRUE}
+ggplot(litReview, aes(x=CET))+
+  geom_histogram()
+```
+
+Ac&aacute; puedes encontrar un 'machete' &uacute;til para diferentes gr&aacute;ficos:
+
+https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+### Actividad 
+ Cambia el gr&aacute;fico anterior a uno de l&iacute;neas
+```{r activity1, exercise=TRUE}
+# Escribe tu programa
+```
+
+Ahora, volvamos al gr&aacute;fico de distribuci&oacute;n, que parece ser la mejor opcu&oacute;n para nuestro objetivo: 
+*identificar brechas en la literatura*
+
+```{r backToPlotting, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+      geom_point()  # Adding this line we are saying we want a scatter plot
+```
+
+En esta figura hay demasiados puntos, y cada punto viene de una fuente diferente, as&iacute; que podemos usar dicha fuente (Venue) para diferenciar los puntos con colores
+So, let's use the state to differentiate them with colors
+
+```{r coloredPoints, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point(aes(color=Venue), size=3)  # Do you remember the aes() function? Here it is again
+```
+
+#### Est&eacute;tica
+
+Puedes cambiar la paleta de colores, editar el texto a la derecha, y muchas m&aacute;s cosas, pero por ahora nos enfocaremos en otras cosas.
+
+Si quieres explorar, ac&aacute; hay un par de funciones que puedes usar:
+
+* theme(legend.position="None")  # Eliminar el texto a la derecha
+
+* scale_colour_brewer(palette = "Set1")  # Cambiar la paleta de colores
+
+
+Ya tienes un bonito y simple gr&aacute;fico de distribuci&oacute;n, pero las escalas en cada eje se ven un poco raras. Vamos a ajustarlas para cubrir todo el rango de nuestra escala: 0-10
+```{r settingAxis, exercise=TRUE}
+ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point(aes(color=Venue), size=3)+
+  ylim(c(0, 10))
+```
+
+#### Te diste cuenta que simplemente 'sumamos' estas nuevas l&iacute;neas de c&oacute;digo a la gr&aacute;fica?
+
+As&iacute; es como funciona ggplot. Podemos seguir agregando nuevas l&iacute;neas para modificar nuestro gr&aacute;fico
+
+### Actividad
+
+Agrega los l&iacute;mites del 0 al 10 al eje x
+
+```{r activity2, exercise=TRUE}
+#Write your code here.
+```
+
+Si no queremos escribir todo de nuevo, podemos almacenar la figura en una variable
+```{r saveToVariable, exercise=TRUE}
+myPlot <- ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_point(aes(color=Venue), size=3)+
+  ylim(c(0, 10))
+```
+  
+Y luego usarla para agregar nuevas cosas a nuestra figura
+
+```{r addTitles, exercise=TRUE}
+myPlot+
+  ggtitle("Two Dimensional Comparison", subtitle="Gap between Education and Visualization Researchers") + # Add a title and subtitle
+  xlab("Connection to Edu. Theories") # Set the axis names
+```
+### Actividad
+
+Agrega un nombre para el eje y
+
+```{r activity3, exercise=TRUE}
+#Write your code here.
+```
+
+Tambi&eacute;n podemos cambiar las separaciones en cada eje. Ac&aacute; hay algunos par&aacute;metros que pueden ayudar.
+
+
+```{r addBreaksAxis, exercise=TRUE}
+myPlot+
+scale_y_continuous(breaks=seq(0, 10, 1), # Set a break in the y axis every unit
+                   limits=c(0, 10)) # Set the limits
+```
+
+Mira que usamos scale_y_continuous porque y es una variable continua, pero tambi&eacute;n es posible usar otras variables:
+
+* scale_x_continuous, scale_y_continuous  ==> Para n&uacute;meros
+
+* scale_x_discrete, scale_y_discrete   ==> Para categor&iacute;as
+
+* scale_x_date, scale_y_date   ==> Para fechas
+
+
+### Actividad
+ Cambia el eje x para tener separaciones entre valores en cada unidad (1).
+
+```{r activity4, exercise=TRUE}
+#Write your code here.
+```
+
+
+ A&uacute;n tenemos un problemita con esta figura. Puede que hayan m&aacute;s de un dato encima de otro en el mismo punto, lo que hace que no veamos todos los datos
+ 
+ 
+ Podemos usar el tamanio como indicaci&oacute;n de cu&aacute;ntos art&iacute;culos est&aacute;n en cada punto. Para hacer esto, usamos  geom_count en lugar de  geom_point
+ 
+
+```{r completePlot, exercise=TRUE}
+myPlot <- ggplot(litReview, aes(x=CET, y=SoV))+
+  geom_count(aes(color=Venue))+
+  scale_x_continuous(breaks=seq(0, 10, 1), limits=c(0, 10))+
+  scale_y_continuous(breaks=seq(0, 10, 1), limits=c(0, 10))+ 
+  scale_size_continuous(breaks = seq(0, 5, 1))+
+  labs(title="Two Dimensional Comparison", 
+       subtitle="Gap between Education and Visualization Researchers",
+       y="Sophistication of the Visualization", 
+       x="Connection to Educational Theories", 
+       size="# of Studies")
+myPlot
+```
+
+### Actividad 
+
+
+Crea un gr&aacute;fico de distribuci&oacute;n para  *Connection to Educational Theories (CET) vs. Connection to Visualizaiton Background (CET vs CVG)*
+
+```{r activity5, exercise=TRUE}
+#Write your code here.
+```
+
+
+

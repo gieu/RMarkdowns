@@ -1,32 +1,37 @@
+
 ---
 title: "Analisis Bivariado"
-author: "Roxana Quintero"
+author: "Roxana Quintero Manes"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
 
 ```{r setup, include=FALSE} 
+
 library(learnr)
 library(rmarkdown)
-library(ggplot2)
 library(readxl)
+
 DatosDllSocial <- read_excel("../../datos/roxana_DatosDllSocial.xlsx")
 Datos_DllSocial <- read_excel("../../datos/roxana_Datos_DllSocial.xlsx")
-gradethis::gradethis_setup()
+
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(send_code_data = TRUE)
+#knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# **Análisis**
 
-El análisis de datos bivariado es una forma evolucionada de análisis estadístico en el cual se cuantifica a nivel descriptivo e inferencial el nivel de covarianza entre dos variables y de esta forma se da cuenta de la relación entre dos variables. La cuantificación de la covarianza consiste en la construcción de coeficientes que permitan integrar en un valor estimado, información con respecto a la varianza conjunta entre dos variables y tiene como objetivo fundamental definir la magnitud y el sentido de la relación entre las variables. De este modo, el análisis conjunto de las varianzas de dos variables (regularmente definidas como X y Y) permite identificar la relación empírica entre éstas, entendiendo por relación el ajuste de los datos a una función lineal estocástica subyacente.
+# **Análisis Bivariado**
+
+El análisis de datos bivariado es una forma de análisis estadístico en el cual se cuantifica a nivel descriptivo e inferencial el nivel de covarianza entre dos variables y de esta forma se da cuenta de la relación entre dos variables. La cuantificación de la covarianza consiste en la construcción de coeficientes que permitan integrar en un valor estimado, información con respecto a la varianza conjunta entre dos variables y tiene como objetivo fundamental definir la magnitud y el sentido de la relación entre las variables. De este modo, el análisis conjunto de las varianzas de dos variables (regularmente definidas como X y Y) permite identificar la relación empírica entre éstas, entendiendo por relación el ajuste de los datos a una función estadísticas subyacente.
 
 ## **Material 1**
 
 ### **1. Asociación de variables categóricas**
 
 En este caso, el análisis se basa en tablas de contingencia, por esto el estadístico que se utiliza tienen una definición diferente. El estadístico utilizado es Chi cuadrado y resume que tan alejados está el conteo de cada casilla de la tabla de contingencias al conteo esperado según la hipótesis nula.
-La letra griega x se pronuncia chi o ji en español, por eso se le llama a esta distribución chi cuadrado
+Se representa con la letra griega x se pronuncia chi o ji en español, por eso se le llama a esta distribución chi cuadrado.
 
 #### **Supuestos y distribución muestral**
 
@@ -49,7 +54,7 @@ Es un valor de $x^2$ con (f-1)*(c-1) grados de libertad que se traduce a su p-va
 - Si el p-valor es mayor o igual que el nivel de significancia establecido, no se rechaza la hipótesis nula.
 - Si no se rechaza la hipótesis nula: “No hay una asociación significativa entre las variables”.
 
-#### **Instructivo R**
+#### **Ejemplo:**
 
 
 **Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una prueba de Cultura General, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
@@ -77,14 +82,16 @@ Se quiere determinar si hay relación entre el cambio de carrera y el género de
 
 _Nota: Con el comando names() podrás conocer los nombres de las variables en una base de datos._
 
-```{r, eval=TRUE}
+```{r exp11, exercise=TRUE}
 names(DatosDllSocial)
 ```
+
+
 
 #### **Cumplimiento de supuestos y distribución**
 Inicialmente se comprobará si la tabla de contingencia del caso de estudio tiene al menos 5 casos por cada casilla:
 
-```{r, eval=TRUE}
+```{r exp12, exercise=TRUE,eval=TRUE}
 table(DatosDllSocial$Genero, DatosDllSocial$Cambio)
 ```
 
@@ -101,7 +108,7 @@ Hipótesis estadística: Hay asociación entre las variables género y cambio de
 
 Hipótesis nula: Hay independencia entra las variables de género y cambio de carrera.
 
-```{r, eval=TRUE}
+```{r, exercise=TRUE,eval=TRUE, label='ex151'}
 chisq.test(DatosDllSocial$Genero, DatosDllSocial $Cambio)
 ```
 **Estadístico de prueba**
@@ -120,8 +127,9 @@ No hay asociación estadísticamente significativa entra las variables género y
 
 #### **Ahora hazlo tú**
 Para el siguiente ejercicio se debe seleccionar dos variables categóricas de la base de datos. Una vez las elijas el paso a seguir es plantear las hipótesis de trabajo.
-Nota: como recomendación al momento de realizar un ejercicio práctico puedes colocar tus anotaciones con el signo “#” así puedes tenerlos junto con el análisis realizado.
-Una vez realices el análisis deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos.
+
+_**Nota**: como recomendación al momento de realizar un ejercicio práctico puedes colocar tus anotaciones con el signo “#” así puedes tenerlos junto con el análisis realizado.
+Una vez realices el análisis deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos._
 
 
 ```{r diy1,exercise=TRUE, echo=TRUE}
@@ -155,7 +163,7 @@ Es un valor de t con n – 2 grados de libertad que se traduce a su p-valor corr
 - Si se rechaza la hipótesis nula: “Hay una correlación estadísticamente significativa entre las variables”.
 - Si no se rechaza la hipótesis nula: “No hay una correlación estadísticamente significativa entre las variables”.
 
-### **Instructivo R**
+### **Ejemplo:**
 
 **Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una evaluación de cultura general, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
 
@@ -167,20 +175,20 @@ Es un valor de t con n – 2 grados de libertad que se traduce a su p-valor corr
 - Cultura General Postest (“CG_Post”)
 
 **Donde:**
-- Género es la variable del género con el que se identifican los estudiantes y cuenta con las opciones F como femenino y M como masculino.
+
+- Género es la variable en la que los estudiantes señalan el género con el que se identifican y cuenta con las opciones F como femenino y M como masculino.
 - Cambio de carrera cuenta con opciones “Sí” y “No” 
 - Estado académico cuenta con las categorías “Estudiante distinguido”, “Normal”, “Periodo de prueba”, “Fuera de programa”, “En período de recuperación”.
 - Cultura General pretest es la variable del puntaje obtenido en la evaluación que respondieron al principio del semestre, los valores van de 0 a 100.
 - Cultura General postest es la variable del puntaje obtenido en la evaluación que respondieron al final del semestre, los valores van de 0 a 100.
 - Promedio acumulado describe el promedio acumulado de los estudiantes, que puede tener valores del 1 a 5.
 
-#### **Ejercicio**
+#### **Ejercicio 1**
 Se requiere determinar si existe una relación entre el promedio acumulado y el puntaje obtenido en el pretest de Cultura General.
 
 ##### **Condiciones (supuestos) y distribución muestral**
 
 Es necesario comprobar si las poblaciones de las que provienen las variables son normales. Sin embargo, para esta ocasión se asumirá que la distribución es normal.
-#### **Prueba de hipótesis**
 
 **Planteamiento de hipótesis**
 
@@ -190,8 +198,8 @@ Hipótesis estadística: Hay correlación entre el puntaje obtenido en la prueba
 
 Hipótesis nula: No hay correlación entre el puntaje obtenido en la prueba de Cultura General y el promedio acumulado de los estudiantes
 
-```{r}
-
+```{r correlacionPearson, exercise=TRUE, eval=TRUE}
+cor.test(DatosDllSocial$PromedioA, DatosDllSocial$CG_Pre)
 ```
 
 **Estadístico de prueba**
@@ -209,10 +217,30 @@ Como se rechaza la hiótesis nula:
 Hay correlación entre las variables del puntaje obtenido en el la prueba de Cultura General y el promedio acumulado de los estudiantes. 
 
 
+**Ejercicio 2**
+
+Ahora se requiere determinar si existe una relación entre el promedio acumulado y el puntaje obtenido en el postest de Cultura General.
+
+Sigue la guía anterior y realiza el análisis. Una vez lleves a cabo el ejercicio deberás agregar a modo de comentario la decisión y conclusión de acuerdo con los resultados obtenido, recuerda que: 
+
+**1.** No solo debes incluir los comandos, siempre que se realiza un análisis debes empezar a revisar el cumplimiento de los supuestos.
+**2.** En caso de asumir la distribución normal debe quedar expresado, para este caso si no se cumple igual deberás realizar el ejercicios haciendo la observación.
+**3.** Detalla tus hipotesis de trabajo.
+**4.** Analiza e interpreta los resultados.
+
+
+```{r diy4, exercise=TRUE,echo=TRUE}
+
+
+```
+
 
 ## **Material 2**
 
-### **1. Asociación de variables categóricas**s
+### **1. Asociación de variables categóricas**
+
+En este caso, el análisis se basa en tablas de contingencia, por esto el estadístico que se utiliza tienen una definición diferente. El estadístico utilizado es Chi cuadrado y resume que tan alejados está el conteo de cada casilla de la tabla de contingencias al conteo esperado según la hipótesis nula.
+Se representa con la letra griega x se pronuncia chi o ji en español, por eso se le llama a esta distribución chi cuadrado
 
 #### **Supuestos y distribución muestral**
 
@@ -236,7 +264,7 @@ Es un valor de $x^2$ con (f-1)*(c-1) grados de libertad que se traduce a su p-va
 - Si el p-valor es mayor o igual que el nivel de significancia establecido, no se rechaza la hipótesis nula.
 - Si no se rechaza la hipótesis nula: “No hay una asociación significativa entre las variables”.
 
-### **Instructivo R**
+### **Ejemplo:**
 **Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una prueba de Cultura General, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
 
 - Género (“Genero”)
@@ -260,7 +288,7 @@ Es un valor de $x^2$ con (f-1)*(c-1) grados de libertad que se traduce a su p-va
 
 Se quiere determinar si hay relación entre el estado académico y el género del estudiante.
 
-```{r,eval=TRUE}
+```{r exp1, exercise=TRUE,eval=TRUE}
 names(Datos_DllSocial)
 ```
 
@@ -268,7 +296,7 @@ names(Datos_DllSocial)
 #### **Cumplimiento de supuestos y distribución**
 Inicialmente se comprobará si la tabla de contingencia del caso de estudio tiene al menos 5 casos por cada casilla:
 
-```{r, eval=TRUE}
+```{r exp2, exercise=TRUE,eval=TRUE}
 table(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
 ```
 
@@ -284,7 +312,7 @@ Hipótesis estadística: Hay asociación entre las variables género y el estado
 
 Hipótesis nula: Hay independencia entra las variables de género y el estado académico.
 
-```{r, eval=TRUE}
+```{r mod2hipo,exercise=TRUE, eval=TRUE}
 table(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
 ```
 
@@ -316,7 +344,7 @@ Hipótesis estadística: Hay asociación entre las variables género y cambio de
 
 Hipótesis nula: Hay independencia entra las variables de género y cambio de carrera.
 
-```{r, eval=TRUE}
+```{r, exercise= TRUE, val=TRUE,label='ex368'}
 chisq.test(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
 ```
 
@@ -325,7 +353,7 @@ _Nota: aparece un mensaje de advertencia de que la aproximación del estadístic
 
 _Antes de realizar cualquier análisis se debe comprobar el cumplimiento de los supuestos. Para esto debemos utilizar el comando “table” acompañado del nombre de la base de datos y las variables categóricas de interés_
 
-```{r, eval=TRUE}
+```{r,exercise=TRUE, eval=TRUE, label='ex377'}
 table(Datos_DllSocial$Genero, Datos_DllSocial$Cambio)
 ```
 
@@ -333,12 +361,16 @@ Con los resultados obtenidos podemos verificar que no se puede asumir normalidad
 
 #### **Ahora hazlo tú**
 Para el siguiente ejercicio se debe seleccionar dos variables categóricas de la base de datos. Una vez las elijas el paso a seguir es plantear las hipótesis de trabajo.
-Nota: como recomendación al momento de realizar un ejercicio práctico puedes colocar tus anotaciones con el signo “#” así puedes tenerlos junto con el análisis realizado.
+**Nota:** como recomendación al momento de realizar un ejercicio práctico puedes colocar tus anotaciones con el signo “#” así puedes tenerlos junto con el análisis realizado.
 Una vez realices el análisis deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos.
 
 ```{r diy2,exercise=TRUE, echo=TRUE}
 
 ```
+
+<div id="diy2-hint">
+**Pista:** Siempre antes de hacer el análisis revisa el cumplimiento de los supuestos.
+</div>
 
 ### **2. Correlación de Pearson**
 
@@ -370,7 +402,7 @@ Es un valor de t con n – 2 grados de libertad que se traduce a su p-valor corr
 - Si no se rechaza la hipótesis nula: “No hay una correlación estadísticamente significativa entre las variables”.
     
     
-### **Instructivo R**
+### **Ejemplo:**
 
 **Caso:** Se ha realizado una investigación en estudiantes de quinto semestre de un curso electivo en Desarrollo Social, en la primera semana de clases los estudiantes respondieron una encuesta con algunos datos personales y una evaluación de cultura general, al finalizar el semestre volvieron a responder la misma encuesta, en la base de datos se cuenta con las siguientes variables:
 
@@ -403,7 +435,7 @@ Es necesario comprobar si las poblaciones de las que provienen las variables son
 
 Planteamiento de hipótesis 
 
-```{r WTF, exercise=TRUE,echo=TRUE}
+```{r planteamiento hipótesis, exercise=TRUE,echo=TRUE, label='ex459'}
 #hipótesis científica: Hay relación lineal entre el puntaje obtenido en la prueba de Cultura General y el promedio acumulado de los estudiantes
 #Hipótesis estadística: 
 #Hipótesis nula: 
@@ -415,7 +447,13 @@ Para realizar el análisis se debe utilizar el comando “cor.test” acompañad
 
 Ejemplo: “cor.test(NombreDelArchivo\$Variable1, NombreDelArchivo\$Variable2)"
 
-Sigue la guía anterior y realiza el análisis. Una vez realices el ejercicio deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos.
+Sigue la guía anterior y realiza el análisis. Una vez realices el ejercicio deberás agregar a modo de comentario la Decisión y Conclusión de acuerdo con los resultados obtenidos, recuerda que: 
+
+**1.** No solo debes incluir los comandos, siempre que se realiza un análisis debes empezar a revisar el cumplimiento de los supuestos,
+**2.** En caso de asumir la distribución normal debe quedar expresado, para este caso si no se cumple igual deberás realizar el ejercicios haciendo la observación.
+**3.** Detalla tus hipotesis de trabajo.
+**3.** Detalla tus hipotesis de trabajo
+**4.** Analiza e interpreta los resultados
 
 ```{r diy3, exercise=TRUE,echo=TRUE}
 
