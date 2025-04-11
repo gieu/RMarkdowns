@@ -14,6 +14,7 @@ library(readxl)     # Para leer archivos Excel
 library(dplyr)      # Manipulación de datos con verbos
 library(ggpubr)     # Visualizaciones extendidas
 library(car)        # Para pruebas estadísticas como Levene
+library(learnr)
 
 data <- read_excel("../../datos/Education_Research_Sample_Data.xlsx")
 cross_tab <- table(data$Gender, data$Participation_Level)

@@ -441,6 +441,7 @@ library(readxl)     # Para leer archivos Excel
 library(dplyr)      # Manipulación de datos con verbos
 library(ggpubr)     # Visualizaciones extendidas
 library(car)        # Para pruebas estadísticas como Levene
+library(learnr)
 
 data <- read_excel("../../datos/Education_Research_Sample_Data.xlsx")
 cross_tab <- table(data$Gender, data$Participation_Level)
@@ -481,7 +482,7 @@ learnr:::store_exercise_cache(structure(list(label = "t_pareada_supuesto", globa
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -530,7 +531,7 @@ learnr:::store_exercise_cache(structure(list(label = "t_pareada_prueba", global_
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -576,7 +577,7 @@ learnr:::store_exercise_cache(structure(list(label = "t_pareada_grafico", global
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -626,7 +627,7 @@ learnr:::store_exercise_cache(structure(list(label = "t_indep_supuesto", global_
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -674,7 +675,7 @@ learnr:::store_exercise_cache(structure(list(label = "t_indep_prueba", global_se
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -720,7 +721,7 @@ learnr:::store_exercise_cache(structure(list(label = "t_indep_grafico", global_s
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -766,7 +767,7 @@ learnr:::store_exercise_cache(structure(list(label = "chi2_supuesto", global_set
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -813,7 +814,7 @@ learnr:::store_exercise_cache(structure(list(label = "chi2_prueba", global_setup
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -858,7 +859,7 @@ learnr:::store_exercise_cache(structure(list(label = "chi2_grafico", global_setu
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -904,7 +905,7 @@ learnr:::store_exercise_cache(structure(list(label = "correlacion_supuesto", glo
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -951,7 +952,7 @@ learnr:::store_exercise_cache(structure(list(label = "correlacion_prueba", globa
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -997,7 +998,7 @@ learnr:::store_exercise_cache(structure(list(label = "correlacion_grafico", glob
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -1044,7 +1045,7 @@ learnr:::store_exercise_cache(structure(list(label = "anova_supuesto", global_se
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -1089,7 +1090,7 @@ learnr:::store_exercise_cache(structure(list(label = "anova_prueba", global_setu
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -1135,7 +1136,7 @@ learnr:::store_exercise_cache(structure(list(label = "anova_posthoc", global_set
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
@@ -1180,7 +1181,7 @@ learnr:::store_exercise_cache(structure(list(label = "anova_grafico", global_set
 "library(ggplot2)    # Para crear visualizaciones", "library(readxl)     # Para leer archivos Excel", 
 "library(dplyr)      # Manipulación de datos con verbos", "library(ggpubr)     # Visualizaciones extendidas", 
 "library(car)        # Para pruebas estadísticas como Levene", 
-"", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
+"library(learnr)", "", "data <- read_excel(\"../../datos/Education_Research_Sample_Data.xlsx\")", 
 "cross_tab <- table(data$Gender, data$Participation_Level)", 
 "anova_result <- aov(Final_Grade ~ Program, data = data)", ""
 ), chunk_opts = list(label = "setup", include = FALSE)), setup = NULL, 
