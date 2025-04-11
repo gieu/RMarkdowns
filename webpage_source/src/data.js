@@ -26,7 +26,11 @@ const url_data = [
     {
         "url": "markdowns/analisisBivariado/",
         "name": "Analisis Bivariado Roxana Manes"
-    }
+    },
+    {
+        "url": "markdowns/clase_doctorado",
+        "name": "Clase Doctorado"
+    },
 ];
 
 export default url_data;
