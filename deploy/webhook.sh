@@ -43,7 +43,7 @@ path, image, site = sys.argv[1:]
 with open(path, "x") as handle:
     json.dump({"version": "3.0", "services": {"shiny_server": {
         "image": image,
-        "volumes": [{"type": "bind", "source": site, "target": "/srv/shiny-server"}],
+        "volumes": [site + ":/srv/shiny-server"],
     }}}, handle, indent=2)
     handle.write("\n")
 PY
