@@ -547,7 +547,7 @@ Estos datos est&aacute;n en nuestro servidor.
 
 ```{r readLItData, exercise=TRUE}
 # Guardamos nuestros datos en la variable llamada litReview
-#litReview <- read.csv2("https://echidna.informaticaeducativa.cf/datos/litReviewData.csv", header=TRUE, sep=";")
+#litReview <- read.csv2("../../datos/litReviewData.csv", header=TRUE, sep=";")
 litReview <- read.csv("https://grupoinformaticaeducativa.uninorte.edu.co/shiny/datos/litReviewData.csv",header=TRUE,sep=";")
 ```
 
