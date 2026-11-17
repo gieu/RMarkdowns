@@ -1,0 +1,138 @@
+@font-face {
+  font-family: "Gotham";
+  src: url("assets/fonts/Gotham/Gotham-Black.otf");
+  font-style: bold;
+}
+
+@font-face {
+  font-family: "Gotham";
+  src: url("assets/fonts/Gotham/GothamMedium.ttf");
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #111;
+  font-family: "Gotham";
+  scroll-behavior: smooth;
+
+  width: 100vw;
+
+}
+
+#modal-email {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.modal_btn {
+  margin-top: 20px;
+  background-color: white;
+  border: 1px solid #CCCCCC;
+  padding: 10px;
+  border-radius: 30px;
+}
+
+.modal_input {
+  background-color: white;
+  padding:10px 20px;
+  border-radius: 5px;
+  border: 1px solid #CCCCCC;
+}
+
+.modal_btn:hover {
+  margin-top: 20px;
+  color: white;
+  background-color: #53A3F2;
+  border: 0px solid;
+  padding: 10px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+
+
+#title {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  text-align: center;
+  margin: 100px 0px;
+  font-weight: bold;
+}
+
+#root{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+#content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 70vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.section {
+  
+  border: 1px solid #F0F0DF;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  
+  width: 20vw;
+  height: 20vh;
+  margin: 10px;
+  text-align: center;
+  padding: 7px;
+  cursor: pointer;
+  align-items: center;
+  position: relative;
+}
+
+.r_langlogo {
+  width: 15%;
+}
+
+#title_img {
+  width: 150px;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+
+}
+.back_button{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.backlogo{
+  font-size: 20px;
+}
+
+
+@media (max-width: 750px) {
+  #content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 90vw;
+    flex-direction: column;
+    flex-wrap: single;
+  }
+
+  .section{
+    width: 65vw;
+  }
+
+  .back_button{
+    
+    left: 5%;
+    top: 80%;
+  }
+}
