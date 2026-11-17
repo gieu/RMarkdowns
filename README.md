@@ -292,13 +292,15 @@ Los instaladores del sistema pueden requerir acceso a Internet. Algunos cuaderno
 
 ### Preparación manual, sin desplegar
 
-Ejecuta en el servidor, una vez que los archivos revisados estén disponibles en `mountpoints/apps/deploy/`:
+`mountpoints/apps/` es el checkout que sirve el sitio y **no se actualiza** con `git pull`, así que `deploy/` no está ahí hasta después de un despliegue. Ejecuta en el servidor, extrayendo una copia del commit ya integrado en `origin/master` (sin modificar el checkout):
 
 ```bash
 cd /home/ubuntu/docker-compose/shiny
 mkdir -p releases
+git -C mountpoints/apps fetch origin master
 STAMP=$(date +%Y%m%d-%H%M%S)
-SOURCE="$PWD/mountpoints/apps"
+SOURCE=$(mktemp -d "$PWD/releases/source-$STAMP-XXXXXX")
+git -C mountpoints/apps archive FETCH_HEAD | tar -x -C "$SOURCE"
 RELEASE="$PWD/releases/manual-$STAMP"
 IMAGE="shiny-server:manual-$STAMP"
 
@@ -345,19 +347,42 @@ El webhook anterior detenía y eliminaba el contenedor antes de construir. No lo
 
 El nuevo flujo obtiene una copia del commit de `origin/master`, construye una imagen con una etiqueta propia, regenera los HTML y recién entonces puede activar **únicamente** `shiny_server`. No hace `git pull` sobre los archivos publicados, no instala paquetes al recibir una visita y no ejecuta `docker system prune`.
 
-Primero prueba el nuevo webhook sin desplegar:
+`webhook.sh` no vive en la carpeta publicada: se toma siempre de `origin/master`. Se instala reemplazando solo `/home/ubuntu/utils/hooks/apps/update_shiny.sh` (el `hooks.json` no cambia y el servicio `webhook` no necesita reiniciarse). Antes guarda una copia del original:
 
 ```bash
-bash /home/ubuntu/docker-compose/shiny/mountpoints/apps/deploy/webhook.sh --prepare-only
+cp /home/ubuntu/utils/hooks/apps/update_shiny.sh \
+   /home/ubuntu/utils/hooks/apps/update_shiny.sh.bak-$(date +%Y%m%d)
 ```
 
-Ese comando usa el código **ya integrado en `origin/master`**, no los cambios locales sin commit. Requiere Git, `flock`, Python 3, Docker y Docker Compose v1 con permisos no interactivos. `SHINY_SERVER_DIR` permite cambiar la carpeta del servicio.
-
-Solo después de aprobar la versión y sustituir la configuración del webhook anterior, su comando de activación será:
+El nuevo `update_shiny.sh` es un envoltorio que descarga la última versión de `webhook.sh` y la ejecuta **solo en modo `--prepare-only`**:
 
 ```bash
-bash /home/ubuntu/docker-compose/shiny/mountpoints/apps/deploy/webhook.sh --deploy
+#!/bin/bash
+set -Eeuo pipefail
+exec >> /home/ubuntu/docker-compose/shiny/webhook.log 2>&1
+echo "=== $(date -Is) ==="
+cd /home/ubuntu/docker-compose/shiny/mountpoints/apps
+git fetch origin master
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+git show FETCH_HEAD:deploy/webhook.sh > "$tmp"
+bash "$tmp" --prepare-only
 ```
+
+Mientras `deploy/` no esté en `master`, el envoltorio falla sin consecuencias y registra el error. Cada push a `master` construye y renderiza en una carpeta aparte, y **no modifica producción**. Sigue el avance con `tail -f /home/ubuntu/docker-compose/shiny/webhook.log`. Para volver al comportamiento anterior, restaura la copia de seguridad.
+
+Requiere Git, `flock`, Python 3, Docker y Docker Compose v1 con permisos no interactivos. `SHINY_SERVER_DIR` permite cambiar la carpeta del servicio. Usa el código **ya integrado en `origin/master`**, no los cambios locales sin commit.
+
+La activación es siempre manual, después de revisar la preparación:
+
+```bash
+cd /home/ubuntu/docker-compose/shiny/mountpoints/apps
+git fetch origin master
+git show FETCH_HEAD:deploy/webhook.sh > /tmp/webhook.sh
+bash /tmp/webhook.sh --deploy
+```
+
+Después del primer `--deploy`, el contenedor sirve la carpeta `releases/release-…` y no el checkout. Si alguien ejecuta `docker-compose up` a mano sin el archivo `compose.release.json`, volvería al montaje anterior. Además, el checkout `mountpoints/apps/` deja de actualizarse.
 
 El `up` utiliza `--no-build --no-deps --force-recreate -d shiny_server`. El override cambia la imagen y el montaje de aplicaciones; conserva los volúmenes de registros y datos compartidos del Compose principal. La sustitución puede interrumpir sesiones: no es un despliegue sin tiempo de inactividad.
 
@@ -370,7 +395,7 @@ sudo docker-compose \
   up --no-build --no-deps --force-recreate -d shiny_server
 ```
 
-Conserva la imagen y la carpeta del sitio anterior hasta terminar las pruebas. La reversión restaura imagen y montaje, no deshace modificaciones de datos en un volumen compartido. No edites las carpetas de releases activadas. Los cambios al propio script del webhook también requieren actualizar su copia instalada tras revisión.
+Conserva la imagen y la carpeta del sitio anterior hasta terminar las pruebas. La reversión restaura imagen y montaje, no deshace modificaciones de datos en un volumen compartido. No edites las carpetas de releases activadas. Los cambios a `deploy/webhook.sh` se aplican al integrarse en `master`, porque el envoltorio lo descarga cada vez. Solo los cambios al envoltorio `update_shiny.sh` requieren actualizarlo a mano en el servidor.
 
 ### Diagnóstico después de publicar
 
